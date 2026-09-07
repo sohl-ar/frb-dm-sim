@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "scope": "Phase 2a preflight only",
+  "git_sha": "6eb5661226b0cb9ed9b478aed451b406590d3f45",
+  "git_dirty": true,
+  "config_hash": "f3882ed78ea487067dc92abd6ff81b899b34c45a5a8afaf277dad633f84da4ba",
+  "python": "3.12.14",
+  "numpy": "2.5.3",
+  "acceptance_complete": false,
+  "exit_status": 1,
+  "preflight_tests_passed": true,
+  "test_failures": [],
+  "pretraining": {
+    "T1": {
+      "name": "T1",
+      "status": "pass",
+      "config": {
+        "n": 10000,
+        "z": 0.5,
+        "F": 0.32,
+        "f_d": 0.85,
+        "seed": 60000
+      },
+      "dtype": "float64",
+      "draws_sha256": "ac2604b6d8ad16488053eb017ced312702099c4dd064286ffdb20a06a6fbfb41",
+      "delta_max": 10000.0,
+      "truncated_mean_delta": 0.9999999999999998,
+      "truncated_variance_delta": 2.4852893503545257,
+      "truncated_fourth_central_moment_delta": 15695885.157385651,
+      "analytic_mean_dm": 449.2611712527174,
+      "sample_mean_dm": 454.46338180768566,
+      "analytic_variance_dm": 501619.8671908931,
+      "sample_variance_dm": 385326.68315644213,
+      "mean_standard_error": 7.082512740481962,
+      "variance_standard_error": 7996327.829427304,
+      "mean_error_in_standard_errors": 0.7345148177755679,
+      "variance_error_in_standard_errors": 0.0145433236999714,
+      "tolerance": {
+        "sampling_standard_errors": 3.0
+      },
+      "seed_ranges": {
+        "training": {
+          "start": 0,
+          "stop": 50000
+        },
+        "validation": {
+          "start": 50000,
+          "stop": 55000
+        },
+        "test": {
+          "start": 55000,
+          "stop": 60000
+        },
+        "audit": {
+          "start": 60000,
+          "stop": 60001
+        }
+      },
+      "limitation": "Finite-cutoff fourth moment makes the variance gate broad; three standard errors do not imply Gaussian coverage."
+    },
+    "T2": {
+      "status": "blocked",
+      "reason": "D4 fixture threshold is zero; D5 requires human-sourced LF slope, bounds and unit convention"
+    },
+    "T3": {
+      "status": "not_run"
+    }
+  },
+  "gates": {
+    "G-P1": {
+      "status": "not_run",
+      "hard": true
+    },
+    "G-P2": {
+      "status": "not_run",
+      "hard": true
+    },
+    "G-P3": {
+      "status": "not_run",
+      "hard": false
+    },
+    "G-P4": {
+      "status": "not_run",
+      "hard": true
+    },
+    "G-P5": {
+      "status": "not_run",
+      "hard": true
+    },
+    "G-P6": {
+      "status": "not_run",
+      "hard": true
+    },
+    "G-P7": {
+      "status": "not_run",
+      "hard": false
+    },
+    "G-P8": {
+      "status": "not_run",
+      "hard": true
+    }
+  },
+  "smoke_test": {
+    "status": "not_run"
+  },
+  "trained_checkpoint": null
+}

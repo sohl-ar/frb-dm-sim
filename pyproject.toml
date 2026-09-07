@@ -23,4 +23,5 @@ frbsim = ["vendor/*"]
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "-ra -x"
-markers = ["gates: immutable physics acceptance gates"]
+markers = ["gates: immutable physics acceptance gates",
+           "phase2a: separate Phase 2a acceptance ledger, initially preflight only"]

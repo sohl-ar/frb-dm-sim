@@ -1,0 +1,340 @@
+Correct — **Phase 1 is not done.** G3 and G5 are blocked (Linux run pending), L2 is unbuilt, G4(ii)/(iii) and the full G7 catalog remain, and your human steps (Table-1 spot-check, survey-defaults decision) are open. Phase 2a running on L0 is the *designed parallel track*, not a substitute — both acceptance ledgers must be green independently before Phase 3 starts, and the spec below states that explicitly. Here is the final, addended SPEC-02a with all five patches from the review round incorporated:
+
+````markdown
+# SPEC-02a (FINAL) — Amortized FRB Inference Network, Phase 2a (L0-Native)
+
+## CHANGE LOG (v2 amendments from review round)
+1. D5 added to §2.2 — luminosity-function decision (prevents G-P8
+   failing for simulator-determinism reasons)
+2. §3.1 — mask bit added as redundancy alongside type embedding;
+   "mask the attention" language removed (nothing to mask out)
+3. §3.2 — native ISAB/PMA implementation mandated (~50 lines)
+4. §3.3 — native CFM loss (~20 lines) + torchdiffeq for inference
+   integration; torchcfm dependency rejected
+5. §3.4 — performance gate re-derived from Phase-1 measured rate
+   (not an invented threshold); per-burst loops forbidden by inspection
+
+## 0. Role and Mandate
+
+You are building Phase 2a: the amortized inference network that maps a
+heterogeneous FRB catalog to a posterior over θ = {f_d, F, host-median,
+host-sigma}. Phase 1 is INCOMPLETE (G3/G5 blocked on Windows; L2 unbuilt;
+G4/G7 partial; human steps open) — this phase runs ENTIRELY on L0, the
+statistical simulator whose marginal DM distribution is validated
+against the published Macquart/Baptista p_cosmic(∆) form and the six
+real events. L0-native is a designed position, not a workaround: the
+paper's core results are marginal-distribution science, and the field's
+founding paper (Macquart et al. 2020, Nature 581, 391, arXiv:2005.13161)
+performed its inference with exactly this level of modeling. L2 swaps
+in later (Phase 2b) without architectural change.
+
+**Phase 2a acceptance and Phase 1 acceptance are SEPARATE ledgers.**
+Phase 2a passing does not close Phase 1, and Phase 1's open items
+(L2 gates, pygedm battery) proceed in parallel. Phase 3 requires BOTH
+green.
+
+You are NOT building: Phase 3 science, L2/GLASS anything, the Konar
+benchmark, or publication figures. Stop if you find yourself doing
+any of these.
+
+## 1. Non-negotiable inherited protocol
+
+- STOP-and-report on any discrepancy with the Phase-1 code, this spec,
+  or a paper; never silently substitute.
+- Tolerances immutable without human sign-off + citation. Never loosen
+  a gate to pass it. Never swap an anchor.
+- No hand-typed numbers. Every number comes from an executed run's JSON.
+- No invented references, APIs, or defaults. Unknown stays TODO-VERIFY.
+- No fake substitutes for blocked dependencies.
+- Provenance on everything: seeds, git SHA, config hash.
+- Honest exit codes: incomplete Phase 2a exits nonzero. No narrative
+  inflation in status reporting.
+
+## 2. Pre-training gates — resolve BEFORE any network exists
+
+### 2.1 T1: RNG-path resolution (blocks everything)
+
+The Phase-1 L0 mean checks reported 0.09% sample error — smaller than
+i.i.d. statistics permit at plausible draw counts, suggesting the
+*checks* may use stratified percentile draws. Stratified draws validate
+the tabulated CDF but NOT the random path. The training generator is
+about to become the foundation of every posterior this project
+produces.
+
+**T1 procedure:**
+(a) Inspect the L0 sampler's code path. Report, with file and line
+    references: does the sampler draw u ~ U(0,1) per burst via the RNG,
+    or does it consume a deterministic percentile grid?
+(b) Whatever the answer, ADD a new statistical gate that cannot be
+    stratified-by-accident: draw N = 10,000 DM_cosmic values at fixed
+    (z, F) with the production RNG; the sample mean must match the
+    analytic mean within 3σ of the i.i.d. standard error σ/√N, and the
+    sample variance must match the *truncated* analytic variance within
+    its own 3σ (use the truncated second moment Phase 1 already computes
+    and reports — NOT F z^(-0.5), which is a shape parameter, not the
+    RMS; for β=3 the formal variance diverges logarithmically and the
+    truncated value is the established convention in this repo).
+(c) The tolerance is 3σ of the SAMPLING distribution. If it fails, the
+    RNG path is wrong — fix the sampler, not the tolerance.
+(d) Training and validation data MUST use disjoint seed ranges. Assert
+    in code: seed-space overlap is a hard error.
+(e) Report the T1 finding to the human BEFORE any training run begins.
+
+### 2.2 T2: Catalog-generation design decisions (blocks training data)
+
+Five decisions, recorded in DECISIONS.md before any catalog is
+generated. Defaults given; deviation requires human sign-off.
+
+**D1 — Repeater treatment: TRAINING CATALOGS ARE REPEAT-FREE.** All
+simulated bursts are independent sightlines. Rationale: the current
+real localized sample is dominated by one-offs; the repeater-clustering
+correction (real repeats share an identical IGM sightline — feeding
+them as independent bursts artificially shrinks the F posterior toward
+zero) is a Phase-3 ingestion-time treatment. **Consequence to record:**
+the Phase-2a network must NOT be applied to unclustered repeater
+catalogs; the Phase-3 ingestion code must enforce host-clustering
+upstream of inference. The upgrade path (simulating clustered catalogs
+with per-host shared IGM draws and per-burst host variation) is
+recorded for Phase 2b/3.
+
+**D2 — Catalog size: N ~ DiscreteUniform(1, 512).** Covers current
+real samples; quadratic attention is trivial at this scale. N=1024
+extrapolation is a reported diagnostic (G-P3), not a gate.
+
+**D3 — Messenger composition: mixed.** Localized fraction
+ℓ ~ Beta(2, 6) (mean 0.25 — localization is the minority regime);
+per-burst localization Bernoulli(ℓ). Unlocalized bursts carry DM, sky
+position, fluence; localized bursts add z_obs. The Phase-1 schema
+enforcement (unlocalized records carry no redshift-derived field) is
+inherited and tested.
+
+**D4 — Selection in training data: ON, parameterized.** Catalogs are
+generated WITH the fluence-threshold selection model active, using the
+Phase-1 fixture survey config (labeled fixture, not empirical). Report
+the fixture values in every run's metadata. The selection-aware vs
+selection-naive comparison is Phase 3's bias figure; Phase 2a's job is
+only that the network can condition on selected data.
+
+**D5 — Luminosity function: BROAD, BOUNDED, LITERATURE-CITED.**
+[Added v2 — prevents G-P8 failing for simulator reasons.] The Phase-1
+population module's LF bounds were labeled fixtures. Before training,
+the LF must be promoted from fixture to cited default: a bounded
+power-law (or lognormal) with slope and bounds from the literature
+(e.g., James et al. 2022b, MNRAS 516, 4862, and the CHIME Catalog 1
+energy-function analyses). **If no citation can be sourced for the
+bounds and slope, STOP and report** — do not train on a toy LF. The
+physics at stake: if the LF were narrow or delta-function, fluence
+would nearly determine distance, making unlocalized bursts almost as
+informative as localized ones, and G-P8 would fail deterministically —
+not because the network is broken, but because the simulator is too
+deterministic. D5 interacts with D4: the LF bounds and the fixture
+fluence threshold jointly determine the detected fraction; report the
+realized detected fraction for the default config and flag it if
+degenerate (≈0 or ≈1).
+
+**Expected physics to record alongside D5:** a broad LF makes fluence
+*weakly* informative about z but not uninformative — the fluence
+distribution at fixed z still constrains population parameters, which
+the simulator marginalizes. The honest Phase-3 expectation is a finite
+exchange-rate K (unlocalized bursts carry partial information), not
+infinity. G-P8's threshold is a tripwire against encoding bugs, not a
+measurement of K.
+
+### 2.3 T3: Parameter priors (blocks training)
+
+- f_d ~ U(0.6, 1.0) [Phase-1 spec range]
+- F ~ LogUniform(0.05, 1.0) [spans Macquart semi-analytic [0.09, 0.32]
+  and Baptista's measured ~0.33; log-uniform because F is
+  order-of-magnitude uncertain]
+- host-median ~ LogUniform(20, 200) pc cm⁻³ [Macquart Eq. 3 range]
+- host-σ_ln ~ U(0.2, 2.0) [Macquart Eq. 3 range]
+
+Cosmology pinned (Phase 1). BOTH population families (SFR-tracking,
+constant-comoving) in training, with a family flag in ground truth
+(NOT in the observable) — the Phase-3 misspecification axis needs
+this contrast.
+
+**Prior-predictive check:** report the prior-predictive marginal of
+DM_cosmic at z ∈ {0.1, 0.5, 1.0}. It must cover the six real Macquart
+events' DM_cosmic values (paper's subtraction convention) with
+non-trivial mass. If any of the six is excluded, the prior is too
+narrow — STOP and report; do not widen silently.
+
+## 3. Architecture
+
+### 3.1 Observable encoding (per burst)
+
+- DM_obs: log10 transform (spans ~50–3000).
+- z_obs: localized only; for unlocalized, a learnable "missing"
+  embedding. **Additionally concatenate a boolean mask bit
+  (0 = present, 1 = missing) to the feature vector** as explicit
+  redundancy alongside the type embedding. Note: the type embedding
+  (localized vs unlocalized) already encodes missingness perfectly by
+  schema construction — localized ⟺ z present. The mask bit is
+  redundancy for interpretability and debugging, NOT a correctness
+  requirement, and there is nothing to mask *out*: unlocalized bursts
+  are real set elements, not holes.
+- Sky position: (cos b cos l, cos b sin l, sin b).
+- Fluence: log10(F + ε), ε from the survey config's noise floor.
+  Log encoding is MANDATORY (fluences span orders of magnitude and
+  would otherwise dominate attention gradients).
+- Learned type embedding: localized vs unlocalized.
+
+### 3.2 Set aggregation
+
+Backbone: Set Transformer with ISAB + PMA blocks (Lee et al. 2019,
+arXiv:1810.00825), M = 16 inducing points — chosen so the architecture
+survives the SKA-forecast regime (N ~ 10⁴) in Phase 3 without
+redesign, not for current-scale performance.
+
+**Implementation: NATIVE, ~50 lines of PyTorch.** Do not import
+third-party Set Transformer wrappers. Rationale: (a) owned code
+provides the gradient hook points the flow-matching decoder needs;
+(b) 50 lines of owned attention can be audited and tested directly
+against G-P1 permutation invariance — a wrapper's internals cannot be
+audited when G-P1 fails. Cite Lee et al. 2019 in the module docstring.
+
+Concatenate the pooled summary with log(1+N) and the observed
+localized fraction ℓ_obs (computable from the observable catalog —
+not a latent).
+
+**Permutation invariance is a GATE, not a property** (G-P1).
+
+### 3.3 Posterior decoder
+
+Flow matching (Lipman et al. 2023, arXiv:2210.02747), conditioned on
+the set summary.
+
+**Implementation: NATIVE loss, library solver.**
+- The conditional flow-matching loss for a fixed condition and fixed
+  base distribution is ~20 lines: sample t ~ U(0,1), x₀ ~ N(0,I),
+  x₁ = standardized θ; form x_t = (1−t)x₀ + t·x₁; regress
+  v_θ(x_t, t, summary) onto (x₁ − x₀). Cite Lipman et al. 2023 in the
+  docstring. **Do NOT add the torchcfm dependency** — the objective
+  does not warrant an external dependency whose API can drift and
+  whose internals cannot be gated.
+- **Inference-time ODE integration: USE torchdiffeq** (maintained,
+  tested solver tolerances — a correctness surface where a library
+  beats hand-rolled RK). Fixed-step RK with recorded integration
+  error and step count.
+
+**Parameter standardization is MANDATORY:** map each θ to [0,1] via
+its prior bounds before the flow. Flow matching is sensitive to
+parameter scale; this is the most common failure mode.
+
+Architecture is inherited public prior art. Cite Lipman et al. 2023
+and Lee et al. 2019; do NOT cite the unpublished EOS preprint — this
+project shares no lineage with it.
+
+### 3.4 Training
+
+- Standard conditional flow-matching objective.
+- 50,000 training catalogs, 5,000 validation, 5,000 test
+  (≈ 15.4M total bursts at mean N ≈ 256).
+- **Performance gate (HARD, with stated derivation):** the batch
+  catalog-generation path must sustain ≥ 8,600 bursts/second.
+  Derivation: Phase-1 G7 measured the full pipeline at ~4,300
+  bursts/second (10,000 bursts in 2.34 s, git e84c8032); requiring 2×
+  enforces vectorization of the batch path while remaining achievable
+  (the measured rate already proves vectorization is possible; 2× is
+  a margin, not an impossibility). **If the rate cannot be met, STOP
+  and report the bottleneck — do not silently restructure.**
+- **No per-burst Python for-loops in the training-data path.** The
+  per-catalog loop is permitted; per-burst iteration is forbidden.
+  This is enforced by code inspection (report the finding), not by
+  stopwatch alone.
+- Precision: float32 training by default, float64 in the sampler;
+  mixed precision only if verified unaffected on the loss and the
+  standardization. Report the choice.
+- Determinism: fixed recorded seeds; two truncated identical-seed
+  runs must produce bit-identical weights.
+
+## 4. Validation gates — `pytest -m phase2a` → `results/phase2a_gates.json`
+
+### 4.1 Engineering gates
+
+**G-P1 Permutation invariance (HARD):** 100 random validation
+catalogs, 10 shuffles each; max posterior Wasserstein-1 distance
+between shuffled inferences < 1e-4 in standardized θ units.
+[Precedent: the published permutation-invariance standard for set
+aggregation in this problem class.]
+
+**G-P2 Determinism (HARD):** identical seed → bit-identical catalog +
+identical posterior samples; different seeds → different posteriors.
+
+**G-P3 N-generalization (SOFT, reported):** posterior metrics
+(G-P4's) at N ∈ {1, 4, 16, 64, 256, 512} and extrapolation N = 1024.
+Degradation is a finding, not a failure; concealment is the failure.
+
+### 4.2 Statistical gates — the spine
+
+**G-P4 SBC calibration (HARD — primary):** 1,000 held-out θ draws.
+Rank statistics per parameter uniform (KS vs uniform, p > 0.01 with
+Bonferroni across 4 parameters × repetitions). 68% and 95% empirical
+coverage within ±2 percentage points of nominal, per parameter. SBC
+uses the DISJOINT validation seed range (T1d).
+
+**G-P5 TARP coverage (HARD):** expected-coverage-probability curves
+via TARP (Lemos et al. 2023, arXiv:2302.03026) on 500 held-out
+catalogs; deviation from diagonal at 68%/95% within ±2 points.
+[Matching the validation vocabulary of the closest SBI prior work
+(Konar et al., arXiv:2410.07084) is deliberate.]
+
+**G-P6 Posterior contraction (HARD):** median posterior width per
+parameter must shrink ≥ 30% vs prior width at N = 16, ≥ 50% at
+N = 256. [Calibrated-but-uninformative and informative-but-
+miscalibrated are both dead ends; both are gated.]
+
+**G-P7 Misspecification probe (SOFT now, HARD for 2b):** evaluate on
+catalogs with (a) the WRONG population family (cross-wise SFR/
+constant) and (b) selection IGNORED. Report coverage degradation and
+posterior bias per parameter. This attaches a number to the Phase-3
+robustness budget.
+
+**G-P8 Information-content sanity (HARD — physics tripwire):**
+median posterior-width ratio (unlocalized-only / localized-only) for
+f_d must be > 1.5 at N ∈ {8, 32, 128}. **This is a tripwire, not a
+measurement of K.** If unlocalized bursts look as informative as
+localized at equal N, either the encoding is broken or the LF is too
+narrow (see D5) — STOP and report which. Expected direction: a broad
+LF makes fluence weakly but not un-informative; the Phase-3 exchange
+rate should be finite.
+
+### 4.3 Real-data smoke test (reported, not gated)
+
+Run on the six Macquart events (Phase-1 transcribed table; construct
+observable DM_obs and z). Purpose: schema compatibility and end-to-end
+execution on real-formatted data. With N = 6 the posterior is
+prior-dominated — it is not science. Do not plot as a result; report
+only in the run's JSON.
+
+## 5. Deliverables
+
+1. `src/frbsbi/` — encoders, set aggregation, flow decoder, training
+   loop, inference entry point. Same repo, same provenance.
+2. T1/T2/T3 resolution report (RNG-path finding with file/line
+   references; D1–D5 decisions; prior-predictive check).
+3. `results/phase2a_gates.json` — full ledger, honest exit codes.
+4. Trained checkpoint + exact regeneration config.
+5. One-page "Phase 2a summary" in the Phase-1 ledger's voice. If
+   G-P4 fails, it says the posteriors are miscalibrated and Phase 3
+   is blocked — not "promising initial results."
+
+## 6. Acceptance criteria
+
+Phase 2a is DONE when: T1–T3 resolved and recorded (T1's finding
+reported BEFORE training); G-P1 through G-P6 PASS; G-P7 and G-P3
+reported; smoke test runs; summary page exists with honest status.
+**Phase 3 requires BOTH Phase 1 and Phase 2a acceptance.** A network
+that is calibrated-but-uninformative or informative-but-miscalibrated
+blocks Phase 3 equally — either way, the failure is reported, not
+absorbed.
+````
+
+Three execution notes:
+
+1. **The first thing you read back must be the T1 finding.** If the bot comes back with a training curve instead of a code-inspection report with file and line references, the spec wasn't followed — send it back. T1 is a one-hour task that protects 15 million training draws.
+
+2. **D5 is the one decision in this spec that requires you, not the bot, to source a citation** — the LF bounds and slope. James et al. 2022b (MNRAS 516, 4862) is the natural source and is already in your reference list from Phase 1. Budget thirty minutes for it before training starts; the bot is forbidden from training on an uncited LF, so this is on the critical path.
+
+3. The standing calendar items are unchanged: **Colab cell this week** (Phase 1's blocker), L2 by end of September, Phase 2a in parallel, writing two full weeks in November. Phase 2a's ~30-minute training-data generation and its gate suite fit inside a Colab session — meaning once the cell runs, both tracks can advance in the same runtime, which is the calendar's only slack.

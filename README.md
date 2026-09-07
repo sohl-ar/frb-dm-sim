@@ -16,7 +16,7 @@ Python 3.11 or newer, CPU only. From this repository:
 ```sh
 python -m pip install -e .
 python -m frbsim.demo --smoke
-python -m pytest --level l0
+python -m pytest -m "not phase2a" --level l0
 ```
 
 `--smoke` creates exactly 5,000 detected L0 records, with separate simulator
@@ -87,3 +87,10 @@ do not hand that file to an inference network.
 The code does not train, infer parameters, ingest a scientific real-data
 catalog, or claim Phase 1 completion. The transcribed six events are only
 the specified replication smoke fixture.
+
+## Phase 2a preflight
+
+The independent L0-native inference track is at the pretraining boundary.
+See [PHASE2A_STATUS.md](PHASE2A_STATUS.md) and [DECISIONS.md](DECISIONS.md).
+`python -m pytest -m phase2a` writes its own ledger and deliberately exits
+nonzero while acceptance remains incomplete. No network is implemented.

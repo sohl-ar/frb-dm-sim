@@ -52,6 +52,19 @@ def pytest_runtest_makereport(item, call):
             {"nodeid": item.nodeid, "phase": report.when, "detail": str(report.longrepr)})
 
 def pytest_sessionfinish(session, exitstatus):
+    phase2_items = [item for item in session.items if item.get_closest_marker("phase2a")]
+    if phase2_items:
+        from frbsbi.preflight import write_phase2a_report
+        failures = session.config.gate_report.get("test_failures", [])
+        write_phase2a_report(ROOT, getattr(session.config, "phase2a_t1", None),
+                            not bool(exitstatus), failures)
+        if not exitstatus:
+            session.exitstatus = exitstatus = 1
+        session.config.get_terminal_writer().line(
+            "STOP: Phase 2a acceptance incomplete; see results/phase2a_gates.json", red=True)
+    # A Phase 2a-only run must never overwrite saved Phase 1 evidence.
+    if not any(item.get_closest_marker("gates") for item in session.items):
+        return
     report = session.config.gate_report
     report["requested_level"] = session.config.getoption("--level")
     report["gate_tests_selected"] = any(item.get_closest_marker("gates") for item in session.items)
