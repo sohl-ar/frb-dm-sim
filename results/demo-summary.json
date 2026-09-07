@@ -1,0 +1,61 @@
+{
+  "scope": "L0 engineering smoke; no empirical survey defaults; Phase 1 incomplete",
+  "elapsed_generation_seconds": 1.9127240001689643,
+  "n_bursts": 5000,
+  "n_localized": 2453,
+  "metadata": {
+    "seed": 20200924,
+    "git_sha": "e84c8032c0853ef557bc378ef0e1adba7e2e53c9",
+    "git_dirty": false,
+    "theta": {
+      "f_d": 0.85,
+      "F": 0.32,
+      "host_median": 100.0,
+      "host_sigma_ln": 0.8,
+      "population_family": "sfr"
+    },
+    "config": {
+      "surveys": [
+        {
+          "survey_id": "fixture-localized",
+          "fluence_min": 0.0,
+          "localized_fraction": 1.0,
+          "dm_error": 0.0,
+          "noise_equivalent_fluence": 1.0,
+          "source": "SPEC-FINAL engineering smoke fixture; not an empirical survey or LF default"
+        },
+        {
+          "survey_id": "fixture-unlocalized",
+          "fluence_min": 0.0,
+          "localized_fraction": 0.0,
+          "dm_error": 0.0,
+          "noise_equivalent_fluence": 1.0,
+          "source": "SPEC-FINAL engineering smoke fixture; not an empirical survey or LF default"
+        }
+      ],
+      "luminosity": {
+        "kind": "delta",
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "alpha": 2.0,
+        "source": "SPEC-FINAL engineering smoke fixture; not an empirical survey or LF default"
+      },
+      "population": {
+        "z_min": 0.05,
+        "z_max": 1.5
+      },
+      "mw": {
+        "class": "FixedISMFixture",
+        "dm": 30.0,
+        "source": "Macquart Table-1 replication subtraction; test fixture only"
+      },
+      "halo": 50.0,
+      "n_intrinsic": 5000,
+      "level": "L0",
+      "survey_mixture": "equal_probability"
+    },
+    "config_hash": "6fd74a2153ae4a882fcbaaab5d1ff588868fe08bb7946ed6d0bb14eaa390a795",
+    "n_detected": 5000,
+    "acceptance_level": "L0; not L2 certified"
+  }
+}

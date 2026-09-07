@@ -1,0 +1,16 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "modules": {
+    "numpy": true,
+    "scipy": true,
+    "astropy": true,
+    "pytest": true,
+    "pygedm": false,
+    "healpy": false,
+    "glass": false,
+    "camb": false
+  },
+  "vendored_git_blob_matches_hash": true,
+  "demo_schema_verified": true
+}
