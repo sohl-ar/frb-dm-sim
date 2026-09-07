@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "scope": "Phase 2a preflight only",
-  "git_sha": "6eb5661226b0cb9ed9b478aed451b406590d3f45",
-  "git_dirty": true,
+  "git_sha": "ffcdedc1a0d42df0512390961ab9e5cb841649e1",
+  "git_dirty": false,
   "config_hash": "f3882ed78ea487067dc92abd6ff81b899b34c45a5a8afaf277dad633f84da4ba",
   "python": "3.12.14",
   "numpy": "2.5.3",
