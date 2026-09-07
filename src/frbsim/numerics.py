@@ -1,0 +1,10 @@
+"""Numerical settings, not fitted physics parameters."""
+QUAD_EPS = 1e-11
+ODE_RTOL = 2e-11
+ODE_ATOL = 1e-12
+AUTHOR_NEVAL = 100_000
+CDF_GRID_SIZE = 32_769
+DELTA_MIN = 1e-4
+DELTA_MAX = 10_000.0
+ROOT_XTOL = 1e-11
+POPULATION_GRID_SIZE = 8193

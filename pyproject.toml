@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "frb-dm-sim"
+version = "0.1.0"
+description = "FRB cosmic dispersion forward model and fail-fast physics gates"
+requires-python = ">=3.11"
+dependencies = ["numpy>=2", "scipy>=1.14", "astropy>=7", "pytest>=8"]
+
+[project.optional-dependencies]
+l2 = ["glass", "camb"]
+mw = ["pygedm"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+frbsim = ["vendor/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra -x"
+markers = ["gates: immutable physics acceptance gates"]

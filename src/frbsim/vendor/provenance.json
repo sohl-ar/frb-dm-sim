@@ -1,0 +1,11 @@
+{
+  "sha256": "1b3212b16060f59eb07ab69530188f7df7c3e498ed6f721ae2db45d8c6237db8",
+  "adaptation": "Unmodified AST functions, matched constant f_d and fully ionized H/He boundary callbacks, pinned flat cosmology",
+  "commit": "996fcda9b0b22431e3171208b4c8e1cf2798e823",
+  "functions": [
+    "ne_cosmic",
+    "average_DM"
+  ],
+  "url": "https://github.com/FRBs/FRB",
+  "path": "frb/dm/igm.py"
+}
