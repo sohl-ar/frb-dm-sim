@@ -1,0 +1,31 @@
+{
+  "run_directory": "results/conditioning-v1",
+  "training": {
+    "batch_size": 64,
+    "max_epochs": 20,
+    "patience": 5,
+    "minimum_epochs": 5,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "gradient_norm_clip": 5.0,
+    "cpu_threads": 4,
+    "initialization_seed": 71010,
+    "training_noise_seed": 71011,
+    "validation_noise_seed": 71012,
+    "shuffle_seed": 71013
+  },
+  "model": {
+    "width": 64,
+    "heads": 4,
+    "inducing_points": 16,
+    "isab_blocks": 2,
+    "flow_width": 128,
+    "z_embedding": 8,
+    "type_embedding": 4,
+    "statistics_bypass": true
+  },
+  "normalization_sha256": "9df706fe83fe9eaf93df78710dcb6ac782c9a62f98a698bd2649dcb7a1860150",
+  "normalization_hash_algorithm": "raw file SHA256",
+  "training_attempts_allowed": 1,
+  "training_started": false
+}

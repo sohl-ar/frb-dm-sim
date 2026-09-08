@@ -34,11 +34,11 @@ class TrainConfig:
 
 def write_json(path,payload):
     temporary = path.with_suffix(".tmp")
-    temporary.write_text(json.dumps(payload,indent=2,allow_nan=False),encoding="utf-8")
+    temporary.write_text(json.dumps(payload,indent=2,allow_nan=False),encoding="utf-8",newline="\n")
     temporary.replace(path)
 
 
-def train(config=TrainConfig(),model_config=ModelConfig(),data_root=None):
+def train(config=TrainConfig(),model_config=ModelConfig(),data_root=None,*,run_dir=None,normalization=None):
     require_pretraining()
     architecture = json.loads((ROOT/"results/model-audit.json").read_text(encoding="utf-8"))
     if architecture["status"]!="pass":
@@ -56,6 +56,13 @@ def train(config=TrainConfig(),model_config=ModelConfig(),data_root=None):
     torch.backends.mha.set_fastpath_enabled(False)
     torch.manual_seed(config.initialization_seed)
     model = PosteriorFlow(model_config)
+    if model_config.statistics_bypass:
+        if normalization is None:
+            raise RuntimeError("STOP: bypass requires recorded training-only normalization")
+        from .statistics import canonical_manifest_hash
+        if normalization["dataset_manifest_sha256"]!=canonical_manifest_hash(manifest):
+            raise RuntimeError("STOP: normalizer / dataset mismatch")
+        model.statistics.set_normalization(normalization)
     optimizer = torch.optim.AdamW(model.parameters(),lr=config.learning_rate,weight_decay=config.weight_decay)
     training_rng = torch.Generator().manual_seed(config.training_noise_seed)
     order_rng = np.random.default_rng(config.shuffle_seed)
@@ -71,8 +78,13 @@ def train(config=TrainConfig(),model_config=ModelConfig(),data_root=None):
               "interpretation":"Training completion is not evidence of calibrated or informative posteriors"}
     config_hash = hashlib.sha256(json.dumps({"training":asdict(config),"model":asdict(model_config)},sort_keys=True).encode()).hexdigest()
     report["config_hash"] = config_hash
-    trace = ROOT/"results/training.json"
-    ckpts = ROOT/"results/checkpoints"
+    trace = ROOT/"results/training.json" if run_dir is None else Path(run_dir)/"training.json"
+    ckpts = ROOT/"results/checkpoints" if run_dir is None else Path(run_dir)/"checkpoints"
+    if run_dir is not None:
+        report["checkpoint"] = (ckpts/"phase2a-best.pt").relative_to(ROOT).as_posix()
+        report["dataset_manifest_sha256"] = canonical_manifest_hash(manifest)
+        report["manifest_hash_algorithm"] = "sha256 of sorted compact JSON UTF-8"
+        report["normalization"] = normalization
     ckpts.mkdir(exist_ok=True)
     start,steps,best,stale = time.perf_counter(),0,float("inf"),0
     write_json(trace,report)
@@ -124,6 +136,8 @@ def train(config=TrainConfig(),model_config=ModelConfig(),data_root=None):
             payload = {"model_state":model.state_dict(),"model_config":asdict(model_config),"training_config":asdict(config),
                        "epoch":epoch,"validation_loss":val_loss,"config_hash":config_hash,
                        "dataset_manifest_sha256":report["dataset_manifest_sha256"],"git_sha":report["git_sha"]}
+            if run_dir is not None:
+                payload["manifest_hash_algorithm"] = report["manifest_hash_algorithm"]
             if val_loss<best:
                 best,stale = val_loss,0
                 report["best_validation_loss"],report["best_epoch"] = best,epoch

@@ -20,6 +20,7 @@ class ModelConfig:
     flow_width: int = 128
     z_embedding: int = 8
     type_embedding: int = 4
+    statistics_bypass: bool = False  # Preserve the original checkpoint architecture.
 
 
 class ParameterTransform(nn.Module):
@@ -114,10 +115,19 @@ class PosteriorFlow(nn.Module):
         self.config = config
         self.encoder = SetEncoder(config)
         self.transform = ParameterTransform()
-        self.velocity = nn.Sequential(nn.Linear(config.width+2+4+1,config.flow_width),nn.SiLU(),
+        from .statistics import StatisticsBypass, STAT_NAMES
+        self.statistics = StatisticsBypass() if config.statistics_bypass else None
+        extra = len(STAT_NAMES) if config.statistics_bypass else 0
+        self.velocity = nn.Sequential(nn.Linear(config.width+2+4+1+extra,config.flow_width),nn.SiLU(),
                                       nn.Linear(config.flow_width,config.flow_width),nn.SiLU(),
                                       nn.Linear(config.flow_width,config.flow_width),nn.SiLU(),
                                       nn.Linear(config.flow_width,4))
+
+    def condition(self, features, padding):
+        summary = self.encoder(features,padding)
+        if self.statistics is not None:
+            summary = torch.cat((summary,self.statistics(features,padding)),dim=-1)
+        return summary
 
     def vector_field(self,x,t,summary):
         if t.ndim==0:
@@ -125,7 +135,7 @@ class PosteriorFlow(nn.Module):
         return self.velocity(torch.cat((x,t,summary),dim=-1))
 
     def loss(self,features,padding,theta,*,generator):
-        summary = self.encoder(features,padding)
+        summary = self.condition(features,padding)
         x1 = self.transform(theta)
         x0 = torch.randn(x1.shape,generator=generator,device=x1.device,dtype=x1.dtype)
         t = torch.rand((len(x1),1),generator=generator,device=x1.device,dtype=x1.dtype)
@@ -135,7 +145,7 @@ class PosteriorFlow(nn.Module):
     @torch.no_grad()
     def sample(self,features,padding,n_samples,*,seed,steps=32,check_steps=True):
         self.eval()
-        summary = self.encoder(features,padding).repeat_interleave(n_samples,dim=0)
+        summary = self.condition(features,padding).repeat_interleave(n_samples,dim=0)
         rng = torch.Generator(device=features.device).manual_seed(seed)
         x0 = torch.randn((len(summary),4),generator=rng,device=features.device)
         times = torch.tensor([0.,1.],device=features.device)
