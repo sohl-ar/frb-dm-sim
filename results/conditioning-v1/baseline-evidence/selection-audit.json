@@ -1,0 +1,267 @@
+{
+  "git_sha": "fec1aeb53fb4f0ebab116fd60cdeb1c2c88005b6",
+  "git_dirty": true,
+  "seed": 60001,
+  "lf": {
+    "gamma": -1.16,
+    "log10_energy_scale": 41.84,
+    "log10_energy_minimum": 30.0,
+    "source": "James 2022b doi:10.1093/mnras/stac2524 Eq.14, sec.2.2.2; Baptista Table 2; SPEC-02a authorization"
+  },
+  "F_min": 5.0,
+  "L_min": 0.01050420168067227,
+  "L_scale": 7267132047.467877,
+  "z": [
+    0.1,
+    0.2,
+    0.5,
+    1.0,
+    1.4
+  ],
+  "detected_fraction": [
+    0.020545186385227836,
+    0.013058924316534888,
+    0.005374506977719399,
+    0.0015075909099753987,
+    0.0004935927362672415
+  ],
+  "population_averaged_detected_fraction": {
+    "sfr": 0.0015000262855258651,
+    "constant_comoving": 0.0021304026272298713
+  },
+  "population_naive_rejection": {
+    "sfr": {
+      "n_intrinsic": 1000000,
+      "n_detected": 1506,
+      "detected_fraction": 0.001506,
+      "mean_detected_z": 0.8445412589690413,
+      "fraction_detected_below_z05": 0.17264276228419656,
+      "scope": "naive-rejection validation only; no training data",
+      "quadrature_fraction_detected_below_z05": 0.1693582700783235
+    },
+    "constant_comoving": {
+      "n_intrinsic": 1000000,
+      "n_detected": 2056,
+      "detected_fraction": 0.002056,
+      "mean_detected_z": 0.6985639360193302,
+      "fraction_detected_below_z05": 0.32490272373540857,
+      "scope": "naive-rejection validation only; no training data",
+      "quadrature_fraction_detected_below_z05": 0.32238215086070876
+    }
+  },
+  "user_print_ranges": [
+    [
+      0.02,
+      0.02
+    ],
+    [
+      0.01,
+      0.015
+    ],
+    [
+      0.005,
+      0.007
+    ],
+    [
+      0.00151,
+      0.00151
+    ],
+    [
+      0.000494,
+      0.000494
+    ]
+  ],
+  "prints_within_factor_two": true,
+  "factor_below_print_lower_edge": [
+    0.9734640331313894,
+    0.7657598556826191,
+    0.930317891618346,
+    1.0015979733020814,
+    1.0008251007416324
+  ],
+  "print_authorization": "docs/ANCHOR_CORRECTION_V2.md; supersedes stale prints only",
+  "human_corroboration": {
+    "source": "ANCHOR CORRECTION AUTHORIZATION v2",
+    "z1_z14": "human series/quadrature agree at 10-15% level; corroboration, not numeric oracle",
+    "z02": "human quadrature agrees within approximately 1%",
+    "arbiter": "committed quadrature/rejection at 0c8c3d4 and executed multi-method checks"
+  },
+  "z02_verification": {
+    "status": "pass",
+    "DL_Mpc": 1015.6297606628455,
+    "L_threshold": 64811295.879668854,
+    "x_threshold": 0.008918414507446768,
+    "unnormalized_tail_integrand_x_gamma_exp_minus_x": 236.47928506577105,
+    "normalized_pdf_in_x_at_threshold": 0.48952282011205867,
+    "quadrature_probability": 0.013058924316534899,
+    "series_probability": 0.013058924316534904,
+    "recurrence_probability": 0.013058924316534888,
+    "rejection_probability": 0.012798,
+    "rejection_standard_error": 0.0001135270400047051,
+    "rejection_error_in_se": 2.298345103722287,
+    "reviewer_x_0_0022_probability": 0.019936914465588252
+  },
+  "knee_fluences": {
+    "z": [
+      1.0,
+      1.4
+    ],
+    "DL_Mpc": [
+      6802.525834693799,
+      10294.015878394855
+    ],
+    "fluence_jy_ms": [
+      12.49720195105271,
+      5.457371517976867
+    ],
+    "astropy_DL_Mpc": [
+      6802.525834693804,
+      10294.015878394852
+    ],
+    "distance_relative_error": 7.771561172376096e-16,
+    "z14_side_of_threshold": "above",
+    "interpretation": "At z=1.4 the knee is above the cut: detection starts just below the knee and includes the exponentially suppressed bright tail."
+  },
+  "above_knee_support": {
+    "verified": true,
+    "lower_test_bound_in_knee_units": 2.0,
+    "sample_min_over_knee": 2.000010369256742,
+    "sample_max_over_knee": 10.318001602609153,
+    "intrinsic_count_above_knee": 421,
+    "code_inspection": "sample_above has a lower support floor only; its probability-dependent bisection bracket is not an upper luminosity cutoff"
+  },
+  "tail_quadrature": [
+    {
+      "s": -0.16,
+      "x": 1e-12,
+      "relative_error": 4.440892098500627e-16
+    },
+    {
+      "s": -0.16,
+      "x": 0.0001,
+      "relative_error": 0.0
+    },
+    {
+      "s": -0.16,
+      "x": 0.01,
+      "relative_error": 0.0
+    },
+    {
+      "s": -0.16,
+      "x": 0.1,
+      "relative_error": 4.440892098500627e-16
+    },
+    {
+      "s": -0.16,
+      "x": 1.0,
+      "relative_error": 3.996802888650556e-15
+    },
+    {
+      "s": -0.16,
+      "x": 10.0,
+      "relative_error": 1.1279865930190954e-13
+    },
+    {
+      "s": -0.16,
+      "x": 100.0,
+      "relative_error": 2.4078516958099383e-12
+    },
+    {
+      "s": 0.0,
+      "x": 1e-12,
+      "relative_error": 0.0
+    },
+    {
+      "s": 0.0,
+      "x": 0.0001,
+      "relative_error": 0.0
+    },
+    {
+      "s": 0.0,
+      "x": 0.01,
+      "relative_error": 0.0
+    },
+    {
+      "s": 0.0,
+      "x": 0.1,
+      "relative_error": 0.0
+    },
+    {
+      "s": 0.0,
+      "x": 1.0,
+      "relative_error": 1.3322676295501886e-15
+    },
+    {
+      "s": 0.0,
+      "x": 10.0,
+      "relative_error": 8.881784197001256e-16
+    },
+    {
+      "s": 0.0,
+      "x": 100.0,
+      "relative_error": 2.6645352591003792e-15
+    },
+    {
+      "s": 0.23,
+      "x": 1e-12,
+      "relative_error": 8.881784197001249e-16
+    },
+    {
+      "s": 0.23,
+      "x": 0.0001,
+      "relative_error": 4.440892098500625e-16
+    },
+    {
+      "s": 0.23,
+      "x": 0.01,
+      "relative_error": 4.440892098500625e-16
+    },
+    {
+      "s": 0.23,
+      "x": 0.1,
+      "relative_error": 3.330669073875469e-16
+    },
+    {
+      "s": 0.23,
+      "x": 1.0,
+      "relative_error": 6.106226635438362e-16
+    },
+    {
+      "s": 0.23,
+      "x": 10.0,
+      "relative_error": 8.881784197001249e-16
+    },
+    {
+      "s": 0.23,
+      "x": 100.0,
+      "relative_error": 5.329070518200737e-15
+    }
+  ],
+  "naive_rejection": {
+    "n_intrinsic": 1000000,
+    "detected_counts": [
+      20239,
+      12798,
+      5344,
+      1483,
+      483
+    ],
+    "tail_errors_in_binomial_se": [
+      2.1584332888726703,
+      2.298345103722196,
+      0.41725358440795834,
+      0.6338120052123717,
+      0.47690402555915495
+    ],
+    "conditional_ks_statistic": 0.021519461077844332,
+    "conditional_ks_pvalue": 0.16827666994374593
+  },
+  "tolerances": {
+    "print_factor": 2.0,
+    "quadrature_relative": 1e-08,
+    "rejection_standard_errors": 3.0,
+    "conditional_ks_p_min": 0.001
+  },
+  "numeric_checks_pass": true,
+  "config_hash": "4f589e7bf86bef11c6f299fd66f642e848df78c88d5650242180fb1ec0747f8e"
+}

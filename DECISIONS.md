@@ -249,3 +249,23 @@ under the same checkpoint, data and implementation identity.
 Quick controls verify implementation mechanics, including positive and negative
 gate controls. They do not establish posterior calibration or information gain.
 No full retraining, full SBC or full gate suite ran in this architect session.
+
+## Authorized inference continuation — 2026-09-08
+
+After local training completed and contraction stopped at the first prescribed
+catalog size, the human explicitly authorized the remaining size and independent
+SBC, even though the earlier gate failed. This is an execution-order exception,
+not a change to any criterion. The source, tests, seeds, counts, solver and
+checkpoint remain unchanged. No retraining was performed.
+
+The original stopped ledger is archived in the conditioned run's
+authorized-followup directory. Existing methods produced the new measurements;
+the canonical ledger includes both contraction sizes and SBC while preserving
+the original failure and incomplete acceptance. CONDITIONING_FOLLOWUP.md is
+generated from the recorded measurements and verifies them against saved samples.
+
+The existing SBC subtraction/comparison falsely flags f_d at the inclusive
+upper coverage boundary because of floating-point representation. It is
+documented as an implementation issue; the stored failure status is retained.
+No comparator, tolerance or criterion was changed. Other measured failures
+remain independent of that issue. Human review precedes any fix or spec change.

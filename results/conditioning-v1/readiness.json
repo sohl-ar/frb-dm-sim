@@ -1,6 +1,6 @@
 {
-  "git_sha": "775ead7a8a890ce1fdab1e0094e9ae7e7697349d",
-  "git_dirty": true,
+  "git_sha": "5438d58cc6d5d6579ad37f91fd448b7507033aad",
+  "git_dirty": false,
   "status": "pass",
   "scope": "read-only readiness; training not started",
   "shards_verified": 118,

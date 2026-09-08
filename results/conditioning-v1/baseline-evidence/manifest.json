@@ -1,0 +1,9 @@
+{
+  "phase2a_gates.json": "e9eaf236025803f50ffd9d58cef37e7b787ba06c92620da67199a4a7a5f1e705",
+  "generator-audit.json": "f8fd1f102638b9facc4facb17049b26a2e54061828e079273189d94130b2301f",
+  "model-audit.json": "22aa42316559c2be3661d238316bdda1a4923cad84a8f4a8e555c95b967a8103",
+  "prior-predictive.json": "b4a2df85f048b9a346e6f8e5465b7a9e0139ce74603c91f011c26caca69125eb",
+  "selection-audit.json": "87b3e325d65a16421135cb2295971a75957dd62798557b574a21a523bf3f4b6e",
+  "training.json": "6fc60a26f6f6c2ca8d97c0707e48279605454db04c24e7b242f6efebaf90330e",
+  "posterior-gates.json": "e4b330271ab4546e957ad98730a52742e707c510c5a6aaae69278d75c1cd4a70"
+}

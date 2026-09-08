@@ -1,0 +1,210 @@
+{
+  "git_sha": "80b2024a6cd0035f690eb98e83c05ae9e250e7a1",
+  "git_dirty": false,
+  "status": "training_complete_unvalidated",
+  "acceptance_complete": false,
+  "training_config": {
+    "batch_size": 64,
+    "max_epochs": 20,
+    "patience": 5,
+    "minimum_epochs": 5,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "gradient_norm_clip": 5.0,
+    "cpu_threads": 4,
+    "initialization_seed": 71010,
+    "training_noise_seed": 71011,
+    "validation_noise_seed": 71012,
+    "shuffle_seed": 71013
+  },
+  "model_config": {
+    "width": 64,
+    "heads": 4,
+    "inducing_points": 16,
+    "isab_blocks": 2,
+    "flow_width": 128,
+    "z_embedding": 8,
+    "type_embedding": 4
+  },
+  "dataset_manifest_sha256": "0d44c34b64266de78f848a5a05cc28481965ead04686abd134f6c491833dc59e",
+  "catalog_counts": {
+    "training": 50000,
+    "validation": 5000,
+    "test": 5000
+  },
+  "torch": "2.14.0+cpu",
+  "device": "cpu",
+  "precision": "float32; physical transforms use float64",
+  "epochs": [
+    {
+      "epoch": 1,
+      "training_loss": 3.309190666732788,
+      "validation_loss": 3.088324755477905,
+      "seconds": 180.03268680000474,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 2,
+      "training_loss": 3.0113421105957032,
+      "validation_loss": 2.9507637130737305,
+      "seconds": 233.15130900000077,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 3,
+      "training_loss": 2.9134750122070314,
+      "validation_loss": 2.8917497478485106,
+      "seconds": 262.7623225999996,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 4,
+      "training_loss": 2.9138981629943848,
+      "validation_loss": 2.8854526762008668,
+      "seconds": 258.6246469000034,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 5,
+      "training_loss": 2.903029634552002,
+      "validation_loss": 2.8641689855575563,
+      "seconds": 163.3118964000023,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 6,
+      "training_loss": 2.8938772031402586,
+      "validation_loss": 2.871249991989136,
+      "seconds": 153.94483700000274,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 7,
+      "training_loss": 2.8670992063140868,
+      "validation_loss": 2.861281323814392,
+      "seconds": 257.34424520000175,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 8,
+      "training_loss": 2.889500117721558,
+      "validation_loss": 2.8715747825622557,
+      "seconds": 199.93410529999528,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 9,
+      "training_loss": 2.8671958293151856,
+      "validation_loss": 2.8567794019699098,
+      "seconds": 237.04650820000097,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 10,
+      "training_loss": 2.885140039215088,
+      "validation_loss": 2.8535273397445677,
+      "seconds": 253.90547949999745,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 11,
+      "training_loss": 2.877008275985718,
+      "validation_loss": 2.8631397003173826,
+      "seconds": 260.68646690000605,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 12,
+      "training_loss": 2.8769142196655273,
+      "validation_loss": 2.8748379203796386,
+      "seconds": 265.7516841999968,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 13,
+      "training_loss": 2.8746008725738523,
+      "validation_loss": 2.845229963302612,
+      "seconds": 254.51747360000445,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 14,
+      "training_loss": 2.86641524230957,
+      "validation_loss": 2.847140632820129,
+      "seconds": 260.5968811000057,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 15,
+      "training_loss": 2.8705790897369385,
+      "validation_loss": 2.8548401512145998,
+      "seconds": 253.15349660000356,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 16,
+      "training_loss": 2.8741823783111573,
+      "validation_loss": 2.853632056427002,
+      "seconds": 262.5877662999992,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 17,
+      "training_loss": 2.872846725463867,
+      "validation_loss": 2.848340041732788,
+      "seconds": 258.80072429999564,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 18,
+      "training_loss": 2.8544322901916503,
+      "validation_loss": 2.8519252260208128,
+      "seconds": 265.91339439999865,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 19,
+      "training_loss": 2.8540299658203123,
+      "validation_loss": 2.849061755371094,
+      "seconds": 112.77020989999437,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    }
+  ],
+  "best_validation_loss": 2.845229963302612,
+  "best_epoch": 13,
+  "checkpoint": "results/checkpoints/phase2a-best.pt",
+  "interpretation": "Training completion is not evidence of calibrated or informative posteriors",
+  "config_hash": "8fd72a52b79677506621b186623c86405eb1624a4c09828b7255419f34ce2078",
+  "current_epoch": 19,
+  "optimizer_steps": 14858,
+  "elapsed_seconds": 4395.196544699997,
+  "epoch_catalogs_processed": 46336,
+  "stopping_reason": "validation patience exhausted",
+  "checkpoint_sha256": "3260ef3eb126e81913f037971c734732672b126e58db711bf5e04d4817fcd802",
+  "resume": {
+    "from": "results/checkpoints/phase2a-last.pt",
+    "from_epoch": 18,
+    "discarded_partial_catalogs": 45136,
+    "steps_restart": 14076,
+    "note": "partial epoch 18 rerun fully; steps counter recomputed from manifest"
+  }
+}

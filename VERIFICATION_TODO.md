@@ -6,8 +6,10 @@ human sign-off to omit an acceptance requirement.
 ## Current Phase 2a findings and human decisions
 
 The conditioning implementation is now authorized, implemented and quick-tested.
-Execution is pending via HANDOFF.md. The historical baseline findings below
-remain failures/findings until the new run supplies measured acceptance evidence.
+The training attempt has completed; authorized followup inference supplies both
+contraction sizes and SBC. Both gates remain failed. CONDITIONING_FOLLOWUP.md
+contains the current measurements. The older baseline findings below remain
+historical evidence; no full acceptance or Phase 3 progression is authorized.
 
 Training is complete, G-P1/G-P2 pass and G-P4 fails on F central coverage.
 The audit also finds broadly prior-like predictions across parameters;
@@ -18,8 +20,10 @@ PROJECT_STATUS.md and AUDIT_REPORT.md report the exact measured results.
   update mathematics match, but resumption continued after exhausted
   patience. The evaluated best checkpoint is unaffected by the extra
   epoch according to the recorded loss comparison; original evidence is preserved.
-- Execute the authorized statistics-bypass experiment exactly once; no
-  retraining was performed during its implementation session.
+- The statistics-bypass training attempt is complete; do not retrain or resume.
+- Review the existing SBC comparator's floating-point upper-boundary false
+  failure separately from gate criteria. No code, tolerance or outcome was
+  changed in the authorized inference followup. Other coverage failures remain.
 - Run the implemented G-P5/TARP, G-P6 and G-P8 plus the full suite and smoke.
   G-P4 remains a baseline hard failure until the new checkpoint is evaluated.
 - G-P7 per-family coverage and selection-ignored probe are human-approved as

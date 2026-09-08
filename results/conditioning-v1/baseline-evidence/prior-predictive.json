@@ -1,0 +1,165 @@
+{
+  "git_sha": "fec1aeb53fb4f0ebab116fd60cdeb1c2c88005b6",
+  "git_dirty": true,
+  "name": "T3",
+  "status": "pass",
+  "config": {
+    "seed": 61000,
+    "draws_per_redshift": 200000,
+    "f_d": [
+      0.6,
+      1.0
+    ],
+    "F_loguniform": [
+      0.05,
+      1.0
+    ],
+    "quadrature_orders": [
+      64,
+      128
+    ]
+  },
+  "config_hash": "11207bc521301b81b7e1bb81ae66ba2700ef501c409ff1027e2150b478ed7184",
+  "tolerance": {
+    "CDF_interval": [
+      0.005,
+      0.995
+    ]
+  },
+  "events": [
+    {
+      "z": 0.3214,
+      "central_99_DM": [
+        109.59609642299844,
+        1395.547222425922
+      ],
+      "mean_DM": 266.69500085136394,
+      "median_DM": 229.41209921718115,
+      "frb": "180924",
+      "dm_cosmic_estimated": 243.58134402906012,
+      "empirical_CDF": 0.577635,
+      "quadrature_CDF": 0.5765143088917846,
+      "quadrature_64_CDF": 0.5765143209629021,
+      "order_doubling_CDF_delta": 1.2071117549972143e-08,
+      "empirical_CDF_standard_error": 0.0011048655133879702,
+      "status": "pass"
+    },
+    {
+      "z": 0.4755,
+      "central_99_DM": [
+        171.43550256332202,
+        1950.0262207333217
+      ],
+      "mean_DM": 400.6588678131658,
+      "median_DM": 352.69808329983675,
+      "frb": "181112",
+      "dm_cosmic_estimated": 475.3831819722128,
+      "empirical_CDF": 0.842325,
+      "quadrature_CDF": 0.8426119479676456,
+      "quadrature_64_CDF": 0.8426119387786388,
+      "order_doubling_CDF_delta": 9.189006777710063e-09,
+      "empirical_CDF_standard_error": 0.0008143004762058516,
+      "status": "pass"
+    },
+    {
+      "z": 0.291,
+      "central_99_DM": [
+        97.58976365405225,
+        1252.4710360134998
+      ],
+      "mean_DM": 239.466506489217,
+      "median_DM": 205.96206090971714,
+      "frb": "190102",
+      "dm_cosmic_estimated": 244.8703330751356,
+      "empirical_CDF": 0.70864,
+      "quadrature_CDF": 0.7094599924031268,
+      "quadrature_64_CDF": 0.7094599810073171,
+      "order_doubling_CDF_delta": 1.1395809740299967e-08,
+      "empirical_CDF_standard_error": 0.0010152007475925193,
+      "status": "pass"
+    },
+    {
+      "z": 0.1178,
+      "central_99_DM": [
+        35.28865205440623,
+        562.7411357949587
+      ],
+      "mean_DM": 94.17703227166791,
+      "median_DM": 76.84844322188542,
+      "frb": "190608",
+      "dm_cosmic_estimated": 213.96927894077652,
+      "empirical_CDF": 0.96435,
+      "quadrature_CDF": 0.9643872547810918,
+      "quadrature_64_CDF": 0.96438725523891,
+      "order_doubling_CDF_delta": 4.578182277725773e-10,
+      "empirical_CDF_standard_error": 0.0004143940009030135,
+      "status": "pass"
+    },
+    {
+      "z": 0.378,
+      "central_99_DM": [
+        131.43694869963616,
+        1602.3755264984711
+      ],
+      "mean_DM": 316.2829856112303,
+      "median_DM": 274.2900411087313,
+      "frb": "190611",
+      "dm_cosmic_estimated": 205.11552975326558,
+      "empirical_CDF": 0.164885,
+      "quadrature_CDF": 0.16438959736156017,
+      "quadrature_64_CDF": 0.16438959644391812,
+      "order_doubling_CDF_delta": 9.176420456835643e-10,
+      "empirical_CDF_standard_error": 0.0008287510411482579,
+      "status": "pass"
+    },
+    {
+      "z": 0.522,
+      "central_99_DM": [
+        190.96724422052282,
+        2123.9085221853247
+      ],
+      "mean_DM": 442.43635483917654,
+      "median_DM": 390.2442686597245,
+      "frb": "190711",
+      "dm_cosmic_estimated": 480.2484888304862,
+      "empirical_CDF": 0.762555,
+      "quadrature_CDF": 0.7630562962722566,
+      "quadrature_64_CDF": 0.7630562673797927,
+      "order_doubling_CDF_delta": 2.8892463865837215e-08,
+      "empirical_CDF_standard_error": 0.0009507927876028581,
+      "status": "pass"
+    }
+  ],
+  "diagnostic_grid": [
+    {
+      "z": 0.1,
+      "central_99_DM": [
+        29.49000704409365,
+        489.62530328118896
+      ],
+      "mean_DM": 79.50768686525088,
+      "median_DM": 64.43933808513799
+    },
+    {
+      "z": 0.5,
+      "central_99_DM": [
+        181.05272017844257,
+        2059.682916466064
+      ],
+      "mean_DM": 422.2560744502238,
+      "median_DM": 372.59731538829993
+    },
+    {
+      "z": 1.0,
+      "central_99_DM": [
+        397.60462643561686,
+        3783.4721330556386
+      ],
+      "mean_DM": 865.9487158953439,
+      "median_DM": 783.5652551315754
+    }
+  ],
+  "table_source": "results/table1-after.json",
+  "table_sha256": "9e526d5e949fb6b0b1c9d92b7b95e323b7f678a177539101f7c56ae78cf68a62",
+  "scope": "Cosmic DM conditional on z; no network, host or selection conditioning in this marginal"
+}

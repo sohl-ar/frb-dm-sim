@@ -1,0 +1,724 @@
+{
+  "git_sha": "5438d58cc6d5d6579ad37f91fd448b7507033aad",
+  "git_dirty": true,
+  "status": "training_complete_unvalidated",
+  "acceptance_complete": false,
+  "training_config": {
+    "batch_size": 64,
+    "max_epochs": 20,
+    "patience": 5,
+    "minimum_epochs": 5,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "gradient_norm_clip": 5.0,
+    "cpu_threads": 4,
+    "initialization_seed": 71010,
+    "training_noise_seed": 71011,
+    "validation_noise_seed": 71012,
+    "shuffle_seed": 71013
+  },
+  "model_config": {
+    "width": 64,
+    "heads": 4,
+    "inducing_points": 16,
+    "isab_blocks": 2,
+    "flow_width": 128,
+    "z_embedding": 8,
+    "type_embedding": 4,
+    "statistics_bypass": true
+  },
+  "dataset_manifest_sha256": "e69ab48bb90a3d138aab7f0c4c23592cc8660dad4df597d1210b671323aec8b3",
+  "catalog_counts": {
+    "training": 50000,
+    "validation": 5000,
+    "test": 5000
+  },
+  "torch": "2.14.0+cpu",
+  "device": "cpu",
+  "precision": "float32; physical transforms use float64",
+  "epochs": [
+    {
+      "epoch": 1,
+      "training_loss": 2.685274800262451,
+      "validation_loss": 2.4188176599502564,
+      "seconds": 144.19661679999263,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 2,
+      "training_loss": 2.261133874053955,
+      "validation_loss": 2.081332554626465,
+      "seconds": 138.05764919999638,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 3,
+      "training_loss": 1.9902652835845946,
+      "validation_loss": 1.9374612957000732,
+      "seconds": 140.2939417000016,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 4,
+      "training_loss": 1.9012523788070679,
+      "validation_loss": 1.9050921018600464,
+      "seconds": 137.3238532000105,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 5,
+      "training_loss": 1.862103139038086,
+      "validation_loss": 1.8302982986450196,
+      "seconds": 137.57659320000676,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 6,
+      "training_loss": 1.826777384262085,
+      "validation_loss": 1.8268381746292115,
+      "seconds": 138.24821240000892,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 7,
+      "training_loss": 1.7966715703582763,
+      "validation_loss": 1.7765556968688965,
+      "seconds": 137.5358741000091,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 8,
+      "training_loss": 1.7998475224685668,
+      "validation_loss": 1.7814216905593871,
+      "seconds": 139.0274317000003,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 9,
+      "training_loss": 1.775415945930481,
+      "validation_loss": 1.7491950162887573,
+      "seconds": 140.8498064000014,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 10,
+      "training_loss": 1.7686839040374756,
+      "validation_loss": 1.7431866054534912,
+      "seconds": 140.32122090000485,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 11,
+      "training_loss": 1.7564245016860962,
+      "validation_loss": 1.7384416774749756,
+      "seconds": 139.19744710001396,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 12,
+      "training_loss": 1.7391340688323975,
+      "validation_loss": 1.754161199760437,
+      "seconds": 140.2071089999954,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 13,
+      "training_loss": 1.7296686234664918,
+      "validation_loss": 1.713575018119812,
+      "seconds": 141.96571519999998,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 14,
+      "training_loss": 1.719760273475647,
+      "validation_loss": 1.7239192218780517,
+      "seconds": 140.21530009999697,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 15,
+      "training_loss": 1.716739796104431,
+      "validation_loss": 1.710126897239685,
+      "seconds": 140.38738499999454,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 16,
+      "training_loss": 1.7039887490463257,
+      "validation_loss": 1.6999841640472413,
+      "seconds": 140.07290040000225,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 17,
+      "training_loss": 1.6979352055358887,
+      "validation_loss": 1.7083847450256349,
+      "seconds": 139.9731277999963,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 18,
+      "training_loss": 1.703245898361206,
+      "validation_loss": 1.6833101955413818,
+      "seconds": 140.22884680000425,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 19,
+      "training_loss": 1.6833416600418092,
+      "validation_loss": 1.7037095838546752,
+      "seconds": 176.4144637999998,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    },
+    {
+      "epoch": 20,
+      "training_loss": 1.6948272374343871,
+      "validation_loss": 1.6925237073898316,
+      "seconds": 256.84357810000074,
+      "training_catalogs": 50000,
+      "validation_catalogs": 5000
+    }
+  ],
+  "best_validation_loss": 1.6833101955413818,
+  "best_epoch": 18,
+  "checkpoint": "results/conditioning-v1/checkpoints/phase2a-best.pt",
+  "interpretation": "Training completion is not evidence of calibrated or informative posteriors",
+  "config_hash": "ad0d83f121217e29d41ce2b58260663df31823045fe259dadadd4a5cd51e9056",
+  "manifest_hash_algorithm": "sha256 of sorted compact JSON UTF-8",
+  "normalization": {
+    "schema_version": 1,
+    "names": [
+      "dm_mean",
+      "dm_std",
+      "dm_median",
+      "dm_q25",
+      "dm_q75",
+      "dm_min",
+      "dm_max",
+      "fluence_mean",
+      "fluence_std",
+      "fluence_median",
+      "localized_dm_mean",
+      "localized_dm_std",
+      "localized_z_mean",
+      "localized_count",
+      "unlocalized_count",
+      "has_localized",
+      "has_unlocalized",
+      "ols_available",
+      "localized_z_std",
+      "dm_z_slope",
+      "dm_z_intercept",
+      "residual_std",
+      "residual_q25",
+      "residual_median",
+      "residual_q75",
+      "zbin0_count",
+      "zbin0_dm_mean",
+      "zbin0_dm_std",
+      "zbin1_count",
+      "zbin1_dm_mean",
+      "zbin1_dm_std",
+      "zbin2_count",
+      "zbin2_dm_mean",
+      "zbin2_dm_std"
+    ],
+    "fit_split": "training",
+    "n_catalogs": 50000,
+    "center": [
+      861.4397603354184,
+      671.2375705709895,
+      757.4384441422676,
+      544.1573649165006,
+      1012.1976738095481,
+      194.50933578911233,
+      7276.169799839197,
+      26.77975044067297,
+      81.44258862922689,
+      10.576347848852286,
+      852.8303722462323,
+      558.9434785818675,
+      0.7679030393249712,
+      64.14062,
+      192.51662,
+      0.98886,
+      0.9993,
+      0.97516,
+      0.31815572485878785,
+      800.7847531222797,
+      214.5289063687457,
+      439.5939232036796,
+      -192.71473572980753,
+      -99.73453742557827,
+      33.68106553145678,
+      15.75192,
+      482.0998600043177,
+      284.2090955435938,
+      30.26444,
+      811.08291957189,
+      401.1059733263531,
+      18.12426,
+      1158.47318367624,
+      407.6774205812095
+    ],
+    "scale": [
+      193.25991200686107,
+      981.7610059730813,
+      143.29757318846134,
+      113.03919034112988,
+      179.86378270682243,
+      74.21904093655095,
+      15577.774196604863,
+      15.30294181423405,
+      101.77446067457633,
+      2.208065694630947,
+      302.6586235296866,
+      901.6643328744782,
+      0.13782493134333723,
+      56.93630903049118,
+      118.87323905646659,
+      0.10495665962669383,
+      0.02644825135997475,
+      0.1556373168619877,
+      0.06904457953390634,
+      6810.680943310969,
+      7455.57885387976,
+      895.8230516980856,
+      280.78133204002546,
+      173.79561445573742,
+      135.61899410500524,
+      15.821000483964964,
+      453.08995261688057,
+      868.8101045573187,
+      27.20355034708741,
+      342.791157619271,
+      774.2102961299437,
+      17.551917828329195,
+      528.8005098908592,
+      1087.595038368267
+    ],
+    "constant_dimensions": [],
+    "shards": [
+      {
+        "path": "training-000000.npz",
+        "sha256": "85a868b0ec466b871690c9e5edee30065bc886993cd4db3c799452977b453d05"
+      },
+      {
+        "path": "training-000512.npz",
+        "sha256": "892cb556b0856938a08bae6485394d3c524c91a4df50101357e06a9dd2b47d65"
+      },
+      {
+        "path": "training-001024.npz",
+        "sha256": "eb0ecb694198f1b7a8c29315536d7bb6c3a2ae07bbf5755405655f3d05aaf0a4"
+      },
+      {
+        "path": "training-001536.npz",
+        "sha256": "fa6e391b722b54fb2f68ae2137434963de9527bc8d7887beec1552f43c43f84a"
+      },
+      {
+        "path": "training-002048.npz",
+        "sha256": "df86ce657fa6041465b323040781c44d37f3c46d4e712c211789c7541eae8741"
+      },
+      {
+        "path": "training-002560.npz",
+        "sha256": "6a1416e0b067755403ff5d4fa83f100271e25851082c9d553e033833b35876de"
+      },
+      {
+        "path": "training-003072.npz",
+        "sha256": "8191d4c3d23769a608169be217fb59b4543e830fff95c9f58b887a276194a85d"
+      },
+      {
+        "path": "training-003584.npz",
+        "sha256": "ac73399d58655d0e434521626982c5ddb9cbf69fd88bfc266dbfe57540d67bab"
+      },
+      {
+        "path": "training-004096.npz",
+        "sha256": "d4bdeb1105396c1c1ec510b936b897aa6557880f4eab522ad7276b8ef3d3c6b7"
+      },
+      {
+        "path": "training-004608.npz",
+        "sha256": "0c015ebec2399d149b12902e05280f07cf692b18d793d537e44a1041de5dcbaf"
+      },
+      {
+        "path": "training-005120.npz",
+        "sha256": "c4d98f0d8ba05f31bfff488c4a5479c847fb6ed0366a7e3554e27bf48a07a3df"
+      },
+      {
+        "path": "training-005632.npz",
+        "sha256": "91a7dcc4df397a05148f1fb3b9c166519f04cbc24ff62fbdbc24cd3983df8b2d"
+      },
+      {
+        "path": "training-006144.npz",
+        "sha256": "e9e77b2c46c0ff85707a42cc9d21d8077e42d76eb12679c3a677ba619540134a"
+      },
+      {
+        "path": "training-006656.npz",
+        "sha256": "238ee9541c6b669fdd16d0287ca7ea156c1ab15b553b0faa9fe7d77d1e1bd509"
+      },
+      {
+        "path": "training-007168.npz",
+        "sha256": "85f9b8f9f8d2ce918f7318c5214e44d7916677fafed85ecf930df70a212cf33e"
+      },
+      {
+        "path": "training-007680.npz",
+        "sha256": "6ba344480e8d952cae4496a1d96d25ce81e2823bb90060f4401dba83ba5176e6"
+      },
+      {
+        "path": "training-008192.npz",
+        "sha256": "4c8e51e2d914e234ecc260effd10f3a8b63aafa91e28cfd4685b289b84afc90f"
+      },
+      {
+        "path": "training-008704.npz",
+        "sha256": "1eda3c01602831c6ab726785f93218ed920834cb467a1a1405e725d486ea8512"
+      },
+      {
+        "path": "training-009216.npz",
+        "sha256": "fed4af205212eebff321938fa0f239484d65c903e0d8f56d4a158ef2b36183b5"
+      },
+      {
+        "path": "training-009728.npz",
+        "sha256": "09aaf8f46ea0076636271b89d6896cc227856f77f9a0b43e68bb01b50853d713"
+      },
+      {
+        "path": "training-010240.npz",
+        "sha256": "48cb48487b908bc6d27ab471c74328f88157b9aaf20e774a6e324edb51fb3812"
+      },
+      {
+        "path": "training-010752.npz",
+        "sha256": "93e54aa79783513fa46101eb5f4c5709f393cbccecb9795570055804cd52f6ec"
+      },
+      {
+        "path": "training-011264.npz",
+        "sha256": "999f0461d80e849b603976c730611629d873ba8d29a16289580c079bd4848960"
+      },
+      {
+        "path": "training-011776.npz",
+        "sha256": "c852104ef2d9df9168fff5e8b41f27e418e964c92cd2d71c8702507a76112d4c"
+      },
+      {
+        "path": "training-012288.npz",
+        "sha256": "7d448c80d9ba75257a5455e6fce60407f6bd9bf8b82feeeba7dddba0358a5571"
+      },
+      {
+        "path": "training-012800.npz",
+        "sha256": "b9a1643ba9bb93cac577b8f4bfe7e3c68c2f2987942f46f04eba3f7f53edbf37"
+      },
+      {
+        "path": "training-013312.npz",
+        "sha256": "b0a6c1a45dc8830c75baef41aa9ed49b7f8951fbe1ccc15b7df8b00e577f4828"
+      },
+      {
+        "path": "training-013824.npz",
+        "sha256": "d93d3da9d14cdac9f8c0e88a4acde107825f689ad901b5a3b316092e608c6d48"
+      },
+      {
+        "path": "training-014336.npz",
+        "sha256": "6b2fcdb84a6a1b6e5ec170546909971a6fc1a5fbe54564ece72ef45828b19529"
+      },
+      {
+        "path": "training-014848.npz",
+        "sha256": "1d5c0ec0db8757e4d2b0b5b4d0220ef5b2ebfb03459ee0e0a4bc78f7c366841f"
+      },
+      {
+        "path": "training-015360.npz",
+        "sha256": "d96c2972546943710c766be0102f98da94b752420400a9d826d632ed22b01009"
+      },
+      {
+        "path": "training-015872.npz",
+        "sha256": "7396ffaf72033fa4d7543a10fe3a58d8b68e5fdec77329be451d893031e26531"
+      },
+      {
+        "path": "training-016384.npz",
+        "sha256": "33d8e529160772ca577ace0a48ddeead4745eb5462f9052bd1cfadf685b4945a"
+      },
+      {
+        "path": "training-016896.npz",
+        "sha256": "5bb3ad94b8842d5c1ee5feef417815135eb526443e9b2d9fbf6d94c47f65d947"
+      },
+      {
+        "path": "training-017408.npz",
+        "sha256": "040df4e969a0959b600ad5bec14dbd14b306289b2499fb11b83cbc622f6f1deb"
+      },
+      {
+        "path": "training-017920.npz",
+        "sha256": "258820feaacda9756687ed0d77e794b02cd3bfc921cb3c4f16f99f7ec4ff7474"
+      },
+      {
+        "path": "training-018432.npz",
+        "sha256": "9917fa8171369c58ff73ad44bf2cf4667d3b6a524ed781afff03342a01579ead"
+      },
+      {
+        "path": "training-018944.npz",
+        "sha256": "10ee31a2c1f9d8ab591b03aadd1c2304b0a5c7c722100bdf25cb892db0c12d3c"
+      },
+      {
+        "path": "training-019456.npz",
+        "sha256": "cc4b169033f7154d7e9517df29499978229f3dfcb632c3c690006bbd91e8d6ee"
+      },
+      {
+        "path": "training-019968.npz",
+        "sha256": "10bef94a7fbef7adf8602ebddb81194d7b2a4705bb9b1a6dfae6373b3c272180"
+      },
+      {
+        "path": "training-020480.npz",
+        "sha256": "c053a417f8db67e89760f950ff5ba6da889d213b25dd475c3529d238d60da75e"
+      },
+      {
+        "path": "training-020992.npz",
+        "sha256": "6ddf921f4c6b041fc2f1fbb70cb9e4c3637d0009c4ad6e5382403b8f0899524c"
+      },
+      {
+        "path": "training-021504.npz",
+        "sha256": "fb85af7801f921595fe3b64fa993a4f15b187e71a809e128213f24c43ce5d888"
+      },
+      {
+        "path": "training-022016.npz",
+        "sha256": "76cd7bcc33260d1e6dc32247f2aab5599aba9758b85b9706b49afbc225c765d0"
+      },
+      {
+        "path": "training-022528.npz",
+        "sha256": "d9d170520e15716e2623ffc673f08d41220e96a84ea8e124fac629cb4b677633"
+      },
+      {
+        "path": "training-023040.npz",
+        "sha256": "9a4d990dc6853cc576669d72b4127e506e021ededbe92c9fd7ac707c15bf40f8"
+      },
+      {
+        "path": "training-023552.npz",
+        "sha256": "3b47f5b97eabce06e4321bb791f3bd4708f0bd78a122bc206110021dbc83971e"
+      },
+      {
+        "path": "training-024064.npz",
+        "sha256": "a9c51a099b42eb9319d24c491ef5e475d96658b21861e099754593acc542a697"
+      },
+      {
+        "path": "training-024576.npz",
+        "sha256": "73a544ba8bb1c40f64f8ed3b6b2824017614adf0d22d5c60535dc19468019994"
+      },
+      {
+        "path": "training-025088.npz",
+        "sha256": "355bd2437bf6564dc16228310b2d2dcdac255fa922a1af4d546f6a3ecdb8c9e9"
+      },
+      {
+        "path": "training-025600.npz",
+        "sha256": "e5847174815ca8fc9bcb0fcebe375476c054598df4e80756b53f344151944295"
+      },
+      {
+        "path": "training-026112.npz",
+        "sha256": "7ea099464eaeaa2b8ed54b1adb090752db8401436d78c0df1e7c53fc826513a3"
+      },
+      {
+        "path": "training-026624.npz",
+        "sha256": "79d7c2f2c185fa634da8097e6642f79910deb90eff9ce89b6136c8b41737593e"
+      },
+      {
+        "path": "training-027136.npz",
+        "sha256": "045008720cfdcd0381762a6d4bbceca30bbbbf64730fa020dab87bdecd7bd9e3"
+      },
+      {
+        "path": "training-027648.npz",
+        "sha256": "d41734a76d824cc8fe43e1d94d52f01b4ddb4561e2949205776e47bc1f819d8b"
+      },
+      {
+        "path": "training-028160.npz",
+        "sha256": "63cd80e2e69855defbc33749ff9e4afa1d2804bf713a2aa5b06e08c1394bd2fe"
+      },
+      {
+        "path": "training-028672.npz",
+        "sha256": "6421c1cf10cfdcccad990a8dc38559e266022d17b57da7a7aaab78f88a43a59a"
+      },
+      {
+        "path": "training-029184.npz",
+        "sha256": "2cadb914ab8c4f79bd79108c3f59eaeddc44254fb884b05717dd3363888d8df8"
+      },
+      {
+        "path": "training-029696.npz",
+        "sha256": "50971a7fb57f14d31ffcf7e02117838530bb5ce2af75e2382c2cef02f59763dd"
+      },
+      {
+        "path": "training-030208.npz",
+        "sha256": "c380357129e3c222b0b2bee6771db22af5f4e7de958c6536ef74cd9c4fcccf2f"
+      },
+      {
+        "path": "training-030720.npz",
+        "sha256": "6a924769a9ffaf581b8f50f2fdf54fc9033387f2375c2b3b33200b8d9150e9db"
+      },
+      {
+        "path": "training-031232.npz",
+        "sha256": "bc897cc9839e99c762e51b41784cd100098826a90903933e53bcc416846c8e10"
+      },
+      {
+        "path": "training-031744.npz",
+        "sha256": "b0957f680ee2917680fb7efdf3d3a68b99a8ea1a1db9502006ef39854c0d2832"
+      },
+      {
+        "path": "training-032256.npz",
+        "sha256": "5c9a8fe62980b7824cedee23ee820bb379bbc32ea551ce9078ea39905162096a"
+      },
+      {
+        "path": "training-032768.npz",
+        "sha256": "5588b7daaf15c949e1d39866e90a89fbadc7ad607d7c339432708223a9c44253"
+      },
+      {
+        "path": "training-033280.npz",
+        "sha256": "48a140ffd7145d61dc9c94384dc1771eee2500e67b8d192200771114ee497093"
+      },
+      {
+        "path": "training-033792.npz",
+        "sha256": "9dcc3aa4a0a42093bcbcf2023190672d2c0de0b783a61bdce8cc0652ee57a7e8"
+      },
+      {
+        "path": "training-034304.npz",
+        "sha256": "7275e515b5c0572c9de32a2b8437dcff7ae92098d4d7535d3f2bac3296b42131"
+      },
+      {
+        "path": "training-034816.npz",
+        "sha256": "345298869b3d83ea52ed0be157f9caec8e8bcf50ac865fe155185904aaef8573"
+      },
+      {
+        "path": "training-035328.npz",
+        "sha256": "f045f5f439dc951b8e0933297294d3c0ebe314c2d5a615ffc30c7c007120a171"
+      },
+      {
+        "path": "training-035840.npz",
+        "sha256": "38d0a1cc175a39e2f0608f82ae895510c0c10d100af8f838bd0a8df3df990ca4"
+      },
+      {
+        "path": "training-036352.npz",
+        "sha256": "e198f682938cd7e1f41ebbdccfb85ab10209478cd2010150392d7827326d13b6"
+      },
+      {
+        "path": "training-036864.npz",
+        "sha256": "ce44a9100ccf55b7cc97af00ef54b2ac69e9b8483ba2e4ee8438719ce1e74a9c"
+      },
+      {
+        "path": "training-037376.npz",
+        "sha256": "5448ba6b35b57f1fc6c4faaf8551e033d196df9f53f432c6ecb92b75488f5136"
+      },
+      {
+        "path": "training-037888.npz",
+        "sha256": "e0c7bc0aa7060d9d51ae42b6975c031ecb020d1f4b3bdca8d4a1793557c7dc01"
+      },
+      {
+        "path": "training-038400.npz",
+        "sha256": "7a1b170cbd808d9a2a78d28715f5d81edc114fe684b794577d0b27628fef8cb9"
+      },
+      {
+        "path": "training-038912.npz",
+        "sha256": "a8a859353007c021a1b92dee271f24e897b69eebffd5c7389b438a418471407b"
+      },
+      {
+        "path": "training-039424.npz",
+        "sha256": "202091e34a2c803e2ffacd9c040ece48d8a51d162e493d2c471bd157cfaea5d8"
+      },
+      {
+        "path": "training-039936.npz",
+        "sha256": "780fd84d85b1841cc3608d0263b17f6c3586b13c403abf00c8e89d78d184f462"
+      },
+      {
+        "path": "training-040448.npz",
+        "sha256": "e6f0834fd5181174f2b766faf1b62f1d8ed2525ef27c3280c50b34452a922fac"
+      },
+      {
+        "path": "training-040960.npz",
+        "sha256": "14cd4ac404155ac65cd1cda247dd77160805a34ec9fa8a79ded1e87d46356d68"
+      },
+      {
+        "path": "training-041472.npz",
+        "sha256": "5c098aa12cb3613fdca2c597603023ad6ba7b77a4db211864b6f3c590b99fa0f"
+      },
+      {
+        "path": "training-041984.npz",
+        "sha256": "02c083a219c92833c511b664fbf6a47efa553cd618ea2d126d836244adc079fe"
+      },
+      {
+        "path": "training-042496.npz",
+        "sha256": "6a99b47609e7cf777c884976992e5e8acae1057d559fc7552e09c2ba1083c3ac"
+      },
+      {
+        "path": "training-043008.npz",
+        "sha256": "e3e993bf3800d8834429cd04b7b4abbca1c9338a00d138a4a341d0183b697f48"
+      },
+      {
+        "path": "training-043520.npz",
+        "sha256": "28c187af2e5036a5ce9d759548c3ed7eb8ea39adc7f3f596c16a1e5d69d059f1"
+      },
+      {
+        "path": "training-044032.npz",
+        "sha256": "c55ef3413fff1d8d5ed74082d659016a71e8df39ed92f9f49069082be37378ba"
+      },
+      {
+        "path": "training-044544.npz",
+        "sha256": "6ec4611cc4bceb026d5b3f9bff1238027d976fb7c6dfce5d57209ced915a30ed"
+      },
+      {
+        "path": "training-045056.npz",
+        "sha256": "c71cb6e0ac651149c88a533468979fc2cc96e60e6d4d2e12eaae97b557820f6a"
+      },
+      {
+        "path": "training-045568.npz",
+        "sha256": "68f3026c7aa3f215738130192d2d94223348d4b53ce89f12c41e786aa3a8c03a"
+      },
+      {
+        "path": "training-046080.npz",
+        "sha256": "9b83a96bd8ea8930f804a1c128777f6c126bbca7ea53c3651b635d198b94cafb"
+      },
+      {
+        "path": "training-046592.npz",
+        "sha256": "7267eea96c279055716121709fcd6193391521bb71a8cadeeb4c8a25a6e2f180"
+      },
+      {
+        "path": "training-047104.npz",
+        "sha256": "a6742f62632bdbb5034c426d07e7002712f8c323db39b4cd19389662d95e2b3b"
+      },
+      {
+        "path": "training-047616.npz",
+        "sha256": "7ab4d5ea835d52bf42628706b26a70ff217e6504a0f475be5a1157d0568e8dd3"
+      },
+      {
+        "path": "training-048128.npz",
+        "sha256": "2aae26de658efcd2d8023ae89715572c4e1f1de8e1aea3683121a63a35e3d661"
+      },
+      {
+        "path": "training-048640.npz",
+        "sha256": "6b8412797eaef2cb4a9e6773c5c6de96808f002c0bc6690295bd5a13ae55ca0c"
+      },
+      {
+        "path": "training-049152.npz",
+        "sha256": "bcb5f3500704977081b910b612c71636cee6bf00291a88cf9df19fcdb65584e0"
+      },
+      {
+        "path": "training-049664.npz",
+        "sha256": "bd8586376d59ce10032085d13460a83a4f8013f9436f08e60744da51c74e9bb9"
+      }
+    ],
+    "dataset_manifest_sha256": "e69ab48bb90a3d138aab7f0c4c23592cc8660dad4df597d1210b671323aec8b3",
+    "manifest_hash_algorithm": "sha256 of sorted compact JSON UTF-8",
+    "precision": "float64 statistics recovered from existing float32 observable features"
+  },
+  "current_epoch": 20,
+  "optimizer_steps": 15640,
+  "elapsed_seconds": 2949.1577947999904,
+  "epoch_catalogs_processed": 47440,
+  "stopping_reason": "configured epoch limit reached",
+  "checkpoint_sha256": "006325b912cbe4f121576e670301c80ca938832ea040501fe6612611037f54ae"
+}

@@ -1,8 +1,9 @@
 # Phase 2a status — Phase 2a incomplete; Phase 3 blocked
 
-Current update: the observable bypass and complete posterior gate runner are
-implemented and quick-tested. The isolated conditioning run remains unstarted.
-HANDOFF.md provides the exact single-run execution sequence. G-P7's approved
+Current update: conditioned training completed. Both contraction sizes and
+independent full SBC are now recorded; G-P6 and G-P4 remain failed. The followup
+did not retrain or alter criteria. See CONDITIONING_FOLLOWUP.md, including its
+existing floating-point boundary finding. Do not relaunch training. G-P7's approved
 soft scope is per-family coverage plus selection ignored; a true cross-family
 experiment is deferred to Phase 2b in the ledger. The results below remain the
 baseline evidence, not results from the repaired architecture.
@@ -29,9 +30,8 @@ ran an extra epoch after patience was already exhausted. Its stopping
 fidelity is FAIL; this does not change the evaluated best checkpoint.
 See [AUDIT_REPORT.md](AUDIT_REPORT.md) for evidence and limitations.
 
-Still required for Phase 2a: execute the prepared training run and demonstrate
-calibrated, informative conditional learning through the implemented full
-gate suite, soft reports and full-column Macquart smoke test.
+Still required for Phase 2a: human review of the contraction/SBC failures, then
+authorized next steps and the remaining gates/soft reports/smoke.
 The original gate ledger stays failed/incomplete.
 
 Phase 1 remains independently incomplete: pygedm/G5 and L2/GLASS/G3 are

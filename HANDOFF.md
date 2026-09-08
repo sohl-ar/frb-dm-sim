@@ -1,5 +1,11 @@
 # Execute the conditioning experiment once
 
+**Execution update: this training attempt is complete. Do not relaunch these
+commands.** The human subsequently authorized the remaining contraction size
+and independent SBC despite the initial contraction failure. Their results,
+unchanged gate statuses and next-step assessment are in CONDITIONING_FOLLOWUP.md.
+The instructions below are retained as the historical execution handoff.
+
 The architect implemented and quick-tested the statistics bypass and full gate
 infrastructure. **No new training, full SBC or full gate suite has run.**
 The original checkpoint and results remain the baseline. Run this handoff in
