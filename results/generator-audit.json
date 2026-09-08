@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "git_sha": "0c8c3d4111548b0931c55617e9b4fe05815b2be4",
-    "git_dirty": true,
+    "git_sha": "3a7d67b0b92e006e5876071267f711749d37a1ca",
+    "git_dirty": false,
     "seeds": [
       60010,
       60011,
@@ -588,10 +588,10 @@
   "n_bursts": 128911,
   "observed_size_min": 2,
   "observed_size_max": 512,
-  "cold_seconds": 3.9084938000014517,
-  "cold_bursts_per_second": 32982.27056160409,
-  "warm_seconds": 2.4315067999996245,
-  "warm_bursts_per_second": 53016.91938514007,
+  "cold_seconds": 8.084196799998608,
+  "cold_bursts_per_second": 15946.049210482133,
+  "warm_seconds": 6.732726800000819,
+  "warm_bursts_per_second": 19146.922759435944,
   "performance_tolerance": 8600.0,
   "cold_setup_included": true,
   "bit_identical_replay": true,

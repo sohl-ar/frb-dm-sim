@@ -1,28 +1,28 @@
-         10522 function calls (10488 primitive calls) in 0.399 seconds
+         10522 function calls (10488 primitive calls) in 0.876 seconds
 
    Ordered by: cumulative time
    List reduced from 265 to 20 due to restriction <20>
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        1    0.002    0.002    0.399    0.399 C:\Users\sachi\Documents\Codex\2026-09-06\below-is-the-complete-final-spec\outputs\frb-dm-sim\src\frbsbi\generator.py:136(generate_batch)
-        1    0.004    0.004    0.317    0.317 C:\Users\sachi\Documents\Codex\2026-09-06\below-is-the-complete-final-spec\outputs\frb-dm-sim\src\frbsbi\selection.py:75(quantile_above)
-       49    0.312    0.006    0.312    0.006 C:\Users\sachi\Documents\Codex\2026-09-06\below-is-the-complete-final-spec\outputs\frb-dm-sim\src\frbsbi\selection.py:21(log_upper_gamma)
-        1    0.000    0.000    0.060    0.060 C:\Users\sachi\Documents\Codex\2026-09-06\below-is-the-complete-final-spec\outputs\frb-dm-sim\src\frbsim\catalog.py:25(git_provenance)
-        2    0.000    0.000    0.059    0.030 C:\Users\sachi\Documents\Codex\2026-09-06\below-is-the-complete-final-spec\outputs\frb-dm-sim\src\frbsim\catalog.py:27(run)
-        2    0.000    0.000    0.059    0.030 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py:506(run)
-        2    0.000    0.000    0.049    0.025 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py:1165(communicate)
-        2    0.000    0.000    0.049    0.024 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py:1603(_communicate)
-    28/20    0.000    0.000    0.049    0.002 {method 'acquire' of '_thread.lock' objects}
-        4    0.000    0.000    0.049    0.012 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py:1117(join)
-        4    0.000    0.000    0.049    0.012 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py:1155(_wait_for_tstate_lock)
-      4/2    0.001    0.000    0.049    0.024 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py:1018(_bootstrap)
-      4/2    0.000    0.000    0.048    0.024 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py:1058(_bootstrap_inner)
-      4/2    0.000    0.000    0.048    0.024 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py:1001(run)
-      4/2    0.000    0.000    0.048    0.024 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py:1598(_readerthread)
-    12/10    0.000    0.000    0.048    0.005 {method 'close' of '_io.TextIOWrapper' objects}
-        1    0.003    0.003    0.019    0.019 C:\Users\sachi\Documents\Codex\2026-09-06\below-is-the-complete-final-spec\outputs\frb-dm-sim\src\frbsbi\generator.py:121(cosmic_from_uniforms)
-      248    0.008    0.000    0.014    0.000 C:\Users\sachi\Documents\Codex\2026-09-06\below-is-the-complete-final-spec\outputs\frb-dm-sim\src\frbsim\fields.py:39(ppf)
-        2    0.000    0.000    0.010    0.005 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py:807(__init__)
-        2    0.000    0.000    0.010    0.005 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py:1436(_execute_child)
+        1    0.004    0.004    0.876    0.876 C:\Users\sachi\Documents\Codex\2026-09-06\below-is-the-complete-final-spec\outputs\frb-dm-sim\src\frbsbi\generator.py:136(generate_batch)
+        1    0.010    0.010    0.750    0.750 C:\Users\sachi\Documents\Codex\2026-09-06\below-is-the-complete-final-spec\outputs\frb-dm-sim\src\frbsbi\selection.py:75(quantile_above)
+       49    0.739    0.015    0.740    0.015 C:\Users\sachi\Documents\Codex\2026-09-06\below-is-the-complete-final-spec\outputs\frb-dm-sim\src\frbsbi\selection.py:21(log_upper_gamma)
+        1    0.000    0.000    0.070    0.070 C:\Users\sachi\Documents\Codex\2026-09-06\below-is-the-complete-final-spec\outputs\frb-dm-sim\src\frbsim\catalog.py:25(git_provenance)
+        2    0.000    0.000    0.069    0.035 C:\Users\sachi\Documents\Codex\2026-09-06\below-is-the-complete-final-spec\outputs\frb-dm-sim\src\frbsim\catalog.py:27(run)
+        2    0.000    0.000    0.069    0.034 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py:506(run)
+        2    0.000    0.000    0.051    0.025 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py:1165(communicate)
+        2    0.000    0.000    0.051    0.025 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py:1603(_communicate)
+        4    0.000    0.000    0.050    0.013 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py:1117(join)
+    28/20    0.000    0.000    0.050    0.003 {method 'acquire' of '_thread.lock' objects}
+        4    0.000    0.000    0.050    0.013 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py:1155(_wait_for_tstate_lock)
+      4/2    0.001    0.000    0.050    0.025 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py:1018(_bootstrap)
+      4/2    0.000    0.000    0.049    0.025 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py:1058(_bootstrap_inner)
+      4/2    0.000    0.000    0.049    0.025 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\threading.py:1001(run)
+      4/2    0.000    0.000    0.049    0.024 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py:1598(_readerthread)
+    12/10    0.000    0.000    0.049    0.005 {method 'close' of '_io.TextIOWrapper' objects}
+        1    0.007    0.007    0.045    0.045 C:\Users\sachi\Documents\Codex\2026-09-06\below-is-the-complete-final-spec\outputs\frb-dm-sim\src\frbsbi\generator.py:121(cosmic_from_uniforms)
+      248    0.020    0.000    0.034    0.000 C:\Users\sachi\Documents\Codex\2026-09-06\below-is-the-complete-final-spec\outputs\frb-dm-sim\src\frbsim\fields.py:39(ppf)
+        2    0.000    0.000    0.018    0.009 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py:807(__init__)
+        2    0.000    0.000    0.017    0.009 C:\Users\sachi\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py:1436(_execute_child)
 
 

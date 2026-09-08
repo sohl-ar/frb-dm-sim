@@ -1,21 +1,15 @@
 {
   "schema_version": 1,
   "scope": "Phase 2a preflight only",
-  "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4",
+  "git_sha": "3a7d67b0b92e006e5876071267f711749d37a1ca",
   "git_dirty": true,
   "config_hash": "752110e31a35f8f386f8724d3561c95930df50514e16e582524a1f4e32b753c1",
   "python": "3.12.14",
   "numpy": "2.5.3",
   "acceptance_complete": false,
   "exit_status": 1,
-  "preflight_tests_passed": false,
-  "test_failures": [
-    {
-      "nodeid": "tests/phase2a/test_selection.py::test_selection_authorized_prints",
-      "phase": "call",
-      "detail": "def test_selection_authorized_prints():\n        path = Path(__file__).resolve().parents[2]/\"scripts\"/\"selection_audit.py\"\n        spec = importlib.util.spec_from_file_location(\"selection_audit\", path)\n        audit = importlib.util.module_from_spec(spec)\n        spec.loader.exec_module(audit)\n        report = audit.run_audit()\n        assert report[\"numeric_checks_pass\"], \"STOP: Schechter sampler validation failed\"\n>       assert report[\"prints_within_factor_two\"], (\n            \"STOP: authorized LF disagrees with selection prints; see results/selection-audit.json\")\nE       AssertionError: STOP: authorized LF disagrees with selection prints; see results/selection-audit.json\nE       assert False\n\ntests\\phase2a\\test_selection.py:16: AssertionError"
-    }
-  ],
+  "preflight_tests_passed": true,
+  "test_failures": [],
   "pretraining": {
     "T1": {
       "name": "T1",
@@ -65,11 +59,12 @@
       "limitation": "Finite-cutoff fourth moment makes the variance gate broad; three standard errors do not imply Gaussian coverage."
     },
     "T2": {
-      "status": "blocked",
+      "status": "pass",
       "D4_D5_authorization": "resolved: docs/SPEC-02a-authorization.txt",
-      "reason": "STOP: selection print comparison failed",
+      "reason": "Authorized selected generator validated",
       "selection_evidence": "results/selection-audit.json",
-      "selection_evidence_sha256": "545fd48837f1ad419eb8442de34356b6160d2aca2e48c338ce6fd38934ede990"
+      "selection_evidence_sha256": "580d2b198288804c843d90743729237ac27b7c24d58d4f128eeae2407c4f98ad",
+      "z02_verified": true
     },
     "T3": {
       "status": "not_run"
@@ -112,5 +107,24 @@
   "smoke_test": {
     "status": "not_run"
   },
-  "trained_checkpoint": null
+  "trained_checkpoint": null,
+  "training_data_generator": {
+    "status": "pass",
+    "evidence": "results/generator-audit.json",
+    "cold_bursts_per_second": 15946.049210482133,
+    "required_bursts_per_second": 8600.0,
+    "sha256": "d08fe47c249fd501c464f5f2879f8f5918df7500df5d3c189722ef1f29e7a1a5"
+  },
+  "open_findings": [
+    {
+      "name": "low_redshift_dominance_claim",
+      "status": "discrepancy_reported",
+      "claim": "selected catalogs are dominated by z<=0.5",
+      "actual_quadrature_fraction_below_z05": {
+        "sfr": 0.1693582700783235,
+        "constant_comoving": 0.32238215086070876
+      },
+      "action": "No population changes; do not claim selection consistency with low-z ASKAP samples without evidence."
+    }
+  ]
 }
