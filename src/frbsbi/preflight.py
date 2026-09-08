@@ -140,6 +140,14 @@ def write_phase2a_report(root, t1, tests_passed, failures):
         report["pretraining"]["T3"] = {"status":prior["status"],"evidence":"results/prior-predictive.json",
             "event_CDFs":{e["frb"]:e["quadrature_CDF"] for e in prior["events"]},
             "sha256":hashlib.sha256(prior_path.read_bytes()).hexdigest()}
+    for key,filename in (("model_engineering","model-audit.json"),("training","training.json")):
+        path = root / "results" / filename
+        if path.exists():
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            report[key] = {"status":payload["status"],"evidence":"results/"+filename,
+                           "sha256":hashlib.sha256(path.read_bytes()).hexdigest()}
+            if key=="training" and payload.get("status")=="training_complete_unvalidated":
+                report["trained_checkpoint"] = payload["checkpoint"]
     target = root / "results" / "phase2a_gates.json"
     target.parent.mkdir(exist_ok=True)
     temporary = target.with_suffix(".tmp")

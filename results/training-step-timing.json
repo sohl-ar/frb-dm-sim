@@ -1,0 +1,11 @@
+{
+  "batch_size": 64,
+  "step_seconds": [
+    0.14258649999828776,
+    0.12177920000249287,
+    0.15594749999581836,
+    0.3401795999961905,
+    0.3412300999989384
+  ],
+  "scope": "engineering timing only, five steps, disposable model"
+}
