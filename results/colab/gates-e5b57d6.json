@@ -1,0 +1,1057 @@
+{
+  "schema_version": 1,
+  "started_unix": 1788825457.7586591,
+  "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4",
+  "git_dirty": true,
+  "gates": {
+    "G1": {
+      "name": "G1",
+      "status": "pass",
+      "checks": [
+        {
+          "name": "unit_column",
+          "status": "pass",
+          "measured": 1.0,
+          "tolerance": {
+            "equals": 1.0
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "K",
+          "status": "pass",
+          "measured": 972.8850471136672,
+          "tolerance": {
+            "range": [
+              950.0,
+              1000.0
+            ]
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "integral_at_1",
+          "status": "pass",
+          "measured": 1.1095896083776255,
+          "tolerance": {
+            "range": [
+              1.1,
+              1.12
+            ]
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "DM_at_1",
+          "status": "pass",
+          "measured": 917.5776676598066,
+          "tolerance": {
+            "range": [
+              880.0,
+              940.0
+            ]
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "low_z_slope",
+          "status": "pass",
+          "measured": 826.9523118574822,
+          "tolerance": {
+            "anchor": 827.05,
+            "relative": 0.001
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "four_way_z=0.1",
+          "status": "pass",
+          "measured": {
+            "a_b_c_d": [
+              84.71079387020302,
+              84.71079387020305,
+              84.71079387020862,
+              84.71164017397527
+            ],
+            "max_relative": 9.99050691870501e-06
+          },
+          "tolerance": {
+            "relative": 0.001
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "authors_z=0.1",
+          "status": "pass",
+          "measured": 9.990506918633457e-06,
+          "tolerance": {
+            "relative": 0.01
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "four_way_z=0.5",
+          "status": "pass",
+          "measured": {
+            "a_b_c_d": [
+              449.26117185974664,
+              449.2611718597468,
+              449.2611718599891,
+              449.26558473002956
+            ],
+            "max_relative": 9.822505391802369e-06
+          },
+          "tolerance": {
+            "relative": 0.001
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "authors_z=0.5",
+          "status": "pass",
+          "measured": 9.822505391721137e-06,
+          "tolerance": {
+            "relative": 0.01
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "four_way_z=1.0",
+          "status": "pass",
+          "measured": {
+            "a_b_c_d": [
+              917.5776676598066,
+              917.5776676598067,
+              917.5776676609032,
+              917.586421700965
+            ],
+            "max_relative": 9.540381666851666e-06
+          },
+          "tolerance": {
+            "relative": 0.001
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "authors_z=1.0",
+          "status": "pass",
+          "measured": 9.54038166689486e-06,
+          "tolerance": {
+            "relative": 0.01
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "four_way_z=1.5",
+          "status": "pass",
+          "measured": {
+            "a_b_c_d": [
+              1367.3637740520635,
+              1367.3637740520635,
+              1367.3637740545255,
+              1367.3765245017316
+            ],
+            "max_relative": 9.324840916592305e-06
+          },
+          "tolerance": {
+            "relative": 0.001
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "authors_z=1.5",
+          "status": "pass",
+          "measured": 9.324840916535848e-06,
+          "tolerance": {
+            "relative": 0.01
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "chi_astropy",
+          "status": "pass",
+          "measured": 5.011546733157957e-13,
+          "tolerance": {
+            "relative": 1e-06
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "DL_astropy",
+          "status": "pass",
+          "measured": 5.011546733157957e-13,
+          "tolerance": {
+            "relative": 1e-06
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        }
+      ]
+    },
+    "G2": {
+      "name": "G2",
+      "status": "pass",
+      "checks": [
+        {
+          "name": "uniform_1000_rays_z=0.1",
+          "status": "pass",
+          "measured": 2.220446049250313e-16,
+          "tolerance": {
+            "relative": 1e-06
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "shell_doubling_z=0.1",
+          "status": "pass",
+          "measured": 2.220446049250313e-16,
+          "tolerance": {
+            "relative": 0.005
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "uniform_1000_rays_z=0.5",
+          "status": "pass",
+          "measured": 9.992007221626409e-16,
+          "tolerance": {
+            "relative": 1e-06
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "shell_doubling_z=0.5",
+          "status": "pass",
+          "measured": 1.1102230246251565e-15,
+          "tolerance": {
+            "relative": 0.005
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "uniform_1000_rays_z=1.0",
+          "status": "pass",
+          "measured": 4.984901380566953e-14,
+          "tolerance": {
+            "relative": 1e-06
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "shell_doubling_z=1.0",
+          "status": "pass",
+          "measured": 4.951594689828198e-14,
+          "tolerance": {
+            "relative": 0.005
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "uniform_1000_rays_z=1.5",
+          "status": "pass",
+          "measured": 3.6071146070071336e-13,
+          "tolerance": {
+            "relative": 1e-06
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "shell_doubling_z=1.5",
+          "status": "pass",
+          "measured": 3.5504932327512506e-13,
+          "tolerance": {
+            "relative": 0.005
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        }
+      ]
+    },
+    "G3": {
+      "name": "G3",
+      "status": "blocked",
+      "checks": [],
+      "pending": "BLOCKED: GLASS/healpy native dependency build; L2 power and density validation not implemented"
+    },
+    "G4": {
+      "name": "G4",
+      "status": "partial",
+      "checks": [
+        {
+          "name": "L0_mean_500_catalogs_z=0.1",
+          "status": "pass",
+          "measured": {
+            "sample_relative_error": 0.0008814904633491771,
+            "quadrature_mean": 1.0000000000000113,
+            "C0": 2.4315830077458034,
+            "log_A": -0.14729369439893492,
+            "delta_max": 10000.0,
+            "truncated_std_delta": 1.732288795016489
+          },
+          "tolerance": {
+            "relative_mean": 0.01
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_cutoff_convergence_z=0.1",
+          "status": "pass",
+          "measured": 2.9996216153960198e-05,
+          "tolerance": {
+            "relative": 0.01
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_asymmetry_z=0.1",
+          "status": "pass",
+          "measured": [
+            0.5742658403370284,
+            1.9823168683328043
+          ],
+          "tolerance": {
+            "condition": "mean-q05 < q95-mean"
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_mean_500_catalogs_z=0.5",
+          "status": "pass",
+          "measured": {
+            "sample_relative_error": 0.0008082886526656896,
+            "quadrature_mean": 1.000000000000715,
+            "C0": 1.7256909517313412,
+            "log_A": 0.4767253585852944,
+            "delta_max": 10000.0,
+            "truncated_std_delta": 1.2725449777361686
+          },
+          "tolerance": {
+            "relative_mean": 0.01
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_cutoff_convergence_z=0.5",
+          "status": "pass",
+          "measured": 2.0031994671265707e-05,
+          "tolerance": {
+            "relative": 0.01
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_asymmetry_z=0.5",
+          "status": "pass",
+          "measured": [
+            0.6928467738683972,
+            1.6051057919493166
+          ],
+          "tolerance": {
+            "condition": "mean-q05 < q95-mean"
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_mean_500_catalogs_z=1.0",
+          "status": "pass",
+          "measured": {
+            "sample_relative_error": 0.0011885319922104731,
+            "quadrature_mean": 0.9999999999998989,
+            "C0": 1.4497999121716263,
+            "log_A": 0.7688593000520371,
+            "delta_max": 10000.0,
+            "truncated_std_delta": 0.9679939976370051
+          },
+          "tolerance": {
+            "relative_mean": 0.01
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_cutoff_convergence_z=1.0",
+          "status": "pass",
+          "measured": 1.1028179424887874e-05,
+          "tolerance": {
+            "relative": 0.01
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_asymmetry_z=1.0",
+          "status": "pass",
+          "measured": [
+            0.7506127229662966,
+            1.4362709780003002
+          ],
+          "tolerance": {
+            "condition": "mean-q05 < q95-mean"
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_mean_500_catalogs_z=1.5",
+          "status": "pass",
+          "measured": {
+            "sample_relative_error": 4.923982628968204e-06,
+            "quadrature_mean": 0.9999999999999701,
+            "C0": 1.3162025915707631,
+            "log_A": 0.9456411780200792,
+            "delta_max": 10000.0,
+            "truncated_std_delta": 0.7552085300410221
+          },
+          "tolerance": {
+            "relative_mean": 0.01
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_cutoff_convergence_z=1.5",
+          "status": "pass",
+          "measured": 6.162647804397459e-06,
+          "tolerance": {
+            "relative": 0.01
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_asymmetry_z=1.5",
+          "status": "pass",
+          "measured": [
+            0.7848661354689255,
+            1.3532177243879155
+          ],
+          "tolerance": {
+            "condition": "mean-q05 < q95-mean"
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_Table1_zero_noise_limit",
+          "status": "pass",
+          "measured": {
+            "covered": 5,
+            "events": [
+              {
+                "frb": "180924",
+                "z": 0.3214,
+                "dm_observed": 361.42,
+                "dm_cosmic_estimated": 243.58134402906012,
+                "analytic_mean": 283.08067963662717,
+                "predictive_5_95": [
+                  192.83599464908212,
+                  706.7955890769433
+                ],
+                "inside": true,
+                "tentative": false
+              },
+              {
+                "frb": "181112",
+                "z": 0.4755,
+                "dm_observed": 589.27,
+                "dm_cosmic_estimated": 475.3831819722128,
+                "analytic_mean": 426.29346866387215,
+                "predictive_5_95": [
+                  303.8246987108076,
+                  823.8836833504374
+                ],
+                "inside": true,
+                "tentative": false
+              },
+              {
+                "frb": "190102",
+                "z": 0.2913,
+                "dm_observed": 363.6,
+                "dm_cosmic_estimated": 244.8793309068381,
+                "analytic_mean": 255.4738067977042,
+                "predictive_5_95": [
+                  172.88769650381485,
+                  556.5254676522515
+                ],
+                "inside": true,
+                "tentative": false
+              },
+              {
+                "frb": "190608",
+                "z": 0.1178,
+                "dm_observed": 338.7,
+                "dm_cosmic_estimated": 213.96927894077652,
+                "analytic_mean": 100.17195010442849,
+                "predictive_5_95": [
+                  60.985695677454146,
+                  400.30438848415116
+                ],
+                "inside": true,
+                "tentative": false
+              },
+              {
+                "frb": "190611",
+                "z": 0.378,
+                "dm_observed": 321.4,
+                "dm_cosmic_estimated": 205.11552975326558,
+                "analytic_mean": 335.36735344732904,
+                "predictive_5_95": [
+                  237.48860079281448,
+                  707.9269064358249
+                ],
+                "inside": false,
+                "tentative": true
+              },
+              {
+                "frb": "190711",
+                "z": 0.522,
+                "dm_observed": 593.1,
+                "dm_cosmic_estimated": 480.2484888304862,
+                "analytic_mean": 469.91354128562335,
+                "predictive_5_95": [
+                  343.1794947996054,
+                  808.1677672701803
+                ],
+                "inside": true,
+                "tentative": false
+              }
+            ],
+            "noise_model": "zero-noise limit; not full noisy G4(iii) acceptance"
+          },
+          "tolerance": {
+            "minimum_covered": 5,
+            "realizations_per_event": 500
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        }
+      ],
+      "pending": "PARTIAL: L0 checks only; calibrated L2 G4(ii) and full noisy pipeline G4(iii) remain"
+    },
+    "G5": {
+      "name": "G5",
+      "status": "blocked",
+      "checks": [],
+      "pending": "BLOCKED: pygedm native build; pulsar and pole validations not executed"
+    },
+    "G6": {
+      "name": "G6",
+      "status": "pass",
+      "checks": [
+        {
+          "name": "host_default_citations",
+          "status": "pass",
+          "measured": {
+            "host_median": "SPEC-FINAL v2.1 choice within Macquart Eq. 3 ranges",
+            "host_sigma_ln": "SPEC-FINAL v2.1 choice within Macquart Eq. 3 ranges"
+          },
+          "tolerance": {
+            "require": "Macquart Eq. 3 ranges + spec choices"
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "host_base_conversion",
+          "status": "pass",
+          "measured": {
+            "median": 100.00000000000004,
+            "sigma_ln": 0.9210340371976184
+          },
+          "tolerance": {
+            "median": 100.0,
+            "both_parameters_converted": true
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "host_observed_scaling",
+          "status": "pass",
+          "measured": 0.0,
+          "tolerance": {
+            "equals": 0.0
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        }
+      ]
+    },
+    "G7": {
+      "name": "G7",
+      "status": "partial",
+      "checks": [
+        {
+          "name": "L0_fixture_seed_replay",
+          "status": "pass",
+          "measured": {
+            "bit_identical": true,
+            "n": 10000
+          },
+          "tolerance": {
+            "bit_identical": true
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_fixture_runtime",
+          "status": "pass",
+          "measured": 13.628526196999928,
+          "tolerance": {
+            "seconds_max": 300.0
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_fixture_nonfinite",
+          "status": "pass",
+          "measured": 0,
+          "tolerance": {
+            "equals": 0
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "L0_fixture_statistics_report",
+          "status": "pass",
+          "measured": [
+            {
+              "z_bin": [
+                0.05,
+                0.4
+              ],
+              "count": 151,
+              "dm_mean": 265.0004232113245,
+              "dm_5_95": [
+                101.24785375345729,
+                543.0178346314823
+              ]
+            },
+            {
+              "z_bin": [
+                0.4,
+                0.8
+              ],
+              "count": 1301,
+              "dm_mean": 584.2596663421989,
+              "dm_5_95": [
+                297.82424510361886,
+                1079.879993153083
+              ]
+            },
+            {
+              "z_bin": [
+                0.8,
+                1.2
+              ],
+              "count": 3830,
+              "dm_mean": 928.251225869202,
+              "dm_5_95": [
+                570.1498914549288,
+                1582.6049688447652
+              ]
+            },
+            {
+              "z_bin": [
+                1.2,
+                1.5
+              ],
+              "count": 4718,
+              "dm_mean": 1244.9900879544496,
+              "dm_5_95": [
+                838.6661859651354,
+                2007.550264576692
+              ]
+            }
+          ],
+          "tolerance": {
+            "report_only": true,
+            "pending": "comparison in full L2 pipeline"
+          },
+          "hard": false,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        }
+      ],
+      "pending": "PARTIAL: L0 fixed-ISM engineering fixture only; full L2 + pygedm catalog remains"
+    },
+    "G8": {
+      "name": "G8",
+      "status": "pass",
+      "checks": [
+        {
+          "name": "G8a_Euclidean_delta_LF",
+          "status": "pass",
+          "measured": {
+            "slope": -1.49577396401121,
+            "counts": [
+              353887,
+              311654,
+              274493,
+              241819,
+              212996,
+              187827,
+              165508,
+              145794,
+              128476,
+              113357,
+              99963,
+              88144,
+              77612,
+              68409,
+              60327,
+              53141,
+              46690,
+              40948,
+              36012,
+              31731
+            ],
+            "r_min": 0.0001,
+            "r_max": 1.0,
+            "thresholds": [
+              2.0,
+              2.1767968014607746,
+              2.3692221574249293,
+              2.5786576071162908,
+              2.806606815616618,
+              3.054706369596132,
+              3.3247375273693565,
+              3.61863900763711,
+              3.938520908732826,
+              4.286679858307999,
+              4.66561550222559,
+              5.078048451045233,
+              5.5269398129490535,
+              6.0155124533468545,
+              6.547274133796443,
+              7.126042696367482,
+              7.755973474262822,
+              8.441589125494964,
+              9.187812103811744,
+              10.0
+            ]
+          },
+          "tolerance": {
+            "slope": -1.5,
+            "absolute": 0.1
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "G8a_monotonic",
+          "status": "pass",
+          "measured": [
+            353887,
+            311654,
+            274493,
+            241819,
+            212996,
+            187827,
+            165508,
+            145794,
+            128476,
+            113357,
+            99963,
+            88144,
+            77612,
+            68409,
+            60327,
+            53141,
+            46690,
+            40948,
+            36012,
+            31731
+          ],
+          "tolerance": {
+            "nonincreasing": true
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "G8b_fixed_DL_alpha=1.8",
+          "status": "pass",
+          "measured": {
+            "slope": -0.8027850126175211,
+            "counts": [
+              158431,
+              143893,
+              130619,
+              118654,
+              107601,
+              97574,
+              88439,
+              80124,
+              72744,
+              65982,
+              59934,
+              54435,
+              49356,
+              44634,
+              40439,
+              36788,
+              33461,
+              30329,
+              27554,
+              25073
+            ]
+          },
+          "tolerance": {
+            "slope": -0.8,
+            "absolute": 0.1
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "G8b_monotonic_alpha=1.8",
+          "status": "pass",
+          "measured": [
+            158431,
+            143893,
+            130619,
+            118654,
+            107601,
+            97574,
+            88439,
+            80124,
+            72744,
+            65982,
+            59934,
+            54435,
+            49356,
+            44634,
+            40439,
+            36788,
+            33461,
+            30329,
+            27554,
+            25073
+          ],
+          "tolerance": {
+            "nonincreasing": true
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "G8b_fixed_DL_alpha=2.0",
+          "status": "pass",
+          "measured": {
+            "slope": -1.0031642654910602,
+            "counts": [
+              100179,
+              88797,
+              78667,
+              69642,
+              61770,
+              54661,
+              48406,
+              42956,
+              37906,
+              33417,
+              29646,
+              26290,
+              23271,
+              20601,
+              18241,
+              16170,
+              14331,
+              12677,
+              11275,
+              9996
+            ]
+          },
+          "tolerance": {
+            "slope": -1.0,
+            "absolute": 0.1
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "G8b_monotonic_alpha=2.0",
+          "status": "pass",
+          "measured": [
+            100179,
+            88797,
+            78667,
+            69642,
+            61770,
+            54661,
+            48406,
+            42956,
+            37906,
+            33417,
+            29646,
+            26290,
+            23271,
+            20601,
+            18241,
+            16170,
+            14331,
+            12677,
+            11275,
+            9996
+          ],
+          "tolerance": {
+            "nonincreasing": true
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "G8b_fixed_DL_alpha=2.2",
+          "status": "pass",
+          "measured": {
+            "slope": -1.1887840344646676,
+            "counts": [
+              62978,
+              54472,
+              47275,
+              40940,
+              35441,
+              30667,
+              26498,
+              23008,
+              19970,
+              17248,
+              14925,
+              12904,
+              11212,
+              9715,
+              8430,
+              7311,
+              6361,
+              5459,
+              4701,
+              4012
+            ]
+          },
+          "tolerance": {
+            "slope": -1.2000000000000002,
+            "absolute": 0.1
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "G8b_monotonic_alpha=2.2",
+          "status": "pass",
+          "measured": [
+            62978,
+            54472,
+            47275,
+            40940,
+            35441,
+            30667,
+            26498,
+            23008,
+            19970,
+            17248,
+            14925,
+            12904,
+            11212,
+            9715,
+            8430,
+            7311,
+            6361,
+            5459,
+            4701,
+            4012
+          ],
+          "tolerance": {
+            "nonincreasing": true
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "Malmquist_report_delta_L_fixture",
+          "status": "pass",
+          "measured": {
+            "scope": "numerical fixture; no empirical survey prediction",
+            "threshold": 1.155437613108023e-09,
+            "intrinsic_mean_z": 1.1172128021981214,
+            "detected_mean_z": 0.8869790565968888,
+            "delta_z": -0.23023374560123255,
+            "intrinsic_mean_DMcosmic": 1013.171094119889,
+            "detected_mean_DMcosmic": 798.652955667108,
+            "delta_DMcosmic": -214.51813845278093
+          },
+          "tolerance": {
+            "report_only": true
+          },
+          "hard": false,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        }
+      ]
+    },
+    "G9": {
+      "name": "G9",
+      "status": "pass",
+      "checks": [
+        {
+          "name": "default_redshift_floor",
+          "status": "pass",
+          "measured": {
+            "configured_minimum": 0.05,
+            "sample_minimum": 0.10805283581699746
+          },
+          "tolerance": {
+            "minimum": 0.05
+          },
+          "hard": false,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        },
+        {
+          "name": "peculiar_velocity_documentation",
+          "status": "pass",
+          "measured": {
+            "documented": true
+          },
+          "tolerance": {
+            "required": true
+          },
+          "hard": false,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        }
+      ]
+    }
+  },
+  "requested_level": "l2",
+  "gate_tests_selected": true,
+  "exit_status": 1,
+  "elapsed_seconds": 25.193700551986694,
+  "acceptance_complete": false
+}

@@ -1,15 +1,21 @@
 {
   "schema_version": 1,
   "scope": "Phase 2a preflight only",
-  "git_sha": "ffcdedc1a0d42df0512390961ab9e5cb841649e1",
-  "git_dirty": false,
-  "config_hash": "f3882ed78ea487067dc92abd6ff81b899b34c45a5a8afaf277dad633f84da4ba",
+  "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4",
+  "git_dirty": true,
+  "config_hash": "752110e31a35f8f386f8724d3561c95930df50514e16e582524a1f4e32b753c1",
   "python": "3.12.14",
   "numpy": "2.5.3",
   "acceptance_complete": false,
   "exit_status": 1,
-  "preflight_tests_passed": true,
-  "test_failures": [],
+  "preflight_tests_passed": false,
+  "test_failures": [
+    {
+      "nodeid": "tests/phase2a/test_selection.py::test_selection_authorized_prints",
+      "phase": "call",
+      "detail": "def test_selection_authorized_prints():\n        path = Path(__file__).resolve().parents[2]/\"scripts\"/\"selection_audit.py\"\n        spec = importlib.util.spec_from_file_location(\"selection_audit\", path)\n        audit = importlib.util.module_from_spec(spec)\n        spec.loader.exec_module(audit)\n        report = audit.run_audit()\n        assert report[\"numeric_checks_pass\"], \"STOP: Schechter sampler validation failed\"\n>       assert report[\"prints_within_factor_two\"], (\n            \"STOP: authorized LF disagrees with selection prints; see results/selection-audit.json\")\nE       AssertionError: STOP: authorized LF disagrees with selection prints; see results/selection-audit.json\nE       assert False\n\ntests\\phase2a\\test_selection.py:16: AssertionError"
+    }
+  ],
   "pretraining": {
     "T1": {
       "name": "T1",
@@ -53,14 +59,17 @@
         },
         "audit": {
           "start": 60000,
-          "stop": 60001
+          "stop": 70000
         }
       },
       "limitation": "Finite-cutoff fourth moment makes the variance gate broad; three standard errors do not imply Gaussian coverage."
     },
     "T2": {
       "status": "blocked",
-      "reason": "D4 fixture threshold is zero; D5 requires human-sourced LF slope, bounds and unit convention"
+      "D4_D5_authorization": "resolved: docs/SPEC-02a-authorization.txt",
+      "reason": "STOP: selection print comparison failed",
+      "selection_evidence": "results/selection-audit.json",
+      "selection_evidence_sha256": "545fd48837f1ad419eb8442de34356b6160d2aca2e48c338ce6fd38934ede990"
     },
     "T3": {
       "status": "not_run"

@@ -42,7 +42,7 @@ def assert_disjoint_seed_ranges(ranges):
 SEED_RANGES = {"training": SeedRange(0, 50_000),
                "validation": SeedRange(50_000, 55_000),
                "test": SeedRange(55_000, 60_000),
-               "audit": SeedRange(60_000, 60_001)}
+               "audit": SeedRange(60_000, 70_000)}
 T1_CONFIG = {"n": 10_000, "z": 0.5, "F": 0.32, "f_d": 0.85,
              "seed": SEED_RANGES["audit"].start}
 
@@ -108,6 +108,16 @@ def write_phase2a_report(root, t1, tests_passed, failures):
               "gates": {f"G-P{i}": {"status": "not_run", "hard": i not in (3, 7)}
                         for i in range(1, 9)},
               "smoke_test": {"status": "not_run"}, "trained_checkpoint": None}
+    selection_path = root / "results" / "selection-audit.json"
+    if selection_path.exists():
+        selection = json.loads(selection_path.read_text(encoding="utf-8"))
+        report["pretraining"]["T2"] = {
+            "status": "blocked" if not selection["prints_within_factor_two"] else "partial",
+            "D4_D5_authorization": "resolved: docs/SPEC-02a-authorization.txt",
+            "reason": "STOP: selection print comparison failed" if not selection["prints_within_factor_two"]
+                      else "Selection validated; conditional joint generator validation remains",
+            "selection_evidence": "results/selection-audit.json",
+            "selection_evidence_sha256": hashlib.sha256(selection_path.read_bytes()).hexdigest()}
     target = root / "results" / "phase2a_gates.json"
     target.parent.mkdir(exist_ok=True)
     temporary = target.with_suffix(".tmp")

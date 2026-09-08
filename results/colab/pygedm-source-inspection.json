@@ -1,0 +1,147 @@
+{
+  "scope": "static inspection; original Linux verbose-build failure unknown",
+  "source": "cached PyPI pygedm 3.3.0 sdist",
+  "files": {
+    "setup.py": {
+      "sha256": "d5a720964a81565c6d7966aa97b8eca6dec086973cdf496c180c0940a58cfc40",
+      "matching_lines": [
+        {
+          "line": 15,
+          "text": "__version__ = '3.3.0'"
+        },
+        {
+          "line": 62,
+          "text": "        language='c++'"
+        },
+        {
+          "line": 76,
+          "text": "        extra_link_args=['-lm', '-lf2c'],"
+        },
+        {
+          "line": 77,
+          "text": "        language='c++',"
+        },
+        {
+          "line": 97,
+          "text": "        except setuptools.distutils.errors.CompileError:"
+        },
+        {
+          "line": 132,
+          "text": "            # This seems to break libf2c :/"
+        },
+        {
+          "line": 147,
+          "text": "    version=__version__,"
+        },
+        {
+          "line": 154,
+          "text": "    download_url='https://github.com/telegraphic/pygedm/archive/%s.tar.gz' % __version__,"
+        }
+      ]
+    },
+    "pygedm/yt2020.py": {
+      "sha256": "903a781df89cb6f23d5c7a11f1178144c0ff0d6921fe4af5e689c094d278f476",
+      "matching_lines": [
+        {
+          "line": 10,
+          "text": "    Adapted from S. Yamasaki's ``DM_halo_yt2020_numerical.py`` command-line python code"
+        },
+        {
+          "line": 51,
+          "text": "I_sphe   = integrate.simps(y_sphe,r_array)      # integration"
+        },
+        {
+          "line": 137,
+          "text": "        DM_sphe = 1000 * integrate.simps(y_DM_sphe, xx) * u.pc / u.cm**3 # [pc/cm^3]"
+        },
+        {
+          "line": 139,
+          "text": "        DM_disk = 1000 * integrate.simps(y_DM_disk, xx) * u.pc / u.cm**3 # [pc/cm^3]"
+        }
+      ]
+    },
+    "pygedm/__init__.py": {
+      "sha256": "bed262d6a92c507ecea054808cdaa6ea11f367c885bdc12a9c9bc399379703d8",
+      "matching_lines": [
+        {
+          "line": 4,
+          "text": "    __version__ = get_distribution('pygedm').version"
+        },
+        {
+          "line": 6,
+          "text": "    __version__ = '0.0.1 - manual install'"
+        }
+      ]
+    },
+    "pygedm/pygedm.py": {
+      "sha256": "13a9578b4f5817583726bbc0498d3c2f642acc08aa9af2950236ae56eff44c6d",
+      "matching_lines": [
+        {
+          "line": 25,
+          "text": "from . import yt2020"
+        },
+        {
+          "line": 241,
+          "text": "        method (str): one of 'ymw16', 'ne2001', 'yt2020' or 'yt2020_analytic'"
+        },
+        {
+          "line": 245,
+          "text": "        YT2020 method is even slower, consider using yt2020_analytic"
+        },
+        {
+          "line": 254,
+          "text": "        if 'yt2020' not in method:"
+        },
+        {
+          "line": 259,
+          "text": "        elif 'yt2020' in method:"
+        },
+        {
+          "line": 260,
+          "text": "            # gl is in (0, 360), wrap to (-180, 180) as reqd for yt2020 function"
+        },
+        {
+          "line": 261,
+          "text": "            # Then call yt2020.compute_halo_dm function directly"
+        },
+        {
+          "line": 264,
+          "text": "            if method == 'yt2020':"
+        },
+        {
+          "line": 266,
+          "text": "                    dm_halo = yt2020.calculate_halo_dm(gl_u[ii], gb[ii])"
+        },
+        {
+          "line": 270,
+          "text": "                    dm_halo = yt2020.calculate_halo_dm_analytic(gl_u[ii], gb[ii])"
+        },
+        {
+          "line": 277,
+          "text": "def calculate_halo_dm(gl, gb, method='yt2020', component='both'):"
+        },
+        {
+          "line": 283,
+          "text": "        method (str): one of 'yt2020' (only YT2020 supported currently)"
+        },
+        {
+          "line": 293,
+          "text": "    if method == 'yt2020':"
+        },
+        {
+          "line": 294,
+          "text": "        return yt2020.calculate_halo_dm(gl, gb, component)"
+        },
+        {
+          "line": 295,
+          "text": "    elif method == 'yt2020_analytic':"
+        },
+        {
+          "line": 298,
+          "text": "        return yt2020.calculate_halo_dm_analytic(gl, gb)"
+        }
+      ]
+    }
+  },
+  "linux_verbose_build_executed_here": false
+}

@@ -1,0 +1,10 @@
+# Isolated Python 3.11 candidate; NOT for the main frb-dm-sim environment.
+# pygedm 3.3.0 imports scipy.integrate.simps (removed in SciPy 1.14).
+# Build and import still require verification on Linux.
+numpy==1.26.4
+scipy==1.13.1
+astropy<7
+pybind11
+setuptools
+wheel
+pygedm==3.3.0

@@ -1,0 +1,28 @@
+{
+  "evidence_source": "user-supplied Colab appendix; not locally executed",
+  "authorization": "docs/SPEC-02a-authorization.txt",
+  "gate_report_sha256": "952980426017482c6d79b359e5c153b524c985d16fa55a1d2da1707ba79f0383",
+  "environment_source": "human report in authorization section 7",
+  "reported_environment": {
+    "platform": "linux",
+    "python": "3.13.15",
+    "pytest": "8.4.2",
+    "gfortran": "11.2.0"
+  },
+  "installed_packages_status": "unverified; pip install transaction aborted at pygedm wheel build",
+  "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4",
+  "git_dirty": true,
+  "gate_status": {
+    "G1": "pass",
+    "G2": "pass",
+    "G3": "blocked",
+    "G4": "partial",
+    "G5": "blocked",
+    "G6": "pass",
+    "G7": "partial",
+    "G8": "pass",
+    "G9": "pass"
+  },
+  "acceptance_complete": false,
+  "exit_status": 1
+}

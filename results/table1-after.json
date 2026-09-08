@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "started_unix": 1788826491.6948898,
+  "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4",
+  "git_dirty": true,
+  "gates": {
+    "G1": {
+      "name": "G1",
+      "status": "not_run",
+      "checks": []
+    },
+    "G2": {
+      "name": "G2",
+      "status": "not_run",
+      "checks": []
+    },
+    "G3": {
+      "name": "G3",
+      "status": "blocked",
+      "checks": [],
+      "pending": "BLOCKED: GLASS/healpy native dependency build; L2 power and density validation not implemented"
+    },
+    "G4": {
+      "name": "G4",
+      "status": "partial",
+      "checks": [
+        {
+          "name": "L0_Table1_zero_noise_limit",
+          "status": "pass",
+          "measured": {
+            "covered": 5,
+            "events": [
+              {
+                "frb": "180924",
+                "z": 0.3214,
+                "dm_observed": 361.42,
+                "dm_cosmic_estimated": 243.58134402906012,
+                "analytic_mean": 283.08067925413644,
+                "predictive_5_95": [
+                  192.83599438294058,
+                  706.7955882791857
+                ],
+                "inside": true,
+                "tentative": false
+              },
+              {
+                "frb": "181112",
+                "z": 0.4755,
+                "dm_observed": 589.27,
+                "dm_cosmic_estimated": 475.3831819722128,
+                "analytic_mean": 426.2934680878763,
+                "predictive_5_95": [
+                  303.82469830211886,
+                  823.8836826529283
+                ],
+                "inside": true,
+                "tentative": false
+              },
+              {
+                "frb": "190102",
+                "z": 0.291,
+                "dm_observed": 363.6,
+                "dm_cosmic_estimated": 244.8703330751356,
+                "analytic_mean": 255.1994420562691,
+                "predictive_5_95": [
+                  172.66887344597978,
+                  556.199582807379
+                ],
+                "inside": true,
+                "tentative": false
+              },
+              {
+                "frb": "190608",
+                "z": 0.1178,
+                "dm_observed": 338.7,
+                "dm_cosmic_estimated": 213.96927894077652,
+                "analytic_mean": 100.17194996907895,
+                "predictive_5_95": [
+                  60.985695584064466,
+                  400.3043881741935
+                ],
+                "inside": true,
+                "tentative": false
+              },
+              {
+                "frb": "190611",
+                "z": 0.378,
+                "dm_observed": 321.4,
+                "dm_cosmic_estimated": 205.11552975326558,
+                "analytic_mean": 335.3673529941901,
+                "predictive_5_95": [
+                  237.48860045702844,
+                  707.9269055151937
+                ],
+                "inside": false,
+                "tentative": true
+              },
+              {
+                "frb": "190711",
+                "z": 0.522,
+                "dm_observed": 593.1,
+                "dm_cosmic_estimated": 480.2484888304862,
+                "analytic_mean": 469.9135406506894,
+                "predictive_5_95": [
+                  343.17949437228594,
+                  808.1677662775488
+                ],
+                "inside": true,
+                "tentative": false
+              }
+            ],
+            "noise_model": "zero-noise limit; not full noisy G4(iii) acceptance"
+          },
+          "tolerance": {
+            "minimum_covered": 5,
+            "realizations_per_event": 500
+          },
+          "hard": true,
+          "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4"
+        }
+      ],
+      "pending": "PARTIAL: L0 checks only; calibrated L2 G4(ii) and full noisy pipeline G4(iii) remain"
+    },
+    "G5": {
+      "name": "G5",
+      "status": "blocked",
+      "checks": [],
+      "pending": "BLOCKED: pygedm native build; pulsar and pole validations not executed"
+    },
+    "G6": {
+      "name": "G6",
+      "status": "not_run",
+      "checks": []
+    },
+    "G7": {
+      "name": "G7",
+      "status": "blocked",
+      "checks": [],
+      "pending": "PARTIAL: L0 fixed-ISM engineering fixture only; full L2 + pygedm catalog remains"
+    },
+    "G8": {
+      "name": "G8",
+      "status": "not_run",
+      "checks": []
+    },
+    "G9": {
+      "name": "G9",
+      "status": "not_run",
+      "checks": []
+    }
+  },
+  "requested_level": "l0",
+  "gate_tests_selected": true,
+  "exit_status": 0,
+  "elapsed_seconds": 1.0157248973846436,
+  "acceptance_complete": false
+}

@@ -5,6 +5,14 @@ human sign-off to omit an acceptance requirement.
 
 ## Verified or authorized
 
+- Human Table-1 verification is complete for all six rows, per the
+  consolidated authorization. FRB 190102 now uses z=0.291. The executed
+  before/after comparison is in `results/table1-amendment.json`.
+- Phase 2a D4/D5 defaults, unit conversion and Schechter form are now
+  explicitly authorized in `docs/SPEC-02a-authorization.txt`. Numerical
+  sampling checks pass, but the selection-print comparison triggers STOP;
+  see `results/selection-audit.json`. No training has started.
+
 - Madau & Dickinson Eq. 15 uses 2.7, 2.9, **5.6**. Source:
   https://arxiv.org/html/1403.0007 ; correction explicitly authorized.
 - Proper path includes H0; observed shell DM includes delay weighting.
@@ -18,6 +26,14 @@ human sign-off to omit an acceptance requirement.
   commit and source hash are stored alongside the vendored BSD source.
 
 ## Environment blockers
+
+- Linux/Colab follow-up: supplied gates and environment record are in
+  `results/colab/`. The pygedm build failed there too; the installed state
+  and actual compiler error remain unverified. `PYGEDM_DIAGNOSIS.md`
+  supplies verbose diagnostic and verification cells, plus an isolated
+  compatibility candidate. Source inspection identifies C++/libf2c build
+  requirements and a separate SciPy simps import incompatibility. Neither
+  has been claimed as the proven cause of the unseen Linux build failure.
 
 - pygedm 3.3.0 source build fails because Microsoft Visual C++ 14+ is absent.
 - GLASS 2026.2 requires healpy; healpy 1.20.0's native build fails on this
@@ -41,9 +57,9 @@ human sign-off to omit an acceptance requirement.
   The DSA-like fluence threshold remains unverified; the official overview
   https://www.deepsynoptic.org/overview does not by itself establish a
   width-independent scalar fluence limit.
-- TODO-VERIFY[LF and instrumental configuration]: literature-calibrated
-  pseudo-luminosity bounds, differential slope, localization fractions,
-  DM noise and SNR convention require explicit choices/sources. The API
+- TODO-VERIFY[instrumental configuration]: physical DM noise and SNR
+  conventions remain unresolved for full Phase 1 acceptance. Phase 2a's
+  LF and localization defaults have their separate explicit authorization. The API
   accepts these with provenance; the smoke config contains labeled
   numerical fixtures only. They are not empirical defaults.
 - TODO-VERIFY[L2]: shell projection/boundaries; CAMB P(k) normalization
@@ -52,7 +68,7 @@ human sign-off to omit an acceptance requirement.
   full end-to-end runtime. API lookups alone cannot certify these.
 - TODO-VERIFY[G4(iii)]: noisy full-pipeline replication. The current six-event
   check exercises the explicit zero-noise limit and is not full acceptance.
-- The human Table-1 spot-check remains a human acceptance step. Transcribed
-  data are preserved; code does not claim to have performed human review.
+- Full Table-1 sky and fluence columns remain to be transcribed for the
+  Phase 2a smoke test; the human sign-off on the six rows is recorded above.
 
 No tolerance changes or additional deferrals have been signed off.

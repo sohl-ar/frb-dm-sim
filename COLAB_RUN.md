@@ -4,6 +4,12 @@ Colab is only the Linux execution host. The simulator remains a normal Git
 repository with a `src/` package, immutable tolerances, pytest gates, and Git
 provenance.
 
+The submitted Linux run is preserved under `results/colab/`. Its pygedm
+wheel build failed; installation state is still unverified. For the next
+human-run session, start with [PYGEDM_DIAGNOSIS.md](PYGEDM_DIAGNOSIS.md),
+which captures the verbose error and gives an isolated compatibility recipe.
+Do not repeatedly rerun the combined installation below without diagnosis.
+
 Upload `frb-dm-sim.bundle` to the Colab session, then run these commands in a
 single code cell:
 
@@ -28,7 +34,7 @@ import importlib.util
 for name in ("numpy", "scipy", "astropy", "pytest", "pygedm", "healpy", "glass", "camb"):
     print(f"{name}: {importlib.util.find_spec(name) is not None}")
 PY
-!python -m pytest --level l0
+!python -m pytest -m "not phase2a" --level l0
 !python -m frbsim.demo --smoke
 ```
 

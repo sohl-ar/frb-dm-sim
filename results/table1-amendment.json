@@ -1,0 +1,233 @@
+{
+  "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4",
+  "git_dirty": true,
+  "authorization": "docs/SPEC-02a-authorization.txt section 1",
+  "human_table1_spot_check": "complete: all six rows, per explicit human sign-off",
+  "test_consumers": [
+    "tests/gates/test_g4.py::test_g4_table1"
+  ],
+  "before_report": "table1-before.json",
+  "after_report": "table1-after.json",
+  "seed": 2020190608,
+  "coverage_before": 5,
+  "coverage_after": 5,
+  "outcome_unchanged": true,
+  "events": [
+    {
+      "frb": "180924",
+      "before": {
+        "frb": "180924",
+        "z": 0.3214,
+        "dm_observed": 361.42,
+        "dm_cosmic_estimated": 243.58134402906012,
+        "analytic_mean": 283.08067925413644,
+        "predictive_5_95": [
+          192.83599438294058,
+          706.7955882791857
+        ],
+        "inside": true,
+        "tentative": false
+      },
+      "after": {
+        "frb": "180924",
+        "z": 0.3214,
+        "dm_observed": 361.42,
+        "dm_cosmic_estimated": 243.58134402906012,
+        "analytic_mean": 283.08067925413644,
+        "predictive_5_95": [
+          192.83599438294058,
+          706.7955882791857
+        ],
+        "inside": true,
+        "tentative": false
+      },
+      "delta_dm_cosmic_estimated": 0.0,
+      "delta_analytic_mean": 0.0,
+      "delta_predictive_5_95": [
+        0.0,
+        0.0
+      ],
+      "coverage_changed": false
+    },
+    {
+      "frb": "181112",
+      "before": {
+        "frb": "181112",
+        "z": 0.4755,
+        "dm_observed": 589.27,
+        "dm_cosmic_estimated": 475.3831819722128,
+        "analytic_mean": 426.2934680878763,
+        "predictive_5_95": [
+          303.82469830211886,
+          823.8836826529283
+        ],
+        "inside": true,
+        "tentative": false
+      },
+      "after": {
+        "frb": "181112",
+        "z": 0.4755,
+        "dm_observed": 589.27,
+        "dm_cosmic_estimated": 475.3831819722128,
+        "analytic_mean": 426.2934680878763,
+        "predictive_5_95": [
+          303.82469830211886,
+          823.8836826529283
+        ],
+        "inside": true,
+        "tentative": false
+      },
+      "delta_dm_cosmic_estimated": 0.0,
+      "delta_analytic_mean": 0.0,
+      "delta_predictive_5_95": [
+        0.0,
+        0.0
+      ],
+      "coverage_changed": false
+    },
+    {
+      "frb": "190102",
+      "before": {
+        "frb": "190102",
+        "z": 0.2913,
+        "dm_observed": 363.6,
+        "dm_cosmic_estimated": 244.8793309068381,
+        "analytic_mean": 255.4738064525152,
+        "predictive_5_95": [
+          172.88769625564547,
+          556.525467137428
+        ],
+        "inside": true,
+        "tentative": false
+      },
+      "after": {
+        "frb": "190102",
+        "z": 0.291,
+        "dm_observed": 363.6,
+        "dm_cosmic_estimated": 244.8703330751356,
+        "analytic_mean": 255.1994420562691,
+        "predictive_5_95": [
+          172.66887344597978,
+          556.199582807379
+        ],
+        "inside": true,
+        "tentative": false
+      },
+      "delta_dm_cosmic_estimated": -0.008997831702515668,
+      "delta_analytic_mean": -0.2743643962460851,
+      "delta_predictive_5_95": [
+        -0.21882280966568146,
+        -0.3258843300490071
+      ],
+      "coverage_changed": false
+    },
+    {
+      "frb": "190608",
+      "before": {
+        "frb": "190608",
+        "z": 0.1178,
+        "dm_observed": 338.7,
+        "dm_cosmic_estimated": 213.96927894077652,
+        "analytic_mean": 100.17194996907895,
+        "predictive_5_95": [
+          60.985695584064466,
+          400.3043881741935
+        ],
+        "inside": true,
+        "tentative": false
+      },
+      "after": {
+        "frb": "190608",
+        "z": 0.1178,
+        "dm_observed": 338.7,
+        "dm_cosmic_estimated": 213.96927894077652,
+        "analytic_mean": 100.17194996907895,
+        "predictive_5_95": [
+          60.985695584064466,
+          400.3043881741935
+        ],
+        "inside": true,
+        "tentative": false
+      },
+      "delta_dm_cosmic_estimated": 0.0,
+      "delta_analytic_mean": 0.0,
+      "delta_predictive_5_95": [
+        0.0,
+        0.0
+      ],
+      "coverage_changed": false
+    },
+    {
+      "frb": "190611",
+      "before": {
+        "frb": "190611",
+        "z": 0.378,
+        "dm_observed": 321.4,
+        "dm_cosmic_estimated": 205.11552975326558,
+        "analytic_mean": 335.3673529941901,
+        "predictive_5_95": [
+          237.48860045702844,
+          707.9269055151937
+        ],
+        "inside": false,
+        "tentative": true
+      },
+      "after": {
+        "frb": "190611",
+        "z": 0.378,
+        "dm_observed": 321.4,
+        "dm_cosmic_estimated": 205.11552975326558,
+        "analytic_mean": 335.3673529941901,
+        "predictive_5_95": [
+          237.48860045702844,
+          707.9269055151937
+        ],
+        "inside": false,
+        "tentative": true
+      },
+      "delta_dm_cosmic_estimated": 0.0,
+      "delta_analytic_mean": 0.0,
+      "delta_predictive_5_95": [
+        0.0,
+        0.0
+      ],
+      "coverage_changed": false
+    },
+    {
+      "frb": "190711",
+      "before": {
+        "frb": "190711",
+        "z": 0.522,
+        "dm_observed": 593.1,
+        "dm_cosmic_estimated": 480.2484888304862,
+        "analytic_mean": 469.9135406506894,
+        "predictive_5_95": [
+          343.17949437228594,
+          808.1677662775488
+        ],
+        "inside": true,
+        "tentative": false
+      },
+      "after": {
+        "frb": "190711",
+        "z": 0.522,
+        "dm_observed": 593.1,
+        "dm_cosmic_estimated": 480.2484888304862,
+        "analytic_mean": 469.9135406506894,
+        "predictive_5_95": [
+          343.17949437228594,
+          808.1677662775488
+        ],
+        "inside": true,
+        "tentative": false
+      },
+      "delta_dm_cosmic_estimated": 0.0,
+      "delta_analytic_mean": 0.0,
+      "delta_predictive_5_95": [
+        0.0,
+        0.0
+      ],
+      "coverage_changed": false
+    }
+  ]
+}

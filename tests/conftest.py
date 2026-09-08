@@ -10,7 +10,7 @@ from frbsim.tolerances import GATE_NAMES
 ROOT = Path(__file__).resolve().parents[1]
 
 PENDING = {
-    "G3": "BLOCKED: GLASS/healpy native dependency build; L2 power and density validation not implemented",
+    "G3": "BLOCKED: L2 power and density validation not implemented; dependency status is environment-specific",
     "G4": "PARTIAL: L0 checks only; calibrated L2 G4(ii) and full noisy pipeline G4(iii) remain",
     "G5": "BLOCKED: pygedm native build; pulsar and pole validations not executed",
     "G7": "PARTIAL: L0 fixed-ISM engineering fixture only; full L2 + pygedm catalog remains",

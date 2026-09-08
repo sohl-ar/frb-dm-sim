@@ -1,0 +1,179 @@
+# SPEC-02a AUTHORIZATION — FINAL (single consolidated message)
+Resolves the D4/D5 pretraining blockers, applies architecture
+amendments, records the Linux-run status, and closes the Table-1
+acceptance item. Supersedes all prior partial drafts. Gates,
+tolerances, anchors, and the STOP protocol are unchanged.
+
+## 1. Table-1 verification (closes a Phase-1 acceptance item)
+The Macquart Table-1 transcription is human-verified against the paper
+(all six rows). Standardize 190102 z = 0.291 per Table 1 (the spec used
+0.2913 from Figure 1; Table 1 governs). After standardizing, RE-RUN
+every Phase-1 gate that consumes the Table-1 fixture (the six-event
+zero-noise check included) and record before/after values in the
+ledger. Expected effect ~0.01 pc cm⁻³; "will not flip the outcome" is
+a prediction to verify, not an assumption.
+
+## 2. D4 RESOLVED — survey fluence threshold
+F_min = 5 Jy ms (CHIME Catalog 1 selection proxy, ApJS 257, 59).
+Sensitivity axis: 3.5 Jy ms (Catalog 2's reported median 95% threshold,
+a lower-limit quantity, not a hard cut). Status: approved default with
+citation. Report the realized detected fraction under the D5 defaults
+and flag if degenerate (≈0 or ≈1).
+
+## 3. D5 RESOLVED — luminosity function (corrected; verified against
+James et al. 2022b, MNRAS 516, 4862, doi:10.1093/mnras/stac2524,
+§2.2.2 + Eq. 14 + Table 1; the prior v2.1 draft is RETRACTED — it
+mis-derived the slope from a secondary source's phrasing)
+
+Convention: LF in native units — observed-frame pseudo-luminosity
+L [Jy ms Mpc²], L ≡ 4π D_L² F. James's E is isotropic-equivalent energy
+at 1.3 GHz, effective bandwidth 1 GHz, beaming ignored; the 1.3 GHz /
+1 GHz bandwidth convention versus any native-band choice is documented
+as a stated misspecification axis for Phase 2b/3. Unit chain (the 4π
+is ABSORBED in L by definition F = L/(4πD_L²) — do not multiply by 4π
+again; a prior review erroneously "corrected" this; the chain is
+dimensionally verified):
+  E[erg] = 9.52×10²² × L[Jy ms Mpc²] × Δν[Hz]
+  With James's Δν = 1 GHz:  E = 9.52×10³¹ × L
+
+Form (Schechter, per James Eq. 14 — NOT a sharp-truncated power law;
+they adopted it to avoid sharp-cutoff artifacts):
+  dN/dL ∝ (L/L_max)^γ · exp(−L/L_max),   L ≥ L_min
+
+Slope: γ = −1.16, the slope of the DIFFERENTIAL distribution [James
+Table 1: "Slope of luminosity distribution function"; J22a: p(E) ∝ E^γ;
+the integrand of their Eq. 14]. Sensitivity axis γ ∈ [−1.16, −0.77]
+(J22b fitted −0.95 +0.18/−0.15). γ < −1 is bottom-weighted (L_min
+matters); γ > −1 is top-weighted — the axis spans both regimes. Record:
+at γ = −1.16 the detected fraction inherits E_min's uncertainty at
+×1.45 per decade of E_min — one recorded sentence, not a new axis.
+
+Bounds:
+- L_max = 10^41.84 erg / 9.52×10³¹ = 7.3×10⁹ Jy ms Mpc² (log10 Emax =
+  41.84, the zdm fiducial per Baptista Table 2; consistent with FRB
+  20220610A, whose energy exceeds J22b's fitted Emax by 3.5–10× per
+  Baptista's own note). Axis: log10 Emax ∈ [41.26 (J22b fit), 42.3].
+- L_min = 10^30 erg / 9.52×10³¹ ≈ 1.05×10⁻² Jy ms Mpc² (James §2.2.2:
+  E_min = 10^30 erg, "several orders of magnitude below the minimum
+  burst energy of any FRB detected" — cited; replaces the earlier
+  design value of 10^8).
+
+Sanity anchors — PRINTS for human comparison, NOT gates: expected
+detected fraction ≈ 2% (z=0.1), ≈ 1–1.5% (z=0.2), ≈ 0.5–0.7% (z=0.5),
+≈ 0.3% (z=1), ≈ 0.1–0.2% (z=1.4); brightest z=1 burst ≈ 13 Jy ms.
+STOP only on degeneracy (≈0 or ≈1), non-monotonicity of the detected
+fraction in z, or disagreement with these prints beyond ~2×.
+
+Sampling: detection is a hard fluence cut, so generate detected
+catalogs EXACTLY — draw z from p_det(z) ∝ p(z)·P(L > L_t(z)), then L
+from the Schechter truncated below at L_t(z). IMPLEMENTATION WARNING:
+the tail uses Γ(s, x) with s = γ+1 = −0.16 < 0 at the default slope;
+scipy's gammaincc/gammainccinv require a > 0 and will NaN silently.
+Compute Γ(s, x) via the recurrence
+  Γ(s, x) = (Γ(s+1, x) − x^s·e^{−x})/s    (s+1 = 0.84 > 0, scipy-safe),
+or mpmath. Invert monotonically for truncated draws (vectorized Newton
+or bisection in log x). Unit-test tail probabilities against direct
+quadrature, and extend the naive-rejection cross-check to the tail
+probability itself, not only the joint batch. No intrinsic rejection
+loop for production.
+
+## 4. D2 CLARIFIED
+N ~ DiscreteUniform(1, 512) is the OBSERVED catalog size; with the
+exact conditional sampling above, generate directly at the observed
+count. The training-data entry point MUST call
+assert_disjoint_seed_ranges (T1's guard) — hard requirement.
+
+## 5. SPEC ERRATA (accepted)
+- §6 acceptance list: ADD G-P8 to the required-pass set (HARD in §4.2,
+  wrongly omitted from the enumeration). G-P3 stays reported/soft.
+- §4.3 smoke test: use the FULL Macquart Table 1 columns — R.A., Dec.,
+  DM_obs, E_ν (fluence, Jy ms), z. All six events carry all five fields.
+- T3 prior-predictive criterion, quantified: for EACH of the six
+  events, at its own redshift, the event's estimated DM_cosmic (paper's
+  subtraction convention) must lie within the central 99% [0.5%, 99.5%]
+  of the prior predictive. Report per-event CDF values plus the
+  z ∈ {0.1, 0.5, 1.0} diagnostic grid.
+
+## 6. ARCHITECTURE AMENDMENTS (fold in before writing network code)
+
+A1 — Padding mask: batched training pads per batch to N_max. Implement
+a key_padding_mask in ISAB/PMA attention, True at PADDING positions
+(positions to IGNORE — PyTorch convention; inverted polarity masks
+real bursts, worse than no mask). G-P1 procedure: shuffle REAL bursts
+first, then pad; never shuffle the padded tensor.
+
+A2 — Unbounded parameter transforms: map every θ to ℝ before the flow;
+invert at inference. Stack: (1) LogUniform parameters (F, host-median):
+take ln FIRST (a bare log does NOT unbound a LogUniform — ln F is
+still bounded); (2) normalize to [0,1] via the log-space prior bounds;
+(3) logit x = ln(u/(1−u)). Inverse: sigmoid → denormalize → exp.
+All rank statistics and coverage are computed in PHYSICAL θ space.
+
+A3 — SBC sample count: L = 1,000 posterior samples per SBC trial via
+the batched ODE solver (draws share conditioning — batch them).
+Report L and total inference compute time.
+
+Performance gate for the training-data path: ≥ 8,600 bursts/second
+(2× the Phase-1 measured ~4,300; enforces vectorization while
+remaining achievable — if unmet, STOP and report the bottleneck).
+No per-burst Python for-loops (per-catalog loops permitted), enforced
+by code inspection.
+
+## 7. LINUX RUN STATUS (new information — Colab, this week)
+Environment: platform linux, Python 3.13.15, pytest 8.4.2, gfortran
+11.2.0 present. (An earlier same-day run failed only at clone because
+the bundle was not yet uploaded — not a repo defect; the status below
+describes the successful re-run.)
+- Repo cloned from the git bundle. The editable build of frb-dm-sim
+  completed, but the overall install transaction then ABORTED at the
+  pygedm wheel build — pip builds everything before installing
+  anything, so the installed state is UNVERIFIED. Confirm with
+  `pip list` before recording any install claims (healpy/glass did
+  not appear in the failure list, but absence from the failure list is
+  not evidence of installation).
+- pytest -m gates: 10 passed / 11 deselected in ~25 s. Precisely: G1,
+  G2, G6, G8, G9 pass in full; the L0 SUBSETS of G4 and G7 pass.
+  Ledger status is UNCHANGED: G4 and G7 remain PARTIAL (L2 parts
+  unrun), G3 remains blocked on unimplemented L2 (healpy install
+  status unverified), G5 remains blocked on the pygedm build. The
+  honest STOP banner behaved correctly.
+- pygedm 3.3.0 wheel build FAILED with gfortran already installed:
+  "error: subprocess-exited-with-error × Building wheel for pygedm
+  (pyproject.toml) did not run successfully. │ exit code: 1 ╰─> No
+  available output."
+  So the failure is NOT a missing compiler — it is inside the pygedm
+  build itself. Reproduce with `pip install -v pygedm` (or
+  --no-build-isolation) to surface the real error. IF the log shows a
+  numpy.distutils or f2py-on-Python-3.13 failure (numpy.distutils was
+  removed in numpy 2.0, stdlib distutils in Python 3.12 — both
+  consistent with this failure mode), gfortran will never fix it:
+  pin a separate Python ≤3.12 (+ numpy <2 if required) environment
+  for the mw extra, keeping the main gate environment untouched; or
+  locate a py313-compatible wheel if a newer pygedm provides one; or
+  vendor the Fortran sources with a direct f2py/meson build. No fake
+  substitutes.
+- The run's results/gates.json is pasted as the APPENDIX at the end
+  of this message — commit it to results/ as the durable record of
+  this run, tagged with the environment above.
+
+## 8. ORDER OF WORK
+Phase-2a critical path (bot-executable end-to-end — start now; do not
+let the pygedm item block any of it):
+(a) D5 sampler + D4 threshold; report the detected fraction against
+    the §3 prints.
+(b) Re-run the Table-1-consuming Phase-1 gates per §1; record
+    before/after.
+(c) Training-data generator with the seed guard and performance gate.
+(d) T3 prior-predictive check.
+(e) Architecture per §3 + A1/A2.
+(f) Training.
+(g) Full gate suite.
+Report the detected fraction and the printed anchors BEFORE the first
+training run.
+
+Parallel Phase-1 deliverable (independent track, produce alongside):
+a pygedm diagnosis package — the verbose-build finding per §7, a
+patched notebook cell or environment pin, and a verification cell
+(`pip list | grep -E 'healpy|glass|pygedm'` + gate-suite re-run) for
+the human to execute in Colab and paste back. The human is the only
+Colab runtime; sequence accordingly.

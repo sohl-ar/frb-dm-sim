@@ -1,5 +1,14 @@
 # Units and conventions audit
 
+Phase 2a's consolidated authorization supplies a separate Schechter LF
+and selection proxy. The fixed conversion is E[erg]=9.52e31 L for the
+specified 1 GHz bandwidth; L already includes 4*pi. This is a declared
+pseudo-luminosity convention, not a new spectral/redshift correction.
+The 1.3 GHz energy reference and 1 GHz bandwidth versus native observing
+bands remain a misspecification axis. The Schechter exponential scale is
+not the brightest possible burst. See `DECISIONS.md` and the executed
+`results/selection-audit.json`; training remains stopped at its print check.
+
 This implements the mean-DM and L0 portions of SPEC-FINAL v2.1 with the
 user's five amendments. L2 acceptance is **not complete**. Fixed paper
 anchors and gate tolerances have not been revised. Computed results live
