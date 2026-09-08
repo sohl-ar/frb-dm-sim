@@ -320,3 +320,13 @@ prior or gate criterion is changed. Realized near-localized counts are enforced,
 with group assignment independent of N and physical parameter draws. See
 COMPOSITION_FIX.md for replay, seed, held-out-distribution and execution details.
 Code and deferred regression checks are committed; no new science results exist.
+
+The normalization choice is raw binary availability flags using identity
+center/scale in new schema-v2 reports. Continuous statistics keep training-only
+z-scores. No clipping, layer change or existing checkpoint reinterpretation is
+introduced. The new dataset, manifest and conditioning-v2 run have separate
+paths; consumers use the selected run's recorded manifest. Expanded held-out
+SBC and the existing Beta-composition generated gate probes are labeled as
+different input-composition populations. No gate order, criterion or tolerance
+is changed. Normalization fitting, training and validation remain deferred by
+the human's narrower immediate instruction.

@@ -38,12 +38,13 @@ def write_json(path,payload):
     temporary.replace(path)
 
 
-def train(config=TrainConfig(),model_config=ModelConfig(),data_root=None,*,run_dir=None,normalization=None):
+def train(config=TrainConfig(),model_config=ModelConfig(),data_root=None,*,run_dir=None,normalization=None,
+          manifest_path=None):
     require_pretraining()
     architecture = json.loads((ROOT/"results/model-audit.json").read_text(encoding="utf-8"))
     if architecture["status"]!="pass":
         raise RuntimeError("STOP: architecture audit has not passed")
-    manifest_path = ROOT/"results/training-data-manifest.json"
+    manifest_path = ROOT/"results/training-data-manifest.json" if manifest_path is None else Path(manifest_path)
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if not manifest["complete"]:
         raise RuntimeError("STOP: training/validation/test data generation incomplete")
@@ -71,6 +72,9 @@ def train(config=TrainConfig(),model_config=ModelConfig(),data_root=None,*,run_d
     report = {**git_provenance(),"status":"running","acceptance_complete":False,
               "training_config":asdict(config),"model_config":asdict(model_config),
               "dataset_manifest_sha256":hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+              "dataset_manifest_path":manifest_path.resolve().relative_to(ROOT).as_posix(),
+              "data_root":data_root.resolve().relative_to(ROOT).as_posix(),
+              "composition":manifest.get("composition",{"policy":"beta-2-6-v1"}),
               "catalog_counts":{split:sum(s["n_catalogs"] for s in entries) for split,entries in shards.items()},
               "torch":torch.__version__,"device":"cpu","precision":"float32; physical transforms use float64",
               "epochs":[],"best_validation_loss":None,"best_epoch":None,
@@ -81,6 +85,7 @@ def train(config=TrainConfig(),model_config=ModelConfig(),data_root=None,*,run_d
     trace = ROOT/"results/training.json" if run_dir is None else Path(run_dir)/"training.json"
     ckpts = ROOT/"results/checkpoints" if run_dir is None else Path(run_dir)/"checkpoints"
     if run_dir is not None:
+        from .statistics import canonical_manifest_hash
         report["checkpoint"] = (ckpts/"phase2a-best.pt").relative_to(ROOT).as_posix()
         report["dataset_manifest_sha256"] = canonical_manifest_hash(manifest)
         report["manifest_hash_algorithm"] = "sha256 of sorted compact JSON UTF-8"
@@ -138,6 +143,9 @@ def train(config=TrainConfig(),model_config=ModelConfig(),data_root=None,*,run_d
                        "dataset_manifest_sha256":report["dataset_manifest_sha256"],"git_sha":report["git_sha"]}
             if run_dir is not None:
                 payload["manifest_hash_algorithm"] = report["manifest_hash_algorithm"]
+                payload["dataset_manifest_path"] = report["dataset_manifest_path"]
+                payload["data_root"] = report["data_root"]
+                payload["normalization_policy"] = (normalization or {}).get("encoding_policy","legacy-zscore-v1")
             if val_loss<best:
                 best,stale = val_loss,0
                 report["best_validation_loss"],report["best_epoch"] = best,epoch

@@ -8,6 +8,7 @@ import argparse
 import hashlib
 import importlib.metadata
 import json
+import os
 from pathlib import Path
 import shutil
 import time
@@ -53,15 +54,18 @@ def empty_ledger():
 
 
 class Acceptance:
-    def __init__(self,run_dir=RUN_DIR):
-        self.run_dir = Path(run_dir)
+    def __init__(self,run_dir=None):
+        selected = os.environ.get("FRBSBI_RUN_DIR",str(RUN_DIR)) if run_dir is None else run_dir
+        self.run_dir = (ROOT/Path(selected)).resolve()
         training = json.loads((self.run_dir/"training.json").read_text())
         if training["status"]!="training_complete_unvalidated":
             raise RuntimeError("STOP: completed conditioned training required")
         checkpoint = ROOT/training["checkpoint"]
         if sha(checkpoint)!=training["checkpoint_sha256"]:
             raise RuntimeError("STOP: checkpoint hash mismatch")
-        manifest = json.loads((ROOT/"results/training-data-manifest.json").read_text())
+        self.manifest_path = ROOT/training.get("dataset_manifest_path","results/training-data-manifest.json")
+        self.data_root = ROOT/training.get("data_root","work/training-data")
+        manifest = json.loads(self.manifest_path.read_text())
         manifest_hash = canonical_manifest_hash(manifest)
         if training["dataset_manifest_sha256"]!=manifest_hash:
             raise RuntimeError("STOP: canonical dataset manifest mismatch")
@@ -83,6 +87,7 @@ class Acceptance:
         else:
             self.report = empty_ledger()
             self.report.update(identity=self.identity,trained_checkpoint=training["checkpoint"],
+                               validation_composition=manifest.get("composition",{"policy":"beta-2-6-v1"}),
                                training_git_sha=payload["git_sha"],
                                validation_usage="disjoint from gradient fitting; used for checkpoint selection")
         baseline = self.run_dir/"baseline-phase2a-ledger.json"
@@ -91,6 +96,9 @@ class Acceptance:
         self.report.setdefault("pretraining",json.loads(baseline.read_text()).get("pretraining",{}))
         self.artifact_dir = self.run_dir/"posterior-artifacts"
         self.artifact_dir.mkdir(exist_ok=True)
+
+    def validation_catalogs(self,n):
+        return validation_catalogs(n,manifest_path=self.manifest_path,data_root=self.data_root)
 
     def save(self):
         self.report["smoke_test"] = self.report["gates"]["smoke"]
@@ -163,7 +171,7 @@ class Acceptance:
         return row
 
     def gate_G_P1(self):
-        f,o,t,_ = validation_catalogs(100)
+        f,o,t,_ = self.validation_catalogs(100)
         ids = np.arange(100)
         x,m,_ = pad_catalogs(f,o,t,ids)
         p,ode = self.model.sample(x,m,128,seed=72000,steps=32,check_steps=True)
@@ -184,7 +192,7 @@ class Acceptance:
                 "tolerance":PERMUTATION_W1}
 
     def gate_G_P2(self):
-        f,o,t,_ = validation_catalogs(4)
+        f,o,t,_ = self.validation_catalogs(4)
         x,m,_ = pad_catalogs(f,o,t,np.arange(4))
         a,_ = self.model.sample(x,m,128,seed=72000,check_steps=False)
         b,_ = self.model.sample(x,m,128,seed=72000,check_steps=False)
@@ -199,7 +207,7 @@ class Acceptance:
                 "tolerance":"exact bit identity; different seeds must differ"}
 
     def gate_G_P4(self):
-        f,o,t,seeds = validation_catalogs(SBC_TRIALS)
+        f,o,t,seeds = self.validation_catalogs(SBC_TRIALS)
         p = self.sample("sbc",f,o,t,seed=72100)
         metrics,ranks = sbc_statistics(p,t,jitter_seed=73200)
         return {"status":"pass" if all(m["status"]=="pass" for m in metrics) else "fail",

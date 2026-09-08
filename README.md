@@ -1,5 +1,10 @@
 # FRB dispersion-measure simulation and amortized inference
 
+Latest code preparation: [composition and binary-encoding fix](COMPOSITION_FIX.md)
+is implemented for conditioning-v2. Data generation, normalization fitting,
+training and validation are deferred; the new code has not passed runtime tests.
+Existing measured results refer to the preserved earlier runs.
+
 This research repository models FRB catalogs and infers the diffuse-ionized
 baryon fraction, cosmic-DM fluctuation parameter and host-DM distribution.
 Background cosmology is pinned. L0 uses the published asymmetric cosmic-DM

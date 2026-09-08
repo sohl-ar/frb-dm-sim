@@ -1,5 +1,9 @@
 # Phase 2a status — Phase 2a incomplete; Phase 3 blocked
 
+Code preparation only: COMPOSITION_FIX.md describes the implemented expanded
+composition and raw-binary normalization for conditioning-v2. Generation,
+fitting, retraining and validation are deferred. No new gate results exist.
+
 Current update: conditioned training completed. Both contraction sizes and
 independent full SBC are now recorded; G-P6 and G-P4 remain failed. The followup
 did not retrain or alter criteria. See CONDITIONING_FOLLOWUP.md, including its

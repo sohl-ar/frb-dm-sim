@@ -5,6 +5,9 @@ documentation. Data generation, normalization fitting, retraining, tests and
 physics/posterior validation have NOT run. Existing measured results remain
 historical evidence; Phase 2a is still incomplete.
 
+Only static Python syntax parsing and Git diff/whitespace review were performed
+in this session. They do not establish runtime correctness or scientific validity.
+
 ## Composition design
 
 The expanded policy assigns disjoint groups over each complete split: 5% to
@@ -61,3 +64,52 @@ must cover quota counts, replay across batching, realized mask fractions,
 preservation of latent/observable draws other than redshift availability,
 all-size support, binary encoding and legacy-checkpoint replay. Acceptance
 tolerances and criteria remain unchanged.
+
+## Binary encoding and isolated run
+
+New normalization reports use schema v2. `has_localized`, `has_unlocalized`
+and `ols_available` have center zero and scale one, so the network receives
+their original binary values. Continuous statistics retain training-only
+mean/std scaling; constant continuous dimensions center to zero. There is
+no clipping. This removes prevalence-dependent magnification of a binary
+flag without discarding continuous information or changing network dimensions.
+
+Identity normalization lives in the existing checkpoint buffers. The forward
+operation does not override buffers when loading a historical checkpoint;
+schema-v1 reports remain supported for historical replay. No existing
+normalizer or checkpoint has been rewritten. The new fit has NOT executed.
+
+Future preparation and training commands (NOT executed):
+
+```powershell
+python -m frbsbi.train_conditioned prepare --composition-v2
+python -m frbsbi.train_conditioned launch --composition-v2
+```
+
+The first command scans the newly generated training split to fit normalization;
+it is deferred along with the expensive work. The second uses the unchanged
+training hyperparameters and statistics-bypass/ISAB/PMA architecture in
+`results/conditioning-v2/`. The existing one-attempt guard remains in force.
+The new run requires the expanded manifest and binary-identity normalization.
+It records explicit dataset paths and normalization/manifest/shard hashes.
+
+The acceptance reader now resolves dataset paths from the selected run's
+training metadata, retaining legacy defaults for older runs. For a future
+validation session, `FRBSBI_RUN_DIR=results/conditioning-v2` selects the new
+run for the existing acceptance driver and pytest fixture. No gate has run,
+and this variable has not been set in this session. Gate order, failure-stop
+behavior, numerical comparisons, tolerances and required parameters are intact.
+Contraction and other newly generated gate probes retain their established
+Beta composition and overrides; cached validation/SBC uses the expanded split
+and records that composition explicitly. Compare those populations by name.
+
+Next execution session: run the deferred unit checks and generator replay
+checks first, then generate the dataset, inspect recorded composition/size
+coverage, fit normalization, train, and run acceptance. A future failure to
+improve host contraction would still not by itself establish a physics limit;
+a numerical reference posterior or justified information bound remains needed.
+
+Older one-off scripts such as `check_statistics_bypass.py` and
+`check_conditioning_ready.py` still target conditioning-v1; do not use them as
+v2 evidence without explicitly updating their run and dataset paths. The
+production prepare/launch/acceptance paths described above support v2.

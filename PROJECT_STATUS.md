@@ -1,5 +1,11 @@
 # Project status — Phase 2a incomplete; Phase 3 blocked
 
+Latest code-only update: expanded composition and raw binary availability
+encoding are implemented for a future conditioning-v2 run. New data generation,
+normalization fitting, training and validation are explicitly deferred; tests
+for this change are written but unrun. See COMPOSITION_FIX.md. The measured
+results below still belong to conditioning-v1, not the new code preparation.
+
 Current update: the conditioned training run completed. Both prescribed
 contraction sizes and independent full SBC have executed under explicit human
 continuation authorization. G-P6 and G-P4 remain failed; no retraining or gate
@@ -9,7 +15,8 @@ comparator. That comparison bug is now fixed with exact trial-count arithmetic:
 f_d passes SBC; F and host_sigma_ln still fail. Stratification and a matched
 localization probe reveal a rare-flag/training-support problem in the model.
 This does not establish a physical limit on host inference. The remaining
-full gate suite has not run. No retraining or gate-criterion change is authorized.
+full gate suite has not run. Retraining is deferred for the current session;
+no gate-criterion change is authorized.
 The G-P7 per-family/selection-ignored scope is human-approved, with a true
 cross-family experiment deferred to Phase 2b. Details and generated checks are
 in CONDITIONING_FIX.md, GATE_IMPLEMENTATION.md and results/conditioning-v1/.

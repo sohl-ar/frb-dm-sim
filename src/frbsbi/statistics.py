@@ -11,6 +11,7 @@ import numpy as np
 import torch
 from torch import nn
 from .data import ROOT, pad_catalogs
+from pathlib import Path
 
 STAT_NAMES = (
     "dm_mean", "dm_std", "dm_median", "dm_q25", "dm_q75", "dm_min", "dm_max",
@@ -21,6 +22,9 @@ STAT_NAMES = (
     "residual_q25", "residual_median", "residual_q75",
 ) + tuple(f"zbin{i}_{s}" for i in range(3) for s in ("count", "dm_mean", "dm_std"))
 Z_EDGES = (.05, .5, 1., 1.5)  # Observable diagnostic bins, not physics parameters.
+BINARY_STAT_NAMES = ("has_localized", "has_unlocalized", "ols_available")
+BINARY_STAT_INDICES = tuple(STAT_NAMES.index(name) for name in BINARY_STAT_NAMES)
+NORMALIZATION_POLICY = "continuous-zscore-binary-identity-v2"
 
 
 def catalog_statistics(features, padding):
@@ -75,6 +79,17 @@ class StatisticsBypass(nn.Module):
             raise ValueError("statistics schema / training-only normalization mismatch")
         center = torch.tensor(report["center"],dtype=torch.float64)
         scale = torch.tensor(report["scale"],dtype=torch.float64)
+        if center.shape != self.center.shape or scale.shape != self.scale.shape:
+            raise ValueError("normalization shape mismatch")
+        version = report.get("schema_version",1)
+        if version not in (1,2):
+            raise ValueError("unknown normalization schema")
+        if version == 2:
+            if (report.get("encoding_policy") != NORMALIZATION_POLICY
+                    or tuple(report.get("binary_dimensions",())) != BINARY_STAT_NAMES
+                    or not bool((center[list(BINARY_STAT_INDICES)] == 0).all())
+                    or not bool((scale[list(BINARY_STAT_INDICES)] == 1).all())):
+                raise ValueError("v2 availability flags must have identity normalization")
         if not bool(torch.isfinite(center).all() & torch.isfinite(scale).all() & (scale>0).all()):
             raise ValueError("invalid normalization")
         self.center.copy_(center); self.scale.copy_(scale); self.fitted.fill_(True)
@@ -89,10 +104,29 @@ def canonical_manifest_hash(manifest):
     return hashlib.sha256(json.dumps(manifest,sort_keys=True,separators=(",",":"),allow_nan=False).encode()).hexdigest()
 
 
-def fit_training_statistics(data_root=None):
+def normalization_parameters(values):
+    """Continuous z-scores; binary flags remain 0/1 regardless of prevalence.
+
+    Identity center/scale are stored in the checkpoint's existing buffers.
+    Loading an old checkpoint therefore retains its old encoding exactly.
+    """
+    if values.ndim != 2 or values.shape[1] != len(STAT_NAMES) or not len(values):
+        raise ValueError("nonempty statistics matrix required")
+    if not np.isfinite(values).all() or not np.isin(values[:,BINARY_STAT_INDICES],[0.,1.]).all():
+        raise ValueError("finite statistics and binary availability flags required")
+    center,scale = values.mean(0),values.std(0)
+    constant = scale == 0
+    scale[constant] = 1.
+    center[list(BINARY_STAT_INDICES)] = 0.
+    scale[list(BINARY_STAT_INDICES)] = 1.
+    return center,scale,constant
+
+
+def fit_training_statistics(data_root=None, *, manifest_path=None):
     """One fixed pass over training shards only; no model optimization."""
-    data_root = ROOT/"work/training-data" if data_root is None else data_root
-    manifest = json.loads((ROOT/"results/training-data-manifest.json").read_text())
+    data_root = ROOT/"work/training-data" if data_root is None else Path(data_root)
+    manifest_path = ROOT/"results/training-data-manifest.json" if manifest_path is None else Path(manifest_path)
+    manifest = json.loads(manifest_path.read_text())
     if not manifest["complete"]:
         raise RuntimeError("incomplete dataset")
     chunks,hashes = [],[]
@@ -109,10 +143,11 @@ def fit_training_statistics(data_root=None):
                 chunks.append(catalog_statistics(x,mask).numpy())
         hashes.append({"path":shard["path"],"sha256":shard["sha256"]})
     values = np.concatenate(chunks)
-    center,scale = values.mean(0),values.std(0)
-    constant = scale==0
-    scale[constant] = 1.  # Exact constants become zero after centering.
-    return {"schema_version":1,"names":STAT_NAMES,"fit_split":"training",
+    center,scale,constant = normalization_parameters(values)
+    return {"schema_version":2,"names":STAT_NAMES,"fit_split":"training",
+            "encoding_policy":NORMALIZATION_POLICY,"binary_dimensions":BINARY_STAT_NAMES,
+            "continuous_encoding":"training-only mean/std; constant continuous dimensions center to zero",
+            "binary_encoding":"raw 0/1 via center=0, scale=1; no clipping",
             "n_catalogs":len(values),"center":center.tolist(),"scale":scale.tolist(),
             "constant_dimensions":np.flatnonzero(constant).tolist(),"shards":hashes,
             "dataset_manifest_sha256":canonical_manifest_hash(manifest),

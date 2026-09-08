@@ -58,14 +58,16 @@ def sbc_statistics(posterior,truth,*,jitter_seed):
     return tests,raw_ranks
 
 
-def validation_catalogs(n):
-    manifest = json.loads((ROOT/"results/training-data-manifest.json").read_text(encoding="utf-8"))
+def validation_catalogs(n, *, manifest_path=None, data_root=None):
+    manifest_path = ROOT/"results/training-data-manifest.json" if manifest_path is None else Path(manifest_path)
+    data_root = ROOT/"work/training-data" if data_root is None else Path(data_root)
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     f,t,seeds,lengths = [],[],[],[]
     remaining = n
     for shard in manifest["shards"]:
         if shard["split"]!="validation" or remaining==0:
             continue
-        path = ROOT/"work/training-data"/shard["path"]
+        path = data_root/shard["path"]
         if hashlib.sha256(path.read_bytes()).hexdigest()!=shard["sha256"]:
             raise RuntimeError("STOP: validation-data hash mismatch")
         with np.load(path,allow_pickle=False) as data:
