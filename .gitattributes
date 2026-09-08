@@ -1,2 +1,4 @@
 * text=auto eol=lf
 src/frbsim/vendor/* -text
+# Preserve the human-supplied Colab appendix byte for byte, including EOLs.
+results/colab/gates-e5b57d6.json -text
