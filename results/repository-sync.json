@@ -1,0 +1,10 @@
+{
+  "checked_utc": "2026-09-08T09:31:33.905742+00:00",
+  "audit_content_commit": "15ba8c9f1fa4a07c1270bd5d5251da85063808de",
+  "live_origin_main_sha": "15ba8c9f1fa4a07c1270bd5d5251da85063808de",
+  "local_origin_main_sha": "15ba8c9f1fa4a07c1270bd5d5251da85063808de",
+  "worktree_clean_before_this_record": true,
+  "protected_src_tests_diff": "",
+  "original_scientific_reports_diff": "",
+  "scope": "Publication verification of the audit content commit. A subsequent commit only records this observation; the final remote tip is verified separately."
+}
