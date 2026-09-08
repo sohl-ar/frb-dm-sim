@@ -13,8 +13,9 @@ human sign-off to omit an acceptance requirement.
   sampling checks pass. Human anchor correction v2 resolves the comparison
   prints and adds the executed z=0.2 evidence row; see
   `results/selection-audit.json`. The selected generator passes its
-  engineering checks. No training has started. The requested low-z
-  dominance interpretation is not supported by the generated population.
+  engineering checks. The low-z interpretation error is corrected by
+  explicit user authorization: the detected population is moderate-z
+  dominated. T3 passes and model engineering checks are recorded separately.
 
 - Madau & Dickinson Eq. 15 uses 2.7, 2.9, **5.6**. Source:
   https://arxiv.org/html/1403.0007 ; correction explicitly authorized.
@@ -75,3 +76,12 @@ human sign-off to omit an acceptance requirement.
   Phase 2a smoke test; the human sign-off on the six rows is recorded above.
 
 No tolerance changes or additional deferrals have been signed off.
+
+## Phase 2b/3: first real-data selection consistency check
+
+- Compare the simulated detected-DM distribution with the actual
+  CHIME/FRB Catalog 1 DM histogram, using documented selection and DM
+  component conventions and appropriate catalog quality/repeater handling.
+  This is the first real-data consistency check of the selection model;
+  no agreement has been demonstrated yet. It is recorded for Phase 2b/3
+  and does not block the current Phase 2a work.

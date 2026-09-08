@@ -1,0 +1,55 @@
+{
+  "git_sha": "67dc8a20c83e0cbe6b202e6fa2501a5c693c858a",
+  "git_dirty": true,
+  "scope": "architecture and five-step replay only; not G-P1 full sample or calibrated inference",
+  "config": {
+    "width": 64,
+    "heads": 4,
+    "inducing_points": 16,
+    "isab_blocks": 2,
+    "flow_width": 128,
+    "z_embedding": 8,
+    "type_embedding": 4
+  },
+  "torch": "2.14.0+cpu",
+  "threads": 4,
+  "dtype": "float32 network; float64 physical transform boundaries and sampler",
+  "seeds": {
+    "weights": 71000,
+    "permutation": 71001,
+    "posterior": 71002,
+    "different_posterior": 71003
+  },
+  "losses": [
+    3.0211181640625,
+    2.704735517501831,
+    2.3985166549682617,
+    3.169692039489746,
+    4.6251115798950195
+  ],
+  "replay_losses": [
+    3.0211181640625,
+    2.704735517501831,
+    2.3985166549682617,
+    3.169692039489746,
+    4.6251115798950195
+  ],
+  "weights_bit_identical": true,
+  "weights_hash": "43a84f83bd0c3b8868cbff8f876d0df754aa4f92354c706ef2ba662de26bb147",
+  "posterior_bit_identical": true,
+  "different_seed_differs": true,
+  "parameter_roundtrip_prior_width_error": 2.5820575151675785e-08,
+  "padding_and_shuffle_summary_error": 5.960464477539062e-07,
+  "shuffle_wasserstein_prior_widths": 4.704119310823029e-09,
+  "missing_embedding_receives_gradient": true,
+  "ode": {
+    "method": "torchdiffeq rk4",
+    "steps": 32,
+    "comparison_steps": 64,
+    "max_physical_error_in_prior_widths": 2.7129089730854654e-07,
+    "posterior_samples": 32,
+    "seed": 71002
+  },
+  "finite": true,
+  "status": "pass"
+}

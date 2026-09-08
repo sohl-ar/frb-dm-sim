@@ -10,3 +10,4 @@ TAIL_QUADRATURE_REL = 1e-8
 TAIL_REJECTION_SE = 3.0
 CONDITIONAL_KS_P_MIN = .001
 GENERATOR_BURSTS_PER_SECOND = 8600.0  # SPEC-02a and consolidated authorization; immutable.
+T3_CDF_INTERVAL = (.005,.995)  # Consolidated authorization, central 99%.

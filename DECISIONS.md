@@ -72,13 +72,15 @@ implemented; `results/generator-audit.json` records validation and runtime.
 A broad LF retains partial distance information;
 the eventual exchange-rate study is separate from G-P8's sanity threshold.
 
-## T3: priors recorded, validation not run
+## T3: prior-predictive validation
 
 The specified priors remain f_d uniform on [0.6,1], F log-uniform on
 [0.05,1], host median log-uniform on [20,200], and host sigma_ln uniform
 on [0.2,2]. Host lognormal parameters use natural logs. Both population
 families belong in training, with their flag confined to ground truth.
-No prior-predictive acceptance is claimed. The authorization now defines
+The executed `results/prior-predictive.json` records per-event CDFs from
+both numerical quadrature and random draws, as well as the diagnostic grid.
+All six events pass. T3 was reported to the human before training. The criterion is
 the per-event interval as the central 99% [0.5%,99.5%], at each event's
 own redshift, with CDF values and the diagnostic grid also reported.
 
@@ -90,7 +92,11 @@ real bursts before padding. Parameter transforms now use prior-CDF
 normalization (log first for log-uniform priors), followed by logit to
 the real line; invert with sigmoid and the prior's inverse map. Physical
 parameter space is used for ranks and coverage. SBC uses 1000 posterior
-samples per trial, batched over shared conditioning. No network is built.
+samples per trial, batched over shared conditioning. The native ISAB/PMA
+and conditional flow-matching model is implemented in `frbsbi.model`;
+only ODE integration uses torchdiffeq. The architecture audit tests
+padding, shuffling, missing-embedding gradients, reversible transforms,
+ODE step doubling, and bit-identical short-run weights and samples.
 
 The smoke test will use full Macquart Table 1: sky coordinates, DM,
 fluence and redshift. Those additional columns have not yet been
@@ -101,8 +107,9 @@ The human has verified all six original table rows. The authorized
 was located and rerun. `results/table1-amendment.json` links the before
 and after ledgers and records changes to means, corrections and coverage.
 
-Training and posterior validation have not started. Generator performance
-has been measured. Phase 1's L2 and Milky Way work remains open.
+Generator performance and pretraining model checks have been measured.
+Training progress and checkpoints are recorded independently of posterior
+acceptance. Phase 1's L2 and Milky Way work remains open.
 
 ## Print-revision rule and selection interpretation
 
@@ -112,13 +119,27 @@ anchors are not revisable this way. This creates no precedent for changing
 G-P4 coverage bands or any other acceptance tolerance. The generated table
 below supersedes the stale prints in the original stored specification.
 
-Comparison to similarly selected ASKAP samples would be selection
-consistency, not independent validation. However, the claimed low-z
-dominance does not hold for this authorized simulator: the generated
-fractions below show a minority below z=0.5 in both families. Do not claim
-agreement with Macquart/James ASKAP redshift distributions or a low-z
-dominated exchange-rate regime from these simulations. Phase 3 framing
-must use the actual selected distribution; the population remains unchanged.
+The "quiet validation" observation is retired entirely. The prior
+z<=0.5-dominance claim was an interpretation error: a per-redshift
+selection fraction was confused with the population-weighted detected
+density. Measurement caught the error. The approved interpretation is
+z>0.5 dominance, with the mixed population peaking at moderate redshift,
+approximately z=0.8-1.0. The generated fractions below give the exact
+below-z=0.5 shares. The Phase 3 exchange-rate result and paper framing
+must describe this moderate-redshift regime. No independent real-data
+validation is claimed, and no population parameters were changed.
+
+## Training engineering configuration
+
+Architecture widths, optimizer settings and epoch limits are numerical
+design choices, not literature-derived physical constants. They are
+explicit configurations in `ModelConfig` and the training run's JSON.
+Use float32 for network operations, float64 for the simulator and physical
+transform boundaries, deterministic CPU operations, no mixed precision,
+and disjoint catalog seeds. Shards live under ignored `work/training-data`;
+their complete hashes, counts, seeds and generation config are tracked in
+`results/training-data-manifest.json`. Checkpoints and logs are tracked.
+Short-run determinism is an engineering check, not posterior calibration.
 
 <!-- GENERATED_ANCHOR_EVIDENCE -->
 

@@ -12,6 +12,7 @@ dependencies = ["numpy>=2", "scipy>=1.14", "astropy>=7", "pytest>=8"]
 [project.optional-dependencies]
 l2 = ["glass", "camb"]
 mw = ["pygedm"]
+inference = ["torch", "torchdiffeq"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

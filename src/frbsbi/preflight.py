@@ -129,11 +129,17 @@ def write_phase2a_report(root, t1, tests_passed, failures):
                      and report["pretraining"]["T2"]["z02_verified"] and generated["status"]=="pass")
             report["pretraining"]["T2"]["status"] = "pass" if ready else "blocked"
             report["pretraining"]["T2"]["reason"] = "Authorized selected generator validated" if ready else "Pretraining validation incomplete"
-        report["open_findings"] = [{"name":"low_redshift_dominance_claim","status":"discrepancy_reported",
+        report["open_findings"] = [{"name":"low_redshift_dominance_claim","status":"corrected_by_human_authorization",
             "claim":"selected catalogs are dominated by z<=0.5",
             "actual_quadrature_fraction_below_z05":{k:v["quadrature_fraction_detected_below_z05"]
                 for k,v in selection["population_naive_rejection"].items()},
-            "action":"No population changes; do not claim selection consistency with low-z ASKAP samples without evidence."}]
+            "action":"Retire quiet validation; record moderate-z dominance and Phase 3 framing. CHIME Catalog 1 DM comparison is a future consistency check."}]
+    prior_path = root / "results/prior-predictive.json"
+    if prior_path.exists():
+        prior = json.loads(prior_path.read_text(encoding="utf-8"))
+        report["pretraining"]["T3"] = {"status":prior["status"],"evidence":"results/prior-predictive.json",
+            "event_CDFs":{e["frb"]:e["quadrature_CDF"] for e in prior["events"]},
+            "sha256":hashlib.sha256(prior_path.read_bytes()).hexdigest()}
     target = root / "results" / "phase2a_gates.json"
     target.parent.mkdir(exist_ok=True)
     temporary = target.with_suffix(".tmp")
