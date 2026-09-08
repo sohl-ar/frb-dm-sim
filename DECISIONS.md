@@ -214,3 +214,38 @@ is dominated by z>0.5; the eventual exchange-rate framing must be moderate-z.
 The future actual CHIME Catalog 1 DM-histogram comparison remains unrun.
 Anchor prints may be revised by explicit human sign-off and evidence; gate
 tolerances, physics anchors and coverage criteria cannot be revised that way.
+
+## Conditioning implementation and G-P7 authorization — 2026-09-08
+
+The human authorized implementation of the observable statistics bypass,
+missing gate infrastructure and execution handoff, with quick checks only in
+the architect session. The original ISAB/PMA path is retained; train-only
+standardization feeds observable statistics directly to the velocity input.
+No simulator source, physical parameter or existing gate tolerance is changed.
+The separate conditioned launch preserves baseline files and allows one attempt,
+with no resume or automatic retry. See CONDITIONING_FIX.md and HANDOFF.md.
+
+Posterior contraction compares matching central-68% physical intervals of the
+posterior and the actual prior, including log-uniform priors. The latest human
+request's strict inequalities apply to every parameter. The number of catalogs
+for width/soft probes is fixed in the named configuration file as an engineering
+allocation where the spec does not prescribe one; the SBC and TARP sample sizes
+remain those prescribed by SPEC-02a. These choices are recorded before training.
+
+The human explicitly accepted **per-family coverage plus the selection-ignored
+probe for G-P7, soft and reported-only**, and requested the cross-family
+deferral be recorded in the ledger. Both families occur in this network's
+training mixture, so those strata are not a wrong-family-trained-model test.
+A true cross-trained wrong-family comparison is deferred to Phase 2b. The
+authorization is present in the new ledger template and G-P7 result.
+
+New-run manifest hashing canonicalizes parsed JSON for cross-platform line
+endings; source-cache hashing also normalizes text line endings. Binary shard,
+normalizer and checkpoint byte hashes remain checked. Old provenance and gate
+evidence are not rewritten. Full execution will archive baseline preflight
+reports before regenerating them. Cached posterior evidence is reusable only
+under the same checkpoint, data and implementation identity.
+
+Quick controls verify implementation mechanics, including positive and negative
+gate controls. They do not establish posterior calibration or information gain.
+No full retraining, full SBC or full gate suite ran in this architect session.

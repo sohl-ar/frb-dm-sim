@@ -19,7 +19,7 @@ x,mask,y = pad_catalogs(f,o,t,np.arange(100))
 model = PosteriorFlow(ModelConfig(statistics_bypass=True))
 model.statistics.set_normalization(json.loads((RUN_DIR/"normalization.json").read_text()))
 raw = catalog_statistics(x,mask).numpy()
-scaled = model.statistics(x,mask).detach().numpy()
+scaled = model.statistics(x,mask).detach().numpy().astype(np.float64)
 corr = np.zeros((len(STAT_NAMES),4))
 for i in range(len(STAT_NAMES)):
     if raw[:,i].std()>0:
@@ -31,7 +31,7 @@ assert torch.isfinite(loss) and torch.isfinite(grad).all() and grad.norm()>0
 assert all(p.grad is None or torch.isfinite(p.grad).all() for p in model.parameters())
 report = {**git_provenance(),"scope":"quick engineering check; no optimizer step or training",
           "status":"pass","catalog_seeds":seeds,"statistics":STAT_NAMES,
-          "raw_variance":raw.var(0).tolist(),"standardized_variance":scaled.var(0).tolist(),
+          "raw_variance":raw.var(0).tolist(),"standardized_variance":(scaled-scaled[:1]).var(0).tolist(),
           "correlations":corr.tolist(),"parameter_order":["f_d","F","host_median","host_sigma_ln"],
           "flagged_abs_r_above_0_3":[{"statistic":STAT_NAMES[i],"parameter_index":int(j),"r":float(corr[i,j])}
                                      for i,j in zip(*np.where(abs(corr)>.3))],

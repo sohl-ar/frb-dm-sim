@@ -1,0 +1,83 @@
+{
+  "schema_version": 2,
+  "git_sha": "7e814454417d54b1aa6ad08dafd68b476a25a719",
+  "git_dirty": true,
+  "scope": "prepared implementation ledger; no new training or acceptance run",
+  "acceptance_complete": false,
+  "exit_status": 1,
+  "G-P7_authorization": {
+    "date": "2026-09-08",
+    "status": "human_authorized",
+    "scope": "per-family coverage plus selection-ignored probe; soft and reported-only",
+    "cross_family_deferral": "Phase 2b: true cross-trained wrong-family comparison",
+    "reason": "The current network was trained on an equal mixture of both population families"
+  },
+  "gates": {
+    "G-P1": {
+      "name": "G-P1",
+      "status": "not_run",
+      "hard": true,
+      "measured": null,
+      "tolerance": null
+    },
+    "G-P2": {
+      "name": "G-P2",
+      "status": "not_run",
+      "hard": true,
+      "measured": null,
+      "tolerance": null
+    },
+    "G-P6": {
+      "name": "G-P6",
+      "status": "not_run",
+      "hard": true,
+      "measured": null,
+      "tolerance": null
+    },
+    "G-P4": {
+      "name": "G-P4",
+      "status": "not_run",
+      "hard": true,
+      "measured": null,
+      "tolerance": null
+    },
+    "G-P5": {
+      "name": "G-P5",
+      "status": "not_run",
+      "hard": true,
+      "measured": null,
+      "tolerance": null
+    },
+    "G-P8": {
+      "name": "G-P8",
+      "status": "not_run",
+      "hard": true,
+      "measured": null,
+      "tolerance": null
+    },
+    "G-P3": {
+      "name": "G-P3",
+      "status": "not_run",
+      "hard": false,
+      "measured": null,
+      "tolerance": null
+    },
+    "G-P7": {
+      "name": "G-P7",
+      "status": "not_run",
+      "hard": false,
+      "measured": null,
+      "tolerance": null
+    },
+    "smoke": {
+      "name": "smoke",
+      "status": "not_run",
+      "hard": false,
+      "measured": null,
+      "tolerance": null
+    }
+  },
+  "artifacts": {},
+  "execution_handoff": "HANDOFF.md",
+  "quick_evidence": "results/conditioning-v1/implementation-checks.json"
+}

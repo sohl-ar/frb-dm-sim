@@ -6,6 +6,7 @@ Cached artifacts are tied to checkpoint, canonical dataset, and source hashes.
 """
 import argparse
 import hashlib
+import importlib.metadata
 import json
 from pathlib import Path
 import shutil
@@ -71,7 +72,9 @@ class Acceptance:
         if not self.model.config.statistics_bypass or not bool(self.model.statistics.fitted):
             raise RuntimeError("STOP: conditioned checkpoint with fitted bypass required")
         self.identity = {"checkpoint_sha256":sha(checkpoint),"dataset_manifest_sha256":manifest_hash,
-                         "implementation_sha256":implementation_hash(),"training_config_hash":payload["config_hash"]}
+                         "implementation_sha256":implementation_hash(),"training_config_hash":payload["config_hash"],
+                         "runtime_versions":{name:importlib.metadata.version(name)
+                                             for name in ("numpy","scipy","torch","torchdiffeq","sbi")}}
         self.target = self.run_dir/"phase2a_gates.json"
         if self.target.exists():
             self.report = json.loads(self.target.read_text())
@@ -213,19 +216,23 @@ class Acceptance:
                 "posterior_reuse":"first prescribed TARP_TRIALS of the SBC artifact"}
 
     def gate_G_P6(self):
-        rows = {}
+        rows = {str(n):{"status":"not_run"} for n in CONTRACTION_LIMITS}
         for n,limit in CONTRACTION_LIMITS.items():
             p,_,meta = self.generated(f"contraction-{n}",n)
             rows[str(n)] = {**contraction(p,limit),**meta}
+            if rows[str(n)]["status"]=="fail":
+                break
         return {"status":"pass" if all(r["status"]=="pass" for r in rows.values()) else "fail",
                 "by_N":rows,"tolerance":CONTRACTION_LIMITS}
 
     def gate_G_P8(self):
-        rows = {}
+        rows = {str(n):{"status":"not_run"} for n in INFORMATION_N}
         for n in INFORMATION_N:
             a,_,meta = self.generated(f"localized-{n}",n,localized_fraction=1.)
             b,_,_ = self.generated(f"unlocalized-{n}",n,localized_fraction=0.)
             rows[str(n)] = {**information(a,b),**meta,"paired_catalogs":"same theta, DM, fluence, sky; only localization differs"}
+            if rows[str(n)]["status"]=="fail":
+                break
         return {"status":"pass" if all(r["status"]=="pass" for r in rows.values()) else "fail",
                 "by_N":rows,"tolerance":{"strict_lower_bound":1.5}}
 
@@ -264,6 +271,32 @@ class Acceptance:
                 "N":len(f),"catalogs":1,"tentative_event":"190611","tolerance":"reported, not science"}
 
     def finalize(self,*,preflight_passed,failures=()):
+        if preflight_passed:
+            paths = {key:ROOT/"results"/name for key,name in (
+                ("selection","selection-audit.json"),("generator","generator-audit.json"),
+                ("prior","prior-predictive.json"),("model","model-audit.json"))}
+            if not all(path.exists() for path in paths.values()):
+                preflight_passed = False
+            else:
+                evidence = {key:json.loads(path.read_text()) for key,path in paths.items()}
+                s,g = evidence["selection"],evidence["generator"]
+                t2_passed = (s["numeric_checks_pass"] and s["prints_within_factor_two"]
+                             and s["z02_verification"]["status"]=="pass" and g["status"]=="pass")
+                self.report.setdefault("pretraining",{})["T2"] = {
+                    "status":"pass" if t2_passed else "fail",
+                    "selection_evidence":paths["selection"].relative_to(ROOT).as_posix(),
+                    "selection_sha256":sha(paths["selection"]),
+                    "generator_evidence":paths["generator"].relative_to(ROOT).as_posix(),
+                    "generator_sha256":sha(paths["generator"])}
+                self.report["pretraining"]["T3"] = {
+                    "status":evidence["prior"]["status"],"evidence":paths["prior"].relative_to(ROOT).as_posix(),
+                    "sha256":sha(paths["prior"]),
+                    "event_CDFs":{e["frb"]:e["quadrature_CDF"] for e in evidence["prior"]["events"]}}
+                self.report["model_engineering"] = {"status":evidence["model"]["status"],
+                    "evidence":paths["model"].relative_to(ROOT).as_posix(),"sha256":sha(paths["model"])}
+                preflight_passed = bool(t2_passed and evidence["prior"]["status"]=="pass"
+                                         and evidence["model"]["status"]=="pass"
+                                         and self.report["pretraining"].get("T1",{}).get("status")=="pass")
         self.report["preflight_tests_passed"] = preflight_passed
         self.report["test_failures"] = list(failures)
         if failures:

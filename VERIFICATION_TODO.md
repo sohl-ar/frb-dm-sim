@@ -5,6 +5,10 @@ human sign-off to omit an acceptance requirement.
 
 ## Current Phase 2a findings and human decisions
 
+The conditioning implementation is now authorized, implemented and quick-tested.
+Execution is pending via HANDOFF.md. The historical baseline findings below
+remain failures/findings until the new run supplies measured acceptance evidence.
+
 Training is complete, G-P1/G-P2 pass and G-P4 fails on F central coverage.
 The audit also finds broadly prior-like predictions across parameters;
 passing marginal SBC criteria alone does not demonstrate information gain.
@@ -14,20 +18,23 @@ PROJECT_STATUS.md and AUDIT_REPORT.md report the exact measured results.
   update mathematics match, but resumption continued after exhausted
   patience. The evaluated best checkpoint is unaffected by the extra
   epoch according to the recorded loss comparison; original evidence is preserved.
-- Approve a subsequent conditioning/reference-posterior investigation
-  before selecting a training or architecture repair. No new run is
-  authorized by a diagnostic hypothesis alone.
-- Implement G-P5/TARP, G-P6 and G-P8 in the next task; report G-P3/G-P7.
-  The audit did not implement or run them. G-P4 remains a hard failure.
+- Execute the authorized statistics-bypass experiment exactly once; no
+  retraining was performed during its implementation session.
+- Run the implemented G-P5/TARP, G-P6 and G-P8 plus the full suite and smoke.
+  G-P4 remains a baseline hard failure until the new checkpoint is evaluated.
+- G-P7 per-family coverage and selection-ignored probe are human-approved as
+  soft/report-only. True cross-trained wrong-family comparison is deferred to
+  Phase 2b; it is not being represented as measured by the mixture-trained model.
 - Recover full-SBC intervals/samples if an external artifact exists.
   The repository contains ranks only; exact full-sample widths cannot be
   reconstructed. The authorized small replay is saved separately.
 - Recover the claimed Colab notebook, absent from this checkout/history,
   before advertising it. No badge or installation-success claim is verified.
-- Resolve raw JSON hash portability with human approval: original Windows
+- Original raw JSON hash portability remains a historical limitation: Windows
   CRLF hashes differ from Git LF blobs although parsed data agree. The
   checkpoint manifest guard fails on a fresh LF checkout; do not bypass
-  it or silently edit historical hashes. Both hashes are in the audit.
+  it or silently edit historical hashes. Both hashes are in the audit. The new
+  conditioning run records canonical JSON hashing and retains shard byte hashes.
 - The full-column real-data smoke test remains unrun.
 
 ## Verified or authorized

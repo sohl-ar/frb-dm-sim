@@ -1,0 +1,31 @@
+{
+  "git_sha": "7e814454417d54b1aa6ad08dafd68b476a25a719",
+  "git_dirty": true,
+  "scope": "implementation checks only; no new training or full acceptance",
+  "statistics_count": 34,
+  "validation_catalogs": 100,
+  "varying_dimensions": 31,
+  "constant_dimensions": [
+    "has_localized",
+    "has_unlocalized",
+    "ols_available"
+  ],
+  "max_absolute_correlation_by_parameter": {
+    "f_d": 0.6926237169442219,
+    "F": 0.42650962208363785,
+    "host_median": 0.4050645699169093,
+    "host_sigma_ln": 0.39754367232057336
+  },
+  "standardized_variance_range_among_varying_dimensions": [
+    0.020292365352096983,
+    7.310489438355656
+  ],
+  "unit_tests": {
+    "tests": 12,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "training_started": false,
+  "new_statistical_acceptance": "not_run"
+}

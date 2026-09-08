@@ -6,6 +6,7 @@ import pytest
 from frbsbi import acceptance
 from frbsbi.acceptance import Acceptance,empty_ledger
 from frbsbi.gate_metrics import prior_quantiles
+from frbsbi.train import write_json
 
 
 def bare_runner(tmp_path,monkeypatch):
@@ -54,4 +55,25 @@ def test_failed_gate_stops_following_work(tmp_path,monkeypatch):
     with pytest.raises(RuntimeError,match="earlier failure"):
         obj.run("G-P8")
     assert obj.report["gates"]["G-P8"]["status"]=="not_run"
+    assert not obj.finalize(preflight_passed=True)
+
+
+def test_complete_ledger_refreshes_current_preflight_provenance(tmp_path,monkeypatch):
+    obj = bare_runner(tmp_path,monkeypatch)
+    fixtures = {
+        "selection-audit.json":{"numeric_checks_pass":True,"prints_within_factor_two":True,
+                                "z02_verification":{"status":"pass"}},
+        "generator-audit.json":{"status":"pass"},
+        "prior-predictive.json":{"status":"pass","events":[{"frb":"fixture","quadrature_CDF":.5}]},
+        "model-audit.json":{"status":"pass"},
+    }
+    for name,payload in fixtures.items():
+        write_json(tmp_path/"results"/name,payload)
+    obj.report["pretraining"] = {"T1":{"status":"pass"}}
+    for row in obj.report["gates"].values():
+        row["status"] = "pass" if row["hard"] else "reported"
+    assert obj.finalize(preflight_passed=True)
+    assert obj.report["exit_status"]==0
+    assert obj.report["pretraining"]["T3"]["sha256"]==acceptance.sha(tmp_path/"results/prior-predictive.json")
+    write_json(tmp_path/"results/model-audit.json",{"status":"fail"})
     assert not obj.finalize(preflight_passed=True)

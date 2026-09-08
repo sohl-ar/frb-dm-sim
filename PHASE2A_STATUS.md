@@ -1,5 +1,12 @@
 # Phase 2a status — Phase 2a incomplete; Phase 3 blocked
 
+Current update: the observable bypass and complete posterior gate runner are
+implemented and quick-tested. The isolated conditioning run remains unstarted.
+HANDOFF.md provides the exact single-run execution sequence. G-P7's approved
+soft scope is per-family coverage plus selection ignored; a true cross-family
+experiment is deferred to Phase 2b in the ledger. The results below remain the
+baseline evidence, not results from the repaired architecture.
+
 Training recorded 19 epochs, with best epoch 13 and validation loss 2.845229963. The saved best checkpoint and archived SBC results pass the
 integrity audit. G-P1 and G-P2 pass. Three parameters pass the recorded
 marginal SBC criteria; F fails its central-68% coverage criterion.
@@ -22,10 +29,9 @@ ran an extra epoch after patience was already exhausted. Its stopping
 fidelity is FAIL; this does not change the evaluated best checkpoint.
 See [AUDIT_REPORT.md](AUDIT_REPORT.md) for evidence and limitations.
 
-Still required for Phase 2a: resolve G-P4 and demonstrate informative
-conditional learning; implement and run G-P5/TARP, G-P6/contraction and
-G-P8/information contrast; report G-P3 and G-P7; run the full-column
-Macquart smoke test. Missing gates were not implemented in this audit.
+Still required for Phase 2a: execute the prepared training run and demonstrate
+calibrated, informative conditional learning through the implemented full
+gate suite, soft reports and full-column Macquart smoke test.
 The original gate ledger stays failed/incomplete.
 
 Phase 1 remains independently incomplete: pygedm/G5 and L2/GLASS/G3 are

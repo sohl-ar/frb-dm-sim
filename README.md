@@ -6,7 +6,12 @@ Background cosmology is pinned. L0 uses the published asymmetric cosmic-DM
 distribution; a native Set Transformer conditions a flow-matching posterior
 on localized and unlocalized observations.
 
-**Phase 2a training is complete; acceptance is not.** Training recorded 19 epochs, with best epoch 13 and validation loss 2.845229963.
+**The conditioning repair and missing gates are implemented and quick-tested;
+the new training run has not started.** Follow [HANDOFF.md](HANDOFF.md) for the
+single execution run. See [CONDITIONING_FIX.md](CONDITIONING_FIX.md) and
+[GATE_IMPLEMENTATION.md](GATE_IMPLEMENTATION.md) for implementation conventions.
+
+**Baseline run: training complete; acceptance failed.** Training recorded 19 epochs, with best epoch 13 and validation loss 2.845229963.
 G-P1/G-P2 pass. Three parameters pass the recorded marginal SBC checks;
 F is underconfident at central-68% coverage. The audit additionally finds
 largely prior-like predictions across all four parameters, so these passes

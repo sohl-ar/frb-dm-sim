@@ -1,0 +1,57 @@
+{
+  "git_sha": "7e814454417d54b1aa6ad08dafd68b476a25a719",
+  "git_dirty": true,
+  "status": "pass",
+  "commands": [
+    {
+      "command": [
+        "C:\\Users\\sachi\\Documents\\Codex\\2026-09-06\\below-is-the-complete-final-spec\\work\\.venv\\Scripts\\python.exe",
+        "-m",
+        "frbsbi.train_conditioned",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: train_conditioned.py [-h] {prepare,launch}\n\nSingle authorized conditioning experiment; no automatic resume or retry. Host\nmedian / sigma_ln retain NATURAL LOG conventions. Preparation fits observable\nscaling only. The launch uses the original training hyperparameters.\n\npositional arguments:\n  {prepare,launch}\n\noptions:\n  -h, --help        show this help message and exit\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\sachi\\Documents\\Codex\\2026-09-06\\below-is-the-complete-final-spec\\work\\.venv\\Scripts\\python.exe",
+        "-m",
+        "frbsbi.acceptance",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: acceptance.py [-h] {validation}\n\nComplete conditioned-run acceptance driver; fail once, stop, never repair.\nHost parameters remain physical median and NATURAL LOG width. Validation seeds\nare disjoint from gradient training, but were used for checkpoint selection.\nCached artifacts are tied to checkpoint, canonical dataset, and source hashes.\n\npositional arguments:\n  {validation}\n\noptions:\n  -h, --help    show this help message and exit\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\sachi\\Documents\\Codex\\2026-09-06\\below-is-the-complete-final-spec\\work\\.venv\\Scripts\\python.exe",
+        "scripts/report_conditioning_execution.py",
+        "--section",
+        "all"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"training\": {\n    \"status\": \"not_started\"\n  },\n  \"gates\": {\n    \"status\": \"not_run\"\n  }\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\sachi\\Documents\\Codex\\2026-09-06\\below-is-the-complete-final-spec\\work\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-m",
+        "phase2a",
+        "--collect-only",
+        "-q"
+      ],
+      "exit_code": 0,
+      "stdout": "tests/phase2a/test_generator.py::test_generator_statistics_schema_seeds_and_rate\ntests/phase2a/test_model.py::test_model_engineering\ntests/phase2a/test_selection.py::test_selection_authorized_prints\ntests/phase2a/test_t1.py::test_t1_production_sampling_statistics\ntests/phase2a/test_t1.py::test_t1_output_follows_rng_order\ntests/phase2a/test_t1.py::test_t1_seed_overlap_is_hard_error\ntests/phase2a/test_t3.py::test_t3_prior_predictive\ntests/phase2a/test_posterior_acceptance.py::test_conditioned_posterior_gate[G-P1]\ntests/phase2a/test_posterior_acceptance.py::test_conditioned_posterior_gate[G-P2]\ntests/phase2a/test_posterior_acceptance.py::test_conditioned_posterior_gate[G-P6]\ntests/phase2a/test_posterior_acceptance.py::test_conditioned_posterior_gate[G-P4]\ntests/phase2a/test_posterior_acceptance.py::test_conditioned_posterior_gate[G-P5]\ntests/phase2a/test_posterior_acceptance.py::test_conditioned_posterior_gate[G-P8]\ntests/phase2a/test_posterior_acceptance.py::test_conditioned_posterior_gate[G-P3]\ntests/phase2a/test_posterior_acceptance.py::test_conditioned_posterior_gate[G-P7]\ntests/phase2a/test_posterior_acceptance.py::test_conditioned_posterior_gate[smoke]\n\n16/47 tests collected (31 deselected) in 2.08s\n",
+      "stderr": ""
+    }
+  ],
+  "handoff_copies_identical": true,
+  "training_launched": false,
+  "full_gates_executed": false
+}
