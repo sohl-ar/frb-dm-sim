@@ -7,6 +7,7 @@ import argparse
 from dataclasses import asdict
 import hashlib
 import json
+import shutil
 from pathlib import Path
 from .data import ROOT
 from .model import ModelConfig
@@ -42,6 +43,18 @@ def launch():
     # Exclusive marker persists after interruption/failure. Never remove to retry.
     with (RUN_DIR/"TRAINING_ATTEMPT.lock").open("x") as f:
         f.write("One training attempt claimed. Do not delete or retry.\n")
+    # Preserve the baseline preflight evidence before future full pytest runs
+    # regenerate those reports. This archive never overwrites existing files.
+    archive = RUN_DIR/"baseline-evidence"
+    archive.mkdir()
+    names = ("phase2a_gates.json","generator-audit.json","model-audit.json",
+             "prior-predictive.json","selection-audit.json","training.json","posterior-gates.json")
+    hashes = {}
+    for name in names:
+        source = ROOT/"results"/name
+        shutil.copyfile(source,archive/name)
+        hashes[name] = hashlib.sha256(source.read_bytes()).hexdigest()
+    write_json(archive/"manifest.json",hashes)
     return train(TrainConfig(**config["training"]),ModelConfig(**config["model"]),
                  run_dir=RUN_DIR,normalization=json.loads(normalizer_path.read_text()))
 

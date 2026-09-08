@@ -89,13 +89,13 @@ class TrainingBatch:
 
 
 @lru_cache(maxsize=8)
-def population_tables(lf=SchechterLF(), threshold=FLUENCE_MIN):
+def population_tables(lf=SchechterLF(), threshold=FLUENCE_MIN, selection_on=True):
     if not np.isfinite(threshold) or threshold<=0:
         raise ValueError("positive finite fluence cut required")
     z = np.linspace(Z_MIN,Z_MAX,POPULATION_GRID_SIZE,dtype=np.float64)
     dl = luminosity_distance(z)
     volume = differential_volume(z)
-    survival = lf.tail(4*np.pi*dl**2*threshold)
+    survival = lf.tail(4*np.pi*dl**2*threshold) if selection_on else np.ones_like(z)
     cdfs = []
     fractions = []
     for family in ("sfr","constant_comoving"):
@@ -133,7 +133,8 @@ def cosmic_from_uniforms(z, fd, F, uniforms):
     return _mean_table(Z_MAX,1.)(z)*fd*delta
 
 
-def generate_batch(seeds, *, split, seed_ranges=None, lf=SchechterLF(), threshold=FLUENCE_MIN):
+def generate_batch(seeds, *, split, seed_ranges=None, lf=SchechterLF(), threshold=FLUENCE_MIN,
+                   forced_n=None, localized_fraction=None, forced_family=None, selection_on=True):
     """Generate selected catalogs directly; N is observed, not intrinsic.
 
     Per-catalog RNG allocation is the only data-dependent Python loop.
@@ -147,7 +148,13 @@ def generate_batch(seeds, *, split, seed_ranges=None, lf=SchechterLF(), threshol
     r = ranges[split]
     if any(type(s) is not int or not r.start<=s<r.stop for s in seeds):
         raise ValueError("catalog seed outside its assigned split")
-    zgrid,dlgrid,cdfs,detected_fractions = population_tables(lf,threshold)
+    if forced_n is not None and (type(forced_n) is not int or not 1<=forced_n<=1024):
+        raise ValueError("diagnostic forced_n must be an integer in 1..1024")
+    if localized_fraction is not None and (not np.isfinite(localized_fraction) or not 0<=localized_fraction<=1):
+        raise ValueError("localized_fraction must be in [0,1]")
+    if forced_family not in (None,0,1):
+        raise ValueError("forced_family must be None, 0 (SFR), or 1 (constant)")
+    zgrid,dlgrid,cdfs,detected_fractions = population_tables(lf,threshold,selection_on)
     sizes,theta,families,parts = [],[],[],[]
     bounds_lo = np.where(LOG_PRIOR,np.log(PRIOR_LO),PRIOR_LO)
     bounds_hi = np.where(LOG_PRIOR,np.log(PRIOR_HI),PRIOR_HI)
@@ -158,6 +165,11 @@ def generate_batch(seeds, *, split, seed_ranges=None, lf=SchechterLF(), threshol
         p = np.where(LOG_PRIOR,np.exp(p),p)
         family = int(rng.integers(0,2))  # Equal family mixture: explicit engineering allocation.
         local_probability = rng.beta(2.,6.)
+        # Always consume the original draws, preserving default replay and paired
+        # localized/unlocalized experiments' theta, DM, sky, and fluence streams.
+        n = n if forced_n is None else forced_n
+        family = family if forced_family is None else forced_family
+        local_probability = local_probability if localized_fraction is None else localized_fraction
         # Independent coordinates of the RNG stream; never percentile grids.
         arrays = rng.random((6,n))
         z = np.interp(arrays[0],cdfs[family],zgrid)
@@ -170,7 +182,7 @@ def generate_batch(seeds, *, split, seed_ranges=None, lf=SchechterLF(), threshol
     # These comprehensions iterate over columns/catalogs, not bursts.
     z,dl,u_L,host,u_cosmic,u_ra,u_dec,localized = (
         np.concatenate([part[i] for part in parts]) for i in range(8))
-    L = lf.quantile_above(4*np.pi*dl**2*threshold,u_L)
+    L = lf.quantile_above(4*np.pi*dl**2*threshold if selection_on else np.full_like(dl,lf.minimum),u_L)
     theta = np.asarray(theta,dtype=np.float64)
     per_burst_theta = np.repeat(theta,np.asarray(sizes),axis=0)
     cosmic = cosmic_from_uniforms(z,per_burst_theta[:,0],per_burst_theta[:,1],u_cosmic)
@@ -189,6 +201,9 @@ def generate_batch(seeds, *, split, seed_ranges=None, lf=SchechterLF(), threshol
               "ISM_fixture":ISM_FIXTURE,"halo_fixture":HALO_FIXTURE,"dm_error_fixture":DM_ERROR_FIXTURE,
               "noise_equivalent_fluence_fixture":NOISE_FLUENCE_FIXTURE,
               "cosmic_sigma_nodes":SIGMA_GRID_SIZE,"population_grid_points":POPULATION_GRID_SIZE}
+    if forced_n is not None or localized_fraction is not None or forced_family is not None or not selection_on:
+        config["diagnostic_overrides"] = {"forced_n":forced_n,"localized_fraction":localized_fraction,
+                                           "forced_family":forced_family,"selection_on":selection_on}
     metadata = {**git_provenance(),"seeds":seeds,"split":split,"config":config,
                 "seed_ranges":{k:asdict(v) for k,v in ranges.items()},
                 "config_hash":hashlib.sha256(json.dumps(config,sort_keys=True).encode()).hexdigest(),

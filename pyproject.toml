@@ -13,6 +13,7 @@ dependencies = ["numpy>=2", "scipy>=1.14", "astropy>=7", "pytest>=8"]
 l2 = ["glass", "camb"]
 mw = ["pygedm"]
 inference = ["torch", "torchdiffeq"]
+diagnostics = ["sbi==0.27.0"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

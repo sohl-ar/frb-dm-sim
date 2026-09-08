@@ -1,0 +1,38 @@
+{
+  "git_sha": "775ead7a8a890ce1fdab1e0094e9ae7e7697349d",
+  "git_dirty": true,
+  "status": "pass",
+  "scope": "read-only readiness; training not started",
+  "shards_verified": 118,
+  "normalization_catalogs": 50000,
+  "training_config": {
+    "batch_size": 64,
+    "max_epochs": 20,
+    "patience": 5,
+    "minimum_epochs": 5,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "gradient_norm_clip": 5.0,
+    "cpu_threads": 4,
+    "initialization_seed": 71010,
+    "training_noise_seed": 71011,
+    "validation_noise_seed": 71012,
+    "shuffle_seed": 71013
+  },
+  "model_config": {
+    "width": 64,
+    "heads": 4,
+    "inducing_points": 16,
+    "isab_blocks": 2,
+    "flow_width": 128,
+    "z_embedding": 8,
+    "type_embedding": 4,
+    "statistics_bypass": true
+  },
+  "baseline_checkpoint_sha256": "3260ef3eb126e81913f037971c734732672b126e58db711bf5e04d4817fcd802",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.5.3",
+  "torch": "2.14.0+cpu",
+  "sbi": "0.27.0",
+  "physics_diff_from_baseline": "empty"
+}

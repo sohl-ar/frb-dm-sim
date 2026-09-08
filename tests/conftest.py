@@ -30,6 +30,11 @@ def pytest_sessionstart(session):
     session.config.gate_report = {"schema_version": 1, "started_unix": time.time(),
         **provenance(), "gates": {n: {"name": n, "status": "not_run", "checks": []} for n in GATE_NAMES}}
 
+
+def pytest_collection_modifyitems(items):
+    # Existing preflight assertions run before costly posterior tests.
+    items.sort(key=lambda item:item.path.name=="test_posterior_acceptance.py")
+
 @pytest.fixture
 def gate(request):
     def check(name, label, measured, tolerance, passed, hard=True):
@@ -52,16 +57,40 @@ def pytest_runtest_makereport(item, call):
             {"nodeid": item.nodeid, "phase": report.when, "detail": str(report.longrepr)})
 
 def pytest_sessionfinish(session, exitstatus):
+    if session.config.option.collectonly:
+        return
     phase2_items = [item for item in session.items if item.get_closest_marker("phase2a")]
     if phase2_items:
-        from frbsbi.preflight import write_phase2a_report
         failures = session.config.gate_report.get("test_failures", [])
-        write_phase2a_report(ROOT, getattr(session.config, "phase2a_t1", None),
-                            not bool(exitstatus), failures)
-        if not exitstatus:
+        from frbsbi.acceptance import empty_ledger
+        from frbsbi.train import write_json
+        runtime = getattr(session.config,"phase2a_runtime",None)
+        # A posterior-only subset cannot claim that preflight was executed.
+        required = {"test_t1.py","test_t3.py","test_selection.py","test_model.py","test_generator.py"}
+        selected = {item.path.name for item in phase2_items}
+        complete = False
+        if runtime is not None:
+            runtime.report["pretraining"]["T1"] = getattr(session.config,"phase2a_t1",{"status":"not_run"})
+            complete = runtime.finalize(preflight_passed=not bool(exitstatus) and required<=selected,failures=failures)
+        else:
+            target = ROOT/"results/conditioning-v1/phase2a_gates.json"
+            report = json.loads(target.read_text()) if target.exists() else empty_ledger()
+            report.update(test_failures=failures,reason="trained conditioned gates not reached; acceptance incomplete")
+            report.update(acceptance_complete=False,exit_status=1)
+            if failures:
+                report.setdefault("stopped_at",failures[0]["nodeid"])
+            # Preserve the original baseline before promoting any new ledger.
+            import shutil
+            baseline = ROOT/"results/conditioning-v1/baseline-phase2a-ledger.json"
+            if not baseline.exists():
+                shutil.copyfile(ROOT/"results/phase2a_gates.json",baseline)
+            write_json(target,report)
+            write_json(ROOT/"results/phase2a_gates.json",report)
+        if not complete and not exitstatus:
             session.exitstatus = exitstatus = 1
-        session.config.get_terminal_writer().line(
-            "STOP: Phase 2a acceptance incomplete; see results/phase2a_gates.json", red=True)
+        if not complete:
+            session.config.get_terminal_writer().line(
+                "STOP: Phase 2a acceptance incomplete; see results/phase2a_gates.json",red=True)
     # A Phase 2a-only run must never overwrite saved Phase 1 evidence.
     if not any(item.get_closest_marker("gates") for item in session.items):
         return
