@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "scope": "Phase 2a preflight only",
-  "git_sha": "3a7d67b0b92e006e5876071267f711749d37a1ca",
+  "git_sha": "219dcbeea6b31adc277fae6121636db8aa4e6fee",
   "git_dirty": true,
   "config_hash": "752110e31a35f8f386f8724d3561c95930df50514e16e582524a1f4e32b753c1",
   "python": "3.12.14",
@@ -67,7 +67,17 @@
       "z02_verified": true
     },
     "T3": {
-      "status": "not_run"
+      "status": "pass",
+      "evidence": "results/prior-predictive.json",
+      "event_CDFs": {
+        "180924": 0.5765143088917846,
+        "181112": 0.8426119479676456,
+        "190102": 0.7094599924031268,
+        "190608": 0.9643872547810918,
+        "190611": 0.16438959736156017,
+        "190711": 0.7630562962722566
+      },
+      "sha256": "7bd0b6f4ca0423aaf51390eb2961e0df327ed329d4f6c02ca20193114db657d6"
     }
   },
   "gates": {
@@ -118,13 +128,18 @@
   "open_findings": [
     {
       "name": "low_redshift_dominance_claim",
-      "status": "discrepancy_reported",
+      "status": "corrected_by_human_authorization",
       "claim": "selected catalogs are dominated by z<=0.5",
       "actual_quadrature_fraction_below_z05": {
         "sfr": 0.1693582700783235,
         "constant_comoving": 0.32238215086070876
       },
-      "action": "No population changes; do not claim selection consistency with low-z ASKAP samples without evidence."
+      "action": "Retire quiet validation; record moderate-z dominance and Phase 3 framing. CHIME Catalog 1 DM comparison is a future consistency check."
     }
-  ]
+  ],
+  "model_engineering": {
+    "status": "pass",
+    "evidence": "results/model-audit.json",
+    "sha256": "69396ced46d000e53520ccb2fa6684342187127f212f6715d13d02da277ebb20"
+  }
 }

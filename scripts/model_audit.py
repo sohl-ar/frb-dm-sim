@@ -9,6 +9,7 @@ from frbsim.catalog import git_provenance
 from frbsbi.generator import generate_batch,PRIOR_LO,PRIOR_HI
 from frbsbi.data import encode_observations,pad_catalogs,require_pretraining
 from frbsbi.model import PosteriorFlow,ModelConfig
+from frbsbi.tolerances import PERMUTATION_W1,TRANSFORM_ROUNDTRIP_REL
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -72,7 +73,9 @@ def run_audit():
               "missing_embedding_receives_gradient":grad_missing is not None and bool(torch.any(grad_missing!=0)),
               "ode":ode,"finite":finite}
     passed = (weights_equal and report["posterior_bit_identical"] and report["different_seed_differs"]
-              and finite and roundtrip<1e-6 and w1<1e-4 and report["missing_embedding_receives_gradient"])
+              and finite and roundtrip<TRANSFORM_ROUNDTRIP_REL and w1<PERMUTATION_W1 and report["missing_embedding_receives_gradient"])
+    report["tolerances"] = {"parameter_roundtrip_prior_width_error":TRANSFORM_ROUNDTRIP_REL,
+                             "shuffle_wasserstein_prior_widths":PERMUTATION_W1}
     report["status"] = "pass" if passed else "fail"
     (ROOT/"results/model-audit.json").write_text(json.dumps(report,indent=2,allow_nan=False),encoding="utf-8")
     print(json.dumps(report,indent=2))

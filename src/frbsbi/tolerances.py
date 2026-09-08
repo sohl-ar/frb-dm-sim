@@ -11,3 +11,5 @@ TAIL_REJECTION_SE = 3.0
 CONDITIONAL_KS_P_MIN = .001
 GENERATOR_BURSTS_PER_SECOND = 8600.0  # SPEC-02a and consolidated authorization; immutable.
 T3_CDF_INTERVAL = (.005,.995)  # Consolidated authorization, central 99%.
+PERMUTATION_W1 = 1e-4  # SPEC-02a G-P1, physical parameters normalized by prior widths.
+TRANSFORM_ROUNDTRIP_REL = 1e-6  # New float32 engineering check; no physics tolerance replacement.
