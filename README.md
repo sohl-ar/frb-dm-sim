@@ -1,103 +1,72 @@
-# FRB DM simulator — Phase 1 implementation checkpoint
+# FRB dispersion-measure simulation and amortized inference
 
-**Status: L0 implemented; Phase 1 / L2 acceptance incomplete.** The native
-pygedm and healpy builds failed on the current Windows host. No physics
-substitution, gate relaxation, or empirical-default invention was made.
+This research repository models FRB catalogs and infers the diffuse-ionized
+baryon fraction, cosmic-DM fluctuation parameter and host-DM distribution.
+Background cosmology is pinned. L0 uses the published asymmetric cosmic-DM
+distribution; a native Set Transformer conditions a flow-matching posterior
+on localized and unlocalized observations.
 
-The five authorized amendments are preserved in [AMENDMENTS.md](AMENDMENTS.md).
-Read [CONVENTIONS.md](CONVENTIONS.md) for the derivation, units, explicit
-L0/L2 width distinction, and the limits of the implementation. Remaining
-work is tracked in [VERIFICATION_TODO.md](VERIFICATION_TODO.md).
+**Phase 2a training is complete; acceptance is not.** Training recorded 19 epochs, with best epoch 13 and validation loss 2.845229963.
+G-P1/G-P2 pass. Three parameters pass the recorded marginal SBC checks;
+F is underconfident at central-68% coverage. The audit additionally finds
+largely prior-like predictions across all four parameters, so these passes
+must not be advertised as successful informative inference. Phase 3 is blocked.
 
-## Install and run
+| Parameter | 68% coverage | 95% coverage | Adjusted KS p | Recorded result |
+|---|---|---|---|---|
+| f_d | 0.664 | 0.944 | 1 | pass |
+| F | 0.722 | 0.950 | 0.77273 | fail |
+| host_median | 0.687 | 0.956 | 0.236142 | pass |
+| host_sigma_ln | 0.665 | 0.942 | 1 | pass |
 
-Python 3.11 or newer, CPU only. From this repository:
+Start with [PROJECT_STATUS.md](PROJECT_STATUS.md) and the
+[verification and diagnostic report](AUDIT_REPORT.md). Phase 1 remains
+independently incomplete: L2 is unbuilt and pygedm validation is open.
+
+## Quick start: inspect the saved checkpoint
+
+Python with the dependencies in pyproject.toml is required; the tested
+environment is recorded in requirements-training-lock.txt. From a clone:
 
 ```sh
-python -m pip install -e .
-python -m frbsim.demo --smoke
-python -m pytest -m "not phase2a" --level l0
+python -m pip install -e '.[inference]'
+python -c "import json; print(json.load(open('results/training.json'))['status'])"
 ```
 
-`--smoke` creates exactly 5,000 detected L0 records, with separate simulator
-and observation exports, then runs implemented gates. Its two artificial
-survey configurations exercise localized and unlocalized schemas. It uses
-a unit pseudo-luminosity delta function, complete detection, zero DM noise
-and the explicitly labeled fixed-ISM replication fixture. **These are
-engineering test inputs, not CHIME or DSA scientific defaults.** The user
-can supply sourced survey, noise and bounded LF settings through the API.
+No retraining is needed to inspect committed evidence. Checkpoints, seeds,
+config hashes and reports are tracked. Large training shards live under
+ignored work/training-data and are reproducible from the tracked manifest.
+See [TRAINING_RUN.md](TRAINING_RUN.md) before authorizing a new run; training
+and evaluation commands can overwrite run artifacts.
 
-The original acceptance commands remain strict:
+## Verification architecture
 
-```sh
-python -m pytest -m gates
-python -m frbsim.demo
-```
+T1–T3 gate the RNG path, selected generator and prior predictive. Physics
+gates verify mean-DM formulas, units, asymmetric sampling and replication
+fixtures. Posterior gates separately check invariance, replay, calibration,
+contraction and information content. Failures trigger STOP; tolerances and
+physical anchors require explicit human authorization to change.
 
-They currently exit **nonzero** and write `results/gates.json`, because
-L2 acceptance is incomplete. A passing L0 run does not set
-`acceptance_complete=true`. There are no skipped tests masquerading as
-completed acceptance. Full acceptance has not been replaced by the smoke.
+The separate saved ledgers are [Phase 1](results/gates.json) and
+[Phase 2a](results/phase2a_gates.json). `pytest -m gates` remains nonzero for
+incomplete L2 acceptance. `pytest -m phase2a` reruns preflight checks and
+merges existing posterior evidence; it remains nonzero and does not
+implement or execute the missing posterior gates. L0 smoke inputs are
+engineering fixtures, not empirical survey calibrations.
 
-## What is implemented
+## Colab and remaining work
 
-- Float64 pinned background and four independent numerical mean-DM paths,
-  including actual pinned upstream density/summation functions with explicit
-  matched-input callbacks. Original source and BSD license are vendored.
-- Published asymmetric L0 PDF; solved C0 and normalization, finite-domain
-  inverse CDF, tail-cutoff convergence and separate truncated RMS reporting.
-- Proper shell integration with observed-delay weighting, uniform-ray checks.
-- Natural-log host model; two redshift population families with the corrected
-  Madau–Dickinson exponent; bounded/delta LF interfaces; dimensionally valid
-  pseudo-luminosity and monotone threshold selection.
-- Strict observation schema, separate latent export, seed/config/git
-  provenance, deterministic L0 catalog generation.
-- Executable L0 means, shape and Table-1 zero-noise predictive checks,
-  host defaults, G8a/G8b, Malmquist fixture reporting and redshift-floor checks.
-- pygedm adapter that raises when unavailable, rather than inserting a
-  substitute Galactic model.
+Colab can execute the same repository without keeping scientific logic in
+cells. Follow [COLAB_RUN.md](COLAB_RUN.md). The claimed repository notebook
+`notebooks/frb_dm_sim_colab.ipynb` is absent; no working badge is claimed.
+The human-run native-dependency diagnosis is [PYGEDM_DIAGNOSIS.md](PYGEDM_DIAGNOSIS.md).
 
-## What remains
+G-P5/TARP, G-P6, G-P8, the G-P3/G-P7 diagnostics and real-data smoke remain
+unimplemented/unrun. G-P4 and weak contraction must be resolved. L2/GLASS
+and the Milky Way model remain a separate Phase 1 task. The actual CHIME
+Catalog 1 DM-histogram comparison is deferred to Phase 2b/3.
 
-L2 is not implemented: native GLASS/HEALPix support must be established
-before building and validating the CAMB projection, shell correlations,
-Gaussian power round-trip and authorized amplitude calibration. G3 is
-blocked; G4 and G7 are partial. The G2 implementation validates the uniform
-shell integrator, not nonexistent L2 field output. G5 awaits pygedm and
-independent-distance pulsar data. Scientific LF and survey/noise defaults
-remain explicitly sourced inputs, not assumed values. See the ledger.
-
-For a Linux continuation, install the system/compiler prerequisites described
-by pygedm and healpy, then install `.[l2,mw]`. **Installing these packages
-does not implement the remaining L2 code or make its gates pass.**
-
-## Results and provenance
-
-All numbers in `results/` are generated by runs. The machine report records
-each check's measurement, fixed tolerance and git SHA, along with explicit
-partial/blocked status. `requirements-core-lock.txt` is a snapshot of the
-tested Python 3.12 core environment; other Python versions may need the
-compatible resolver choices in `pyproject.toml`.
-
-`demo-observations.json` is the observation-only handoff. It contains no
-latent columns or theta metadata. `demo-simulator.json` is intentionally
-simulator-side and includes the per-component DM breakdown and provenance;
-do not hand that file to an inference network.
-
-Phase 1 does not claim completion or scientific real-data inference. The
-transcribed six events are the specified replication smoke fixture.
-
-## Phase 2a preflight
-
-The independent L0-native inference track is at the pretraining boundary.
-See [PHASE2A_STATUS.md](PHASE2A_STATUS.md) and [DECISIONS.md](DECISIONS.md).
-`python -m pytest -m phase2a` writes its own ledger and deliberately exits
-nonzero while acceptance remains incomplete. The native attention/flow
-model and deterministic training runner are implemented; see
-[TRAINING_RUN.md](TRAINING_RUN.md) and `results/training.json` for run state.
-
-The observed-count generator now lives in `src/frbsbi/generator.py`.
-It samples the authorized Schechter LF conditional on detection, enforces
-disjoint catalog seeds, and keeps compact localized redshifts separate
-from simulator latents. The generator's numeric and CPU-rate audit is
-`scripts/generator_audit.py`; evidence is saved in `results/generator-audit.json`.
+See [CONVENTIONS.md](CONVENTIONS.md), [DECISIONS.md](DECISIONS.md),
+[VERIFICATION_TODO.md](VERIFICATION_TODO.md) and the
+[historical document index](docs/README.md). No physics or gate code was
+changed by the repository audit.

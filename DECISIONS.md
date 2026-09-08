@@ -170,3 +170,47 @@ The executed below-z=0.5 fractions (quadrature / rejection) are:
 Human third checks at z=1 and 1.4 agree at 10-15%; at z=0.2 approximately 1%.
 These are labeled corroboration. The executed numerical checks are the arbiter.
 <!-- END_GENERATED_ANCHOR_EVIDENCE -->
+
+<!-- GENERATED_REPOSITORY_AUDIT -->
+
+## Repository audit and training outcome (generated from execution JSON)
+
+Training recorded 19 epochs, with best epoch 13 and validation loss 2.845229963.
+G-P1 and G-P2 pass; G-P4 fails on F central-68% overcoverage. Three other
+parameters pass the recorded marginal SBC criteria, which is not proof of
+informative conditional learning.
+
+| Parameter | 68% coverage | 95% coverage | Adjusted KS p | Recorded result |
+|---|---|---|---|---|
+| f_d | 0.664 | 0.944 | 1 | pass |
+| F | 0.722 | 0.950 | 0.77273 | fail |
+| host_median | 0.687 | 0.956 | 0.236142 | pass |
+| host_sigma_ln | 0.665 | 0.942 | 1 | pass |
+
+H1's earlier-plateau claim cannot be assessed because per-parameter loss
+histories were not recorded. Width ratios from the authorized replay and
+archived rank/prior correlations show prior-like predictions across all
+parameters. H2 shows true-F-position dependence but does not establish a
+logit-gradient defect. H3 does not support recovery in localized-heavy
+catalogs. Architectural versus physical cause is unresolved; no physics
+finding, model repair, new training run or tolerance change is authorized
+by this diagnosis. Details and conditional bounds are in AUDIT_REPORT.md.
+
+The resume restored states and reproduced the update/validation mathematics,
+but continued after the configured patience boundary. This is flagged for
+human decision; the evaluated best model remains unchanged by the extra
+epoch according to the saved metadata and loss comparison. Source and
+provenance defects are archived in repository-audit.json, not erased from
+the original record. The claimed Colab notebook/badge additions are absent
+from this repository; no decision to use them is recorded as verified.
+
+Git EOL normalization changes original JSON byte hashes while preserving
+their values. The checkpoint's manifest hash uses the Windows CRLF bytes;
+a fresh LF checkout fails that guard. This portability defect is flagged
+for human-approved repair without rewriting the scientific evidence.
+
+The quiet-validation observation remains retired. The detected population
+is dominated by z>0.5; the eventual exchange-rate framing must be moderate-z.
+The future actual CHIME Catalog 1 DM-histogram comparison remains unrun.
+Anchor prints may be revised by explicit human sign-off and evidence; gate
+tolerances, physics anchors and coverage criteria cannot be revised that way.

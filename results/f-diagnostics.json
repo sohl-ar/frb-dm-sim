@@ -1,0 +1,1323 @@
+{
+  "audit_git_sha": "87853d6782ec611a06379887b97988bbe7f2767f",
+  "checkpoint_sha256": "3260ef3eb126e81913f037971c734732672b126e58db711bf5e04d4817fcd802",
+  "original_sbc_sha256": "e4b330271ab4546e957ad98730a52742e707c510c5a6aaae69278d75c1cd4a70",
+  "training_json_sha256": "6fc60a26f6f6c2ca8d97c0707e48279605454db04c24e7b242f6efebaf90330e",
+  "manifest_sha256": "0d44c34b64266de78f848a5a05cc28481965ead04686abd134f6c491833dc59e",
+  "scope": "Existing archived ranks and existing catalog metadata; width proxy limited to authorized 50 replay",
+  "full_SBC_gate_status_unchanged": "fail",
+  "H1": {
+    "status": "NOT IDENTIFIABLE from epoch log; limited width proxy reported",
+    "per_parameter_loss_history_available": false,
+    "full_1000_widths_available": false,
+    "proxy_trials": 50,
+    "proxy_widths": {
+      "f_d": {
+        "median_physical_central68_width": 0.26898858696276323,
+        "ratio_to_prior_support": 0.672471467406908,
+        "prior_central68_width": 0.272,
+        "ratio_to_matched_prior_central68_width": 0.9889286285395706
+      },
+      "F": {
+        "median_physical_central68_width": 0.5567540512544998,
+        "ratio_to_prior_support": 0.5860568960573683,
+        "prior_central68_width": 0.538457500581265,
+        "ratio_to_matched_prior_central68_width": 1.0339795632031938
+      },
+      "host_median": {
+        "median_physical_central68_width": 108.54999519918434,
+        "ratio_to_prior_support": 0.6030555288843574,
+        "prior_central68_width": 109.4573987688688,
+        "ratio_to_matched_prior_central68_width": 0.9917099841592203
+      },
+      "host_sigma_ln": {
+        "median_physical_central68_width": 1.2342801585144823,
+        "ratio_to_prior_support": 0.6857111991747123,
+        "prior_central68_width": 1.224,
+        "ratio_to_matched_prior_central68_width": 1.0083988223157534
+      }
+    },
+    "limitation": "Endpoint width is not a loss trajectory or an achievable-information reference. No architecture-versus-physics attribution follows.",
+    "archived_1000_rank_prior_comparison": {
+      "f_d": {
+        "n": 1000,
+        "prior_CDF_vs_posterior_rank_correlation": 0.9990168355915611,
+        "mean_absolute_CDF_difference": 0.010856534907503594,
+        "prior_only_central68_coverage": 0.659,
+        "prior_only_central95_coverage": 0.949
+      },
+      "F": {
+        "n": 1000,
+        "prior_CDF_vs_posterior_rank_correlation": 0.9987671727296438,
+        "mean_absolute_CDF_difference": 0.012376051039543473,
+        "prior_only_central68_coverage": 0.697,
+        "prior_only_central95_coverage": 0.944
+      },
+      "host_median": {
+        "n": 1000,
+        "prior_CDF_vs_posterior_rank_correlation": 0.9987146627589852,
+        "mean_absolute_CDF_difference": 0.014136295500038589,
+        "prior_only_central68_coverage": 0.677,
+        "prior_only_central95_coverage": 0.953
+      },
+      "host_sigma_ln": {
+        "n": 1000,
+        "prior_CDF_vs_posterior_rank_correlation": 0.9990093790569716,
+        "mean_absolute_CDF_difference": 0.010476307015162388,
+        "prior_only_central68_coverage": 0.654,
+        "prior_only_central95_coverage": 0.936
+      }
+    },
+    "interpretation": "Weak contraction is not isolated to F: all four 50-trial width ratios are approximately one, and archived ranks closely track prior CDF positions. Consistent with prior-dominated predictions; not a causal architecture diagnosis."
+  },
+  "H2": {
+    "true_F_prior": [
+      0.05,
+      1.0
+    ],
+    "requested_groups": {
+      "F_lt_0.1": {
+        "n": 230,
+        "median_catalog_N": 252.5,
+        "median_true_F": 0.07082244969588286,
+        "median_localized_fraction": 0.2274977497749775,
+        "parameters": {
+          "f_d": {
+            "0.68": {
+              "covered_count_bounds": [
+                158,
+                158
+              ],
+              "coverage_bounds": [
+                0.6869565217391305,
+                0.6869565217391305
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.6243693283711902,
+                0.7434012134040535
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                220,
+                220
+              ],
+              "coverage_bounds": [
+                0.9565217391304348,
+                0.9565217391304348
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9218296415660987,
+                0.9762147046292637
+              ]
+            }
+          },
+          "F": {
+            "0.68": {
+              "covered_count_bounds": [
+                84,
+                85
+              ],
+              "coverage_bounds": [
+                0.3652173913043478,
+                0.3695652173913043
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.30567899618561734,
+                0.43361117809165844
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                208,
+                210
+              ],
+              "coverage_bounds": [
+                0.9043478260869565,
+                0.9130434782608695
+              ],
+              "ambiguous_boundary_trials": 2,
+              "wilson95_outer_bounds": [
+                0.8594279679839137,
+                0.9430047611274138
+              ]
+            }
+          },
+          "host_median": {
+            "0.68": {
+              "covered_count_bounds": [
+                169,
+                170
+              ],
+              "coverage_bounds": [
+                0.7347826086956522,
+                0.7391304347826086
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.6742137557518852,
+                0.7916197338353216
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                225,
+                225
+              ],
+              "coverage_bounds": [
+                0.9782608695652174,
+                0.9782608695652174
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9501289201587906,
+                0.9906794425220653
+              ]
+            }
+          },
+          "host_sigma_ln": {
+            "0.68": {
+              "covered_count_bounds": [
+                147,
+                147
+              ],
+              "coverage_bounds": [
+                0.6391304347826087,
+                0.6391304347826087
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.5752483019394798,
+                0.6984414035676783
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                218,
+                218
+              ],
+              "coverage_bounds": [
+                0.9478260869565217,
+                0.9478260869565217
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9110330548319082,
+                0.9699056847692568
+              ]
+            }
+          }
+        }
+      },
+      "F_0.1_to_0.5": {
+        "n": 556,
+        "median_catalog_N": 252.0,
+        "median_true_F": 0.22884251902396635,
+        "median_localized_fraction": 0.22479736575481257,
+        "parameters": {
+          "f_d": {
+            "0.68": {
+              "covered_count_bounds": [
+                367,
+                367
+              ],
+              "coverage_bounds": [
+                0.6600719424460432,
+                0.6600719424460432
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.6197204032887693,
+                0.698226753349035
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                524,
+                526
+              ],
+              "coverage_bounds": [
+                0.9424460431654677,
+                0.9460431654676259
+              ],
+              "ambiguous_boundary_trials": 2,
+              "wilson95_outer_bounds": [
+                0.9198805163964903,
+                0.9619463555561105
+              ]
+            }
+          },
+          "F": {
+            "0.68": {
+              "covered_count_bounds": [
+                556,
+                556
+              ],
+              "coverage_bounds": [
+                1.0,
+                1.0
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9931383094978601,
+                1.0
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                556,
+                556
+              ],
+              "coverage_bounds": [
+                1.0,
+                1.0
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9931383094978601,
+                1.0
+              ]
+            }
+          },
+          "host_median": {
+            "0.68": {
+              "covered_count_bounds": [
+                368,
+                369
+              ],
+              "coverage_bounds": [
+                0.6618705035971223,
+                0.6636690647482014
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.6215569174619806,
+                0.7016979772866068
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                525,
+                525
+              ],
+              "coverage_bounds": [
+                0.9442446043165468,
+                0.9442446043165468
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9219469841367446,
+                0.9604456865322176
+              ]
+            }
+          },
+          "host_sigma_ln": {
+            "0.68": {
+              "covered_count_bounds": [
+                383,
+                386
+              ],
+              "coverage_bounds": [
+                0.6888489208633094,
+                0.6942446043165468
+              ],
+              "ambiguous_boundary_trials": 3,
+              "wilson95_outer_bounds": [
+                0.6491814022479354,
+                0.7310994639896538
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                529,
+                530
+              ],
+              "coverage_bounds": [
+                0.9514388489208633,
+                0.9532374100719424
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.9302684239660717,
+                0.9678908141637796
+              ]
+            }
+          }
+        }
+      },
+      "F_gt_0.5": {
+        "n": 214,
+        "median_catalog_N": 303.5,
+        "median_true_F": 0.6970611704420224,
+        "median_localized_fraction": 0.2129645044807137,
+        "parameters": {
+          "f_d": {
+            "0.68": {
+              "covered_count_bounds": [
+                139,
+                140
+              ],
+              "coverage_bounds": [
+                0.6495327102803738,
+                0.6542056074766355
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.5834828822247302,
+                0.7147050891634125
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                200,
+                200
+              ],
+              "coverage_bounds": [
+                0.9345794392523364,
+                0.9345794392523364
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.8931980945861173,
+                0.9606338665425358
+              ]
+            }
+          },
+          "F": {
+            "0.68": {
+              "covered_count_bounds": [
+                82,
+                84
+              ],
+              "coverage_bounds": [
+                0.38317757009345793,
+                0.3925233644859813
+              ],
+              "ambiguous_boundary_trials": 2,
+              "wilson95_outer_bounds": [
+                0.3206456093799721,
+                0.4592911514986919
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                186,
+                186
+              ],
+              "coverage_bounds": [
+                0.8691588785046729,
+                0.8691588785046729
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.8173967791294434,
+                0.9079013383884447
+              ]
+            }
+          },
+          "host_median": {
+            "0.68": {
+              "covered_count_bounds": [
+                149,
+                149
+              ],
+              "coverage_bounds": [
+                0.6962616822429907,
+                0.6962616822429907
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.6316347503269782,
+                0.7539667805053168
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                206,
+                206
+              ],
+              "coverage_bounds": [
+                0.9626168224299065,
+                0.9626168224299065
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9279800996288706,
+                0.9809377944758247
+              ]
+            }
+          },
+          "host_sigma_ln": {
+            "0.68": {
+              "covered_count_bounds": [
+                135,
+                135
+              ],
+              "coverage_bounds": [
+                0.6308411214953271,
+                0.6308411214953271
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.564409078345194,
+                0.692658608876336
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                195,
+                195
+              ],
+              "coverage_bounds": [
+                0.9112149532710281,
+                0.9112149532710281
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.8655027526459985,
+                0.9424242643359529
+              ]
+            }
+          }
+        }
+      }
+    },
+    "exact_prior_quartile_thresholds": [
+      0.10573712634405641,
+      0.4728708045015879
+    ],
+    "prior_quartile_groups": {
+      "bottom": {
+        "n": 246,
+        "median_catalog_N": 253.5,
+        "median_true_F": 0.07226601803758045,
+        "median_localized_fraction": 0.21918520607834152,
+        "parameters": {
+          "f_d": {
+            "0.68": {
+              "covered_count_bounds": [
+                168,
+                168
+              ],
+              "coverage_bounds": [
+                0.6829268292682927,
+                0.6829268292682927
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.6223448017196017,
+                0.7378836424498311
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                236,
+                236
+              ],
+              "coverage_bounds": [
+                0.959349593495935,
+                0.959349593495935
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9268015530244336,
+                0.9777720956676972
+              ]
+            }
+          },
+          "F": {
+            "0.68": {
+              "covered_count_bounds": [
+                100,
+                101
+              ],
+              "coverage_bounds": [
+                0.4065040650406504,
+                0.4105691056910569
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.3470190663681074,
+                0.47295903404357
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                224,
+                226
+              ],
+              "coverage_bounds": [
+                0.9105691056910569,
+                0.9186991869918699
+              ],
+              "ambiguous_boundary_trials": 2,
+              "wilson95_outer_bounds": [
+                0.8683129244367142,
+                0.9467558225493049
+              ]
+            }
+          },
+          "host_median": {
+            "0.68": {
+              "covered_count_bounds": [
+                180,
+                181
+              ],
+              "coverage_bounds": [
+                0.7317073170731707,
+                0.7357723577235772
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.6730892539381172,
+                0.7869407478675202
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                240,
+                240
+              ],
+              "coverage_bounds": [
+                0.975609756097561,
+                0.975609756097561
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9478190787707723,
+                0.9887748760697523
+              ]
+            }
+          },
+          "host_sigma_ln": {
+            "0.68": {
+              "covered_count_bounds": [
+                159,
+                159
+              ],
+              "coverage_bounds": [
+                0.6463414634146342,
+                0.6463414634146342
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.5847644990284476,
+                0.7034182563070984
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                233,
+                233
+              ],
+              "coverage_bounds": [
+                0.9471544715447154,
+                0.9471544715447154
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9116984194256299,
+                0.9688599996552054
+              ]
+            }
+          }
+        }
+      },
+      "middle": {
+        "n": 521,
+        "median_catalog_N": 250.0,
+        "median_true_F": 0.2261568613957516,
+        "median_localized_fraction": 0.2283464566929134,
+        "parameters": {
+          "f_d": {
+            "0.68": {
+              "covered_count_bounds": [
+                343,
+                343
+              ],
+              "coverage_bounds": [
+                0.6583493282149712,
+                0.6583493282149712
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.6165992587300997,
+                0.6977813932304959
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                490,
+                492
+              ],
+              "coverage_bounds": [
+                0.9404990403071017,
+                0.944337811900192
+              ],
+              "ambiguous_boundary_trials": 2,
+              "wilson95_outer_bounds": [
+                0.9167813466455228,
+                0.9609679025025248
+              ]
+            }
+          },
+          "F": {
+            "0.68": {
+              "covered_count_bounds": [
+                521,
+                521
+              ],
+              "coverage_bounds": [
+                1.0,
+                1.0
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9926807252816386,
+                0.9999999999999999
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                521,
+                521
+              ],
+              "coverage_bounds": [
+                1.0,
+                1.0
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9926807252816386,
+                0.9999999999999999
+              ]
+            }
+          },
+          "host_median": {
+            "0.68": {
+              "covered_count_bounds": [
+                348,
+                349
+              ],
+              "coverage_bounds": [
+                0.6679462571976967,
+                0.6698656429942419
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.6264071791121526,
+                0.7088737054531108
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                493,
+                493
+              ],
+              "coverage_bounds": [
+                0.946257197696737,
+                0.946257197696737
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9234234269144382,
+                0.9625584104290589
+              ]
+            }
+          },
+          "host_sigma_ln": {
+            "0.68": {
+              "covered_count_bounds": [
+                357,
+                360
+              ],
+              "coverage_bounds": [
+                0.6852207293666027,
+                0.690978886756238
+              ],
+              "ambiguous_boundary_trials": 3,
+              "wilson95_outer_bounds": [
+                0.6441088377124847,
+                0.7291388298180141
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                496,
+                497
+              ],
+              "coverage_bounds": [
+                0.9520153550863724,
+                0.9539347408829175
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.930124528903595,
+                0.9688515538035882
+              ]
+            }
+          }
+        }
+      },
+      "top": {
+        "n": 233,
+        "median_catalog_N": 294.0,
+        "median_true_F": 0.6657149571551754,
+        "median_localized_fraction": 0.21179624664879357,
+        "parameters": {
+          "f_d": {
+            "0.68": {
+              "covered_count_bounds": [
+                153,
+                154
+              ],
+              "coverage_bounds": [
+                0.6566523605150214,
+                0.6609442060085837
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.5935862208947151,
+                0.7186791330928913
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                218,
+                218
+              ],
+              "coverage_bounds": [
+                0.9356223175965666,
+                0.9356223175965666
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.8965118012257758,
+                0.9606016493111316
+              ]
+            }
+          },
+          "F": {
+            "0.68": {
+              "covered_count_bounds": [
+                101,
+                103
+              ],
+              "coverage_bounds": [
+                0.4334763948497854,
+                0.44206008583690987
+              ],
+              "ambiguous_boundary_trials": 2,
+              "wilson95_outer_bounds": [
+                0.37143429731561733,
+                0.5062558155361391
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                205,
+                205
+              ],
+              "coverage_bounds": [
+                0.8798283261802575,
+                0.8798283261802575
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.831800607444584,
+                0.9155347656836555
+              ]
+            }
+          },
+          "host_median": {
+            "0.68": {
+              "covered_count_bounds": [
+                158,
+                158
+              ],
+              "coverage_bounds": [
+                0.6781115879828327,
+                0.6781115879828327
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.6156518552833085,
+                0.7347935456751317
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                223,
+                223
+              ],
+              "coverage_bounds": [
+                0.9570815450643777,
+                0.9570815450643777
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9228126634760386,
+                0.9765231245257412
+              ]
+            }
+          },
+          "host_sigma_ln": {
+            "0.68": {
+              "covered_count_bounds": [
+                149,
+                149
+              ],
+              "coverage_bounds": [
+                0.6394849785407726,
+                0.6394849785407726
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.5760308132894284,
+                0.6984143802322414
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                213,
+                213
+              ],
+              "coverage_bounds": [
+                0.9141630901287554,
+                0.9141630901287554
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.8711432831378337,
+                0.9437478299342014
+              ]
+            }
+          }
+        }
+      }
+    },
+    "limitation": "Parameter-conditioned coverage need not be nominal even for exact Bayes. Variation cannot establish logit-gradient compression.",
+    "status": "SUPPORTED: coverage varies by true F; NOT ESTABLISHED: logit-gradient mechanism"
+  },
+  "H3": {
+    "groups": {
+      "localized_lt_0.15": {
+        "n": 300,
+        "median_catalog_N": 271.0,
+        "median_true_F": 0.21342703305967525,
+        "median_localized_fraction": 0.09090909090909091,
+        "parameters": {
+          "f_d": {
+            "0.68": {
+              "covered_count_bounds": [
+                197,
+                197
+              ],
+              "coverage_bounds": [
+                0.6566666666666666,
+                0.6566666666666666
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.6012598041861229,
+                0.7081120648301859
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                279,
+                279
+              ],
+              "coverage_bounds": [
+                0.93,
+                0.93
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.8953639895740667,
+                0.9537630551728237
+              ]
+            }
+          },
+          "F": {
+            "0.68": {
+              "covered_count_bounds": [
+                207,
+                208
+              ],
+              "coverage_bounds": [
+                0.69,
+                0.6933333333333334
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.6355391960366674,
+                0.7427942399229839
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                282,
+                282
+              ],
+              "coverage_bounds": [
+                0.94,
+                0.94
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9071605548470915,
+                0.9617136304753079
+              ]
+            }
+          },
+          "host_median": {
+            "0.68": {
+              "covered_count_bounds": [
+                205,
+                205
+              ],
+              "coverage_bounds": [
+                0.6833333333333333,
+                0.6833333333333333
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.628659261236736,
+                0.7333716493142638
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                283,
+                283
+              ],
+              "coverage_bounds": [
+                0.9433333333333334,
+                0.9433333333333334
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9111340419775253,
+                0.9643225235367106
+              ]
+            }
+          },
+          "host_sigma_ln": {
+            "0.68": {
+              "covered_count_bounds": [
+                196,
+                198
+              ],
+              "coverage_bounds": [
+                0.6533333333333333,
+                0.66
+              ],
+              "ambiguous_boundary_trials": 2,
+              "wilson95_outer_bounds": [
+                0.5978480299293977,
+                0.7112797959035073
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                284,
+                284
+              ],
+              "coverage_bounds": [
+                0.9466666666666667,
+                0.9466666666666667
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9151308582251686,
+                0.9669080874809034
+              ]
+            }
+          }
+        }
+      },
+      "localized_0.15_to_0.35": {
+        "n": 473,
+        "median_catalog_N": 272.0,
+        "median_true_F": 0.21916836829401015,
+        "median_localized_fraction": 0.24074074074074073,
+        "parameters": {
+          "f_d": {
+            "0.68": {
+              "covered_count_bounds": [
+                320,
+                321
+              ],
+              "coverage_bounds": [
+                0.6765327695560254,
+                0.678646934460888
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.6330989734020729,
+                0.7191479080263021
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                448,
+                450
+              ],
+              "coverage_bounds": [
+                0.9471458773784355,
+                0.9513742071881607
+              ],
+              "ambiguous_boundary_trials": 2,
+              "wilson95_outer_bounds": [
+                0.9231410378275857,
+                0.9673824091255705
+              ]
+            }
+          },
+          "F": {
+            "0.68": {
+              "covered_count_bounds": [
+                351,
+                351
+              ],
+              "coverage_bounds": [
+                0.7420718816067653,
+                0.7420718816067653
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.7008058280117714,
+                0.7794376486489073
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                454,
+                455
+              ],
+              "coverage_bounds": [
+                0.959830866807611,
+                0.9619450317124736
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.9381173268536703,
+                0.9757950144461036
+              ]
+            }
+          },
+          "host_median": {
+            "0.68": {
+              "covered_count_bounds": [
+                320,
+                321
+              ],
+              "coverage_bounds": [
+                0.6765327695560254,
+                0.678646934460888
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.6330989734020729,
+                0.7191479080263021
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                455,
+                455
+              ],
+              "coverage_bounds": [
+                0.9619450317124736,
+                0.9619450317124736
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9406521440723095,
+                0.9757950144461036
+              ]
+            }
+          },
+          "host_sigma_ln": {
+            "0.68": {
+              "covered_count_bounds": [
+                322,
+                323
+              ],
+              "coverage_bounds": [
+                0.6807610993657506,
+                0.6828752642706131
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.6374371686945323,
+                0.7231962897451917
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                453,
+                454
+              ],
+              "coverage_bounds": [
+                0.9577167019027484,
+                0.959830866807611
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.9355948348786782,
+                0.9741355654930338
+              ]
+            }
+          }
+        }
+      },
+      "localized_gt_0.35": {
+        "n": 227,
+        "median_catalog_N": 253.0,
+        "median_true_F": 0.24416037282854267,
+        "median_localized_fraction": 0.44269662921348313,
+        "parameters": {
+          "f_d": {
+            "0.68": {
+              "covered_count_bounds": [
+                147,
+                147
+              ],
+              "coverage_bounds": [
+                0.6475770925110133,
+                0.6475770925110133
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.5834456207155202,
+                0.7067968701363602
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                217,
+                217
+              ],
+              "coverage_bounds": [
+                0.9559471365638766,
+                0.9559471365638766
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9208212647009584,
+                0.9758980727070894
+              ]
+            }
+          },
+          "F": {
+            "0.68": {
+              "covered_count_bounds": [
+                164,
+                166
+              ],
+              "coverage_bounds": [
+                0.7224669603524229,
+                0.7312775330396476
+              ],
+              "ambiguous_boundary_trials": 2,
+              "wilson95_outer_bounds": [
+                0.6608823146629722,
+                0.7847434703637459
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                214,
+                215
+              ],
+              "coverage_bounds": [
+                0.9427312775330396,
+                0.947136563876652
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.9044976062494415,
+                0.9695045776200238
+              ]
+            }
+          },
+          "host_median": {
+            "0.68": {
+              "covered_count_bounds": [
+                161,
+                162
+              ],
+              "coverage_bounds": [
+                0.7092511013215859,
+                0.7136563876651982
+              ],
+              "ambiguous_boundary_trials": 1,
+              "wilson95_outer_bounds": [
+                0.6470854092212632,
+                0.7685240936515223
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                218,
+                218
+              ],
+              "coverage_bounds": [
+                0.960352422907489,
+                0.960352422907489
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.9263798875353932,
+                0.979003404823457
+              ]
+            }
+          },
+          "host_sigma_ln": {
+            "0.68": {
+              "covered_count_bounds": [
+                147,
+                147
+              ],
+              "coverage_bounds": [
+                0.6475770925110133,
+                0.6475770925110133
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.5834456207155202,
+                0.7067968701363602
+              ]
+            },
+            "0.95": {
+              "covered_count_bounds": [
+                205,
+                205
+              ],
+              "coverage_bounds": [
+                0.9030837004405287,
+                0.9030837004405287
+              ],
+              "ambiguous_boundary_trials": 0,
+              "wilson95_outer_bounds": [
+                0.8576269644179834,
+                0.9351249135804357
+              ]
+            }
+          }
+        }
+      }
+    },
+    "limitation": "Observed group associations do not identify encoder causality or an information exchange rate; no reference posterior is available.",
+    "status": "NOT SUPPORTED: proposed recovery in localized-heavy catalogs is absent"
+  },
+  "rank_bound_method": "For linear interpolated quantiles, ranks at the two boundary order-statistic gaps are ambiguous. Report definite/possible inclusion, not invented exact intervals.",
+  "uncertainty": "Wilson 95% intervals are descriptive sampling uncertainty, not modified acceptance criteria.",
+  "original_rank_rows": 1000,
+  "conclusion": "F overcoverage is verified, but an architectural-versus-physical cause is not identified. Broadly prior-like posteriors are the larger warning; do not interpret marginal SBC passes as successful conditional learning."
+}

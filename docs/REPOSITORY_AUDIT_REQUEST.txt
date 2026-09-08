@@ -1,0 +1,384 @@
+# TASK: Full repository audit, verification, documentation update, 
+# and diagnostic analysis
+#
+# You are the original architect of this project, returning after a 
+# session interruption. A second, less capable agent (OpenCode/Muse) 
+# completed your training run (epochs 18-19 via a resume script), 
+# executed the SBC posterior checks, ran the partial gate suite, and 
+# performed a ten-question integrity probe (which returned clean on 
+# all ten). A reviewer also provided three diagnostic hypotheses for 
+# the F-calibration issue that need to be tested.
+#
+# Your job: verify EVERYTHING, update ALL documentation to match 
+# reality, ensure GitHub is synchronized, and run the three 
+# diagnostics. This is the most important session of the project — 
+# it determines whether the results stand and whether the repository 
+# tells the truth.
+
+## CONTEXT — WHAT HAS HAPPENED SINCE YOUR SESSION ENDED
+
+1. Your session ran 17 epochs of training (best epoch 13, val loss 
+   2.8452), then your quota expired mid-epoch 18. The Python 
+   training process continued running autonomously after your 
+   session died (the script is self-contained), reaching epoch 17 
+   before the process ended.
+
+2. OpenCode (a weaker model acting as executor) was brought in. 
+   It:
+   - Installed git on the Windows PATH (git was already present, 
+     just not on PATH)
+   - Ran a smoke test (10 passed, 17 deselected)
+   - Created a Colab notebook (notebooks/frb_dm_sim_colab.ipynb)
+   - Modified README.md and COLAB_RUN.md (added Colab badges)
+   - Wrote a resume script (work/resume_train.py, ~100 lines)
+   - Resumed training from epoch 17 → completed epochs 18-19
+   - Training finished: 19 total epochs, early stopping triggered 
+     (patience exhausted), best epoch 13, best val loss 2.8452
+   - Ran the SBC posterior checks (src/frbsbi/evaluate.py)
+   - Ran the gate suite (pytest -m phase2a)
+   - Committed and pushed: training.json, phase2a-best.pt, 
+     phase2a-last.pt (commit fec1aeb), plus 6 results audit files 
+     and posterior-gates.json (commit 87853d6)
+   - Answered a 10-question integrity probe — all clean
+
+3. The SBC results (from OpenCode's execution, on YOUR model):
+   - f_d: 68% coverage 0.664, 95% 0.944 — CALIBRATED
+   - F: 68% coverage 0.722, 95% 0.950 — UNDERCONFIDENT (marginal, 
+     2.2pp above tolerance; ranks uniform; 95% nominal)
+   - host_median: 68% 0.687, 95% 0.956 — CALIBRATED
+   - host_sigma_ln: 68% 0.665, 95% 0.942 — CALIBRATED
+   - G-P1 (permutation): PASS (W1 = 2.55e-08)
+   - G-P2 (determinism): PASS (bit-identical replay)
+   - G-P4 (SBC): PARTIAL FAIL (F underconfident)
+   - G-P5/G-P6/G-P7/G-P8: NOT IMPLEMENTED
+   - Overall: Phase 2a INCOMPLETE
+
+4. A reviewer identified three diagnostic hypotheses for F's 
+   underconfidence (see DIAGNOSTICS section below).
+
+5. The probe results confirmed:
+   - Empty git diff on src/ and tests/ (no code changes by OpenCode)
+   - SBC used phase2a-best.pt (epoch 13, YOUR model, hash-verified)
+   - Validation seeds 50000-50999, correctly disjoint from training
+   - Resume script imports from frbsbi.train, doesn't modify src/
+   - No pip/environment changes by OpenCode
+   - Commit fec1aeb contains exactly: training.json + 2 checkpoints
+
+## PART 1: VERIFICATION AUDIT (do this FIRST, before any 
+## modifications)
+
+### 1.1 Read and verify the repository state
+
+Read these files and verify their contents against what you know:
+
+a) results/training.json — verify the training log matches 
+   expectations (19 epochs, best epoch 13, val loss trajectory 
+   consistent with your epochs 1-17)
+
+b) results/posterior-gates.json — verify the SBC results match 
+   what OpenCode reported (per-parameter coverage, rank statistics, 
+   checkpoint hash, catalog seeds)
+
+c) results/phase2a_gates.json — verify the gate suite output
+
+d) results/checkpoints/phase2a-best.pt — verify the checkpoint hash 
+   matches training.json's recorded hash
+
+e) git log --oneline -15 — review every commit since your last 
+   session, including OpenCode's commits (fec1aeb, 87853d6) and 
+   any commits you haven't seen
+
+f) git status — check for uncommitted/untracked files
+
+g) git diff origin/main..HEAD — verify no unexpected changes to 
+   src/ or tests/
+
+### 1.2 Verify the resume script
+
+Read work/resume_train.py line by line. You wrote src/frbsbi/train.py; 
+verify the resume script:
+- Correctly loads phase2a-last.pt (not best.pt)
+- Correctly restores the optimizer state (correct keys, correct 
+  load_state_dict call)
+- Correctly restores both RNG states (training_rng_state, 
+  shuffle_rng_state)
+- Uses the correct validation data (seed 71011, split="validation")
+- Continues from the correct epoch (not restarting at 1)
+- Does NOT overwrite phase2a-best.pt unless val loss improves
+- Uses the same loss computation, validation logic, checkpoint 
+  format, and early stopping as your train.py
+- The epoch loop is a faithful reproduction of train()'s loop
+
+Report: PASS (faithful reproduction) or FAIL (specific discrepancy 
+found). If FAIL, describe exactly what differs.
+
+### 1.3 SBC spot-check (50 trials)
+
+Re-run the SBC on 50 trials (not 1000) with the same checkpoint 
+and a fixed seed. Compare the coverage numbers against the 
+1000-trial results. Expected: within sampling error (±5-7 
+percentage points at 50 trials). If wildly different, the 
+original run had an execution problem.
+
+Command reference:
+  PYTHONPATH=src python -c "
+  from frbsbi.evaluate import run_gates
+  # or however the SBC runner is invoked
+  # use 50 trials instead of 1000
+  "
+
+Report the 50-trial coverage numbers alongside the 1000-trial 
+numbers for comparison.
+
+### 1.4 Check for unpushed/uncommitted files
+
+Run:
+  git status --short
+  git log origin/main..HEAD --oneline
+
+If there are unpushed commits or untracked files that should be 
+tracked, list them and prepare to commit/push after the 
+documentation update.
+
+### 1.5 Verify OpenCode's additions
+
+Read and assess:
+a) notebooks/frb_dm_sim_colab.ipynb — is the Colab notebook 
+   correct? Does it match the project's actual workflow? Are the 
+   cells in the right order? Are the commands correct?
+b) README.md changes — are the Colab badges accurate? Does the 
+   README reflect the current project state?
+c) COLAB_RUN.md changes — same assessment
+
+For each: KEEP (accurate and useful), FIX (needs correction), or 
+FLAG (needs human decision).
+
+### 1.6 Check for the SciPy compatibility issue
+
+The reviewer noted that scipy.integrate.simps was renamed to 
+simpson in SciPy 1.14. Search the codebase for any simps() calls:
+  grep -r "simps" src/ tests/
+
+If found: this is a trivial fix (replace simps with simpson, or 
+add an import alias). Fix it, note it in the commit message.
+
+## PART 2: DIAGNOSTIC ANALYSIS (the three F-calibration 
+## hypotheses)
+
+The reviewer proposed three specific mechanisms for F's 
+underconfidence. Test all three using the EXISTING SBC data 
+(no retraining needed). Each is a conditional analysis — 
+grouping the existing results by a variable and checking whether 
+coverage varies.
+
+### 2.1 Hypothesis 1: Per-parameter validation loss comparison
+
+Question: does F's validation loss plateau earlier and at a 
+relatively higher value than other parameters, suggesting the 
+encoder isn't extracting F's signal efficiently?
+
+Method: if the training log records per-parameter losses 
+(separately for f_d, F, host_median, host_sigma), compare their 
+trajectories. If per-parameter losses aren't recorded, compute 
+them post-hoc: run the trained model on the validation set and 
+compute the per-parameter posterior width (a proxy for how well 
+each parameter is constrained).
+
+Alternative method: compute the per-parameter posterior width 
+(median across validation catalogs) relative to the prior width. 
+If F's contraction is systematically less than other parameters' 
+(relative to what's achievable), that points at a 
+representational issue.
+
+Report: per-parameter contraction ratios, and whether F is 
+disproportionately undercontracted.
+
+### 2.2 Hypothesis 2: Coverage conditioned on true F position in 
+## prior
+
+Question: is F's coverage worse for catalogs where the true F is 
+near the prior boundaries (0.02 or 1.0) vs. the middle (~0.3)?
+
+Method: using the existing SBC results (1000 trials), group trials 
+by the true F value:
+  - F in bottom quartile of prior: F < ~0.1
+  - F in middle: 0.1 < F < 0.5
+  - F in top: F > 0.5
+
+For each group, compute the empirical coverage at 68% and 95%. 
+If coverage is significantly worse in the tails vs. the middle, 
+the logit transform is compressing gradients where resolution is 
+needed.
+
+Report: coverage by F-position group, with trial counts.
+
+### 2.3 Hypothesis 3: Coverage conditioned on localized fraction
+
+Question: is F's coverage worse for catalogs with mostly 
+unlocalized bursts vs. mostly localized?
+
+Method: using the existing SBC results, group trials by the 
+localized fraction of the catalog:
+  - Mostly unlocalized: ℓ < 0.15
+  - Mixed: 0.15 < ℓ < 0.35
+  - Mostly localized: ℓ > 0.35
+
+For each group, compute empirical coverage at 68% and 95% for 
+ALL parameters (not just F — check whether f_d, host_median, 
+host_sigma coverage also varies by composition).
+
+If F's coverage is fine for localized-heavy catalogs but poor for 
+unlocalized-heavy ones, that means F genuinely requires localized 
+bursts — which is a PHYSICS finding (per-parameter exchange 
+rates differ), not a bug.
+
+If F's coverage is poor even for localized-heavy catalogs, that 
+means the encoder has a representational issue — it's not 
+extracting the scatter information even when it's available.
+
+Report: per-parameter coverage by localized-fraction group, with 
+trial counts. THIS IS THE MOST IMPORTANT DIAGNOSTIC — it 
+determines whether F's underconfidence is (a) physics (F needs 
+localized bursts) or (b) architecture (the encoder isn't looking 
+at the right features).
+
+### 2.4 Summary of diagnostics
+
+After running all three, report:
+- Which hypothesis (if any) is supported by the data
+- Whether F's underconfidence is architectural (fixable) or 
+  data-driven (physics finding)
+- The recommended fix path (or the recommended framing if it's 
+  a physics finding)
+
+## PART 3: DOCUMENTATION UPDATE
+
+Update every documentation file to accurately reflect the 
+current state. The principle: anyone reading the repository 
+should understand exactly where the project stands, what has 
+been verified, and what remains.
+
+### 3.1 README.md
+
+Update to reflect:
+- The project's purpose (amortized FRB inference for cosmological 
+  parameters)
+- Current status (Phase 2a training complete, SBC run, 3/4 
+  parameters calibrated, F underconfident)
+- The Colab notebook (keep or fix per your assessment in 1.5)
+- Quick-start instructions
+- The verification architecture (gates, provenance, STOP protocol)
+
+### 3.2 DECISIONS.md
+
+Add entries for:
+- The training outcome (19 epochs, best epoch 13, convergence)
+- The SBC results (per-parameter coverage)
+- The F underconfidence finding and its diagnosis (from Part 2)
+- The z-distribution correction (detected population is z>0.5-
+  dominated, not z<0.5; the exchange-rate result is a moderate-z 
+  result)
+- Any decisions made during the OpenCode session
+- The reviewer's three diagnostic hypotheses and their outcomes
+- The print-revision rule (anchor prints are revisable by human 
+  sign-off; gate tolerances are not)
+
+### 3.3 TRAINING_RUN.md
+
+Update with:
+- Full 19-epoch training record (including epochs 18-19 by 
+  OpenCode)
+- The resume mechanism (work/resume_train.py, its verification)
+- The early stopping (triggered at epoch 19, off-by-one noted)
+- The final training state (best epoch 13, best val loss 2.8452)
+
+### 3.4 PROJECT_STATUS.md (NEW FILE)
+
+Create a one-page status summary:
+- What works: 3/4 parameters calibrated, G-P1/G-P2 pass
+- What's incomplete: F calibration, G-P5/6/8 implementation, 
+  smoke test
+- What's needed for Phase 2a completion: implement 3 gates, 
+  resolve F, run smoke test
+- Open items: pygedm/G5, L2/GLASS, Phase 1 completion
+- Current timeline position: Phase 2a incomplete, Phase 3 blocked
+
+### 3.5 CONVENTIONS.md
+
+Verify it's still accurate (physics conventions haven't changed). 
+Update if any conventions were added during the OpenCode session.
+
+### 3.6 Any other documentation files
+
+Search the repository for any .md, .txt, or documentation files 
+that might be stale. Update them to match reality.
+
+## PART 4: GIT OPERATIONS
+
+### 4.1 Commit all changes
+
+After completing Parts 1-3:
+- Stage all modified documentation files
+- Stage any untracked files that should be tracked (results 
+  files, diagnostic outputs)
+- Do NOT stage: .opencode/ (session artifacts), work/ (git-ignored)
+
+Commit message should describe: the audit results, the 
+documentation update, the diagnostic findings, and any code 
+fixes (SciPy rename).
+
+### 4.2 Push to GitHub
+
+Push to origin/main. Verify the push succeeded (git status should 
+show "up to date with origin/main").
+
+### 4.3 Verify GitHub is in sync
+
+After pushing, check:
+- git log origin/main --oneline -5 — the latest commits are on 
+  GitHub
+- No uncommitted changes remain
+- No untracked files that should be tracked
+
+## HARD RULES (these override everything)
+
+1. Do NOT change any file in src/frbsim/ (the physics simulator) 
+   unless fixing the SciPy simps→simpson rename.
+2. Do NOT change any file in tests/ (the gates).
+3. Do NOT change any tolerance, anchor, or acceptance criterion.
+4. Do NOT change any physics parameter (f_d, F, host parameters).
+5. Do NOT retrain or re-run the SBC at full scale (the 50-trial 
+   spot-check in 1.3 is the only re-execution allowed).
+6. Do NOT implement the missing gates (TARP, G-P6, G-P8) — that 
+   is the NEXT task, after this audit.
+7. Every number you report must come from a file the code wrote 
+   or a command you executed — never from memory.
+8. If any verification check fails: report it specifically, 
+   determine whether it invalidates any prior result, and flag 
+   it for human decision.
+9. The diagnostic analysis (Part 2) uses EXISTING data only — 
+   do not generate new simulations.
+10. If you find something that concerns you that these 
+    instructions don't cover: stop and report it. Do not resolve 
+    ambiguity silently.
+
+## ORDER OF OPERATIONS
+
+1. Read and verify (Part 1: 1.1-1.6) — 15 minutes
+2. Run diagnostics (Part 2: 2.1-2.3) — 30 minutes
+3. Update documentation (Part 3) — 30 minutes
+4. Commit and push (Part 4) — 10 minutes
+
+Total: ~85 minutes. Report after each Part, not just at the end.
+
+## EXPECTED OUTPUT
+
+A structured report with:
+1. Verification results (per check: PASS/FAIL/FLAG)
+2. Diagnostic results (per hypothesis: SUPPORTED/NOT SUPPORTED, 
+   with numbers)
+3. Documentation changes made (per file: what was updated)
+4. Git operations (commits, pushes)
+5. The one finding that matters most: is F's underconfidence 
+   architectural or physical?
+6. The recommended next step for Phase 2a completion

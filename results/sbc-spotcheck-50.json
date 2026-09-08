@@ -1,0 +1,238 @@
+{
+  "audit_git_sha": "87853d6782ec611a06379887b97988bbe7f2767f",
+  "checkpoint_sha256": "3260ef3eb126e81913f037971c734732672b126e58db711bf5e04d4817fcd802",
+  "original_sbc_sha256": "e4b330271ab4546e957ad98730a52742e707c510c5a6aaae69278d75c1cd4a70",
+  "training_json_sha256": "6fc60a26f6f6c2ca8d97c0707e48279605454db04c24e7b242f6efebaf90330e",
+  "manifest_sha256": "0d44c34b64266de78f848a5a05cc28481965ead04686abd134f6c491833dc59e",
+  "scope": "Only authorized 50-trial replay on existing validation catalogs; no new simulations",
+  "trials": 50,
+  "samples_per_trial": 1000,
+  "catalog_seeds": [
+    50000,
+    50001,
+    50002,
+    50003,
+    50004,
+    50005,
+    50006,
+    50007,
+    50008,
+    50009,
+    50010,
+    50011,
+    50012,
+    50013,
+    50014,
+    50015,
+    50016,
+    50017,
+    50018,
+    50019,
+    50020,
+    50021,
+    50022,
+    50023,
+    50024,
+    50025,
+    50026,
+    50027,
+    50028,
+    50029,
+    50030,
+    50031,
+    50032,
+    50033,
+    50034,
+    50035,
+    50036,
+    50037,
+    50038,
+    50039,
+    50040,
+    50041,
+    50042,
+    50043,
+    50044,
+    50045,
+    50046,
+    50047,
+    50048,
+    50049
+  ],
+  "solver_calls": [
+    {
+      "method": "torchdiffeq rk4",
+      "steps": 32,
+      "comparison_steps": null,
+      "max_physical_error_in_prior_widths": null,
+      "posterior_samples": 1000,
+      "seed": 72100
+    },
+    {
+      "method": "torchdiffeq rk4",
+      "steps": 32,
+      "comparison_steps": null,
+      "max_physical_error_in_prior_widths": null,
+      "posterior_samples": 1000,
+      "seed": 72116
+    },
+    {
+      "method": "torchdiffeq rk4",
+      "steps": 32,
+      "comparison_steps": null,
+      "max_physical_error_in_prior_widths": null,
+      "posterior_samples": 1000,
+      "seed": 72132
+    },
+    {
+      "method": "torchdiffeq rk4",
+      "steps": 32,
+      "comparison_steps": null,
+      "max_physical_error_in_prior_widths": null,
+      "posterior_samples": 1000,
+      "seed": 72148
+    }
+  ],
+  "elapsed_seconds": 5.928348299996287,
+  "parameters": [
+    {
+      "parameter": "f_d",
+      "0.68": {
+        "covered": 34,
+        "n": 50,
+        "coverage": 0.68,
+        "original_1000": 0.664,
+        "difference": 0.016000000000000014,
+        "wilson95": [
+          0.5418970269185592,
+          0.7924178373934316
+        ],
+        "subset_difference_standard_error": 0.0651074189321002
+      },
+      "0.95": {
+        "covered": 49,
+        "n": 50,
+        "coverage": 0.98,
+        "original_1000": 0.944,
+        "difference": 0.03600000000000003,
+        "wilson95": [
+          0.8950455641036219,
+          0.9964607407283539
+        ],
+        "subset_difference_standard_error": 0.03169252277746284
+      }
+    },
+    {
+      "parameter": "F",
+      "0.68": {
+        "covered": 33,
+        "n": 50,
+        "coverage": 0.66,
+        "original_1000": 0.722,
+        "difference": -0.061999999999999944,
+        "wilson95": [
+          0.521538260502326,
+          0.7756305077749992
+        ],
+        "subset_difference_standard_error": 0.06175438445972885
+      },
+      "0.95": {
+        "covered": 49,
+        "n": 50,
+        "coverage": 0.98,
+        "original_1000": 0.95,
+        "difference": 0.030000000000000027,
+        "wilson95": [
+          0.8950455641036219,
+          0.9964607407283539
+        ],
+        "subset_difference_standard_error": 0.030041637771599617
+      }
+    },
+    {
+      "parameter": "host_median",
+      "0.68": {
+        "covered": 34,
+        "n": 50,
+        "coverage": 0.68,
+        "original_1000": 0.687,
+        "difference": -0.007000000000000006,
+        "wilson95": [
+          0.5418970269185592,
+          0.7924178373934316
+        ],
+        "subset_difference_standard_error": 0.06391861231284672
+      },
+      "0.95": {
+        "covered": 49,
+        "n": 50,
+        "coverage": 0.98,
+        "original_1000": 0.956,
+        "difference": 0.02400000000000002,
+        "wilson95": [
+          0.8950455641036219,
+          0.9964607407283539
+        ],
+        "subset_difference_standard_error": 0.028270408557359065
+      }
+    },
+    {
+      "parameter": "host_sigma_ln",
+      "0.68": {
+        "covered": 37,
+        "n": 50,
+        "coverage": 0.74,
+        "original_1000": 0.665,
+        "difference": 0.07499999999999996,
+        "wilson95": [
+          0.6044684273515117,
+          0.8412847250644762
+        ],
+        "subset_difference_standard_error": 0.06505939593940294
+      },
+      "0.95": {
+        "covered": 47,
+        "n": 50,
+        "coverage": 0.94,
+        "original_1000": 0.942,
+        "difference": -0.0020000000000000018,
+        "wilson95": [
+          0.8378290831116182,
+          0.979385029651026
+        ],
+        "subset_difference_standard_error": 0.03221931097959733
+      }
+    }
+  ],
+  "archived_rank_matches": 200,
+  "archived_rank_comparisons": 200,
+  "posterior_artifact": "results\\audit-spotcheck-50.npz",
+  "posterior_artifact_sha256": "5d1222fb407050228e75258569ea5609f1e3d1406407bb2189c43800127cfb37",
+  "posterior_widths": {
+    "f_d": {
+      "median_physical_central68_width": 0.26898858696276323,
+      "ratio_to_prior_support": 0.672471467406908,
+      "prior_central68_width": 0.272,
+      "ratio_to_matched_prior_central68_width": 0.9889286285395706
+    },
+    "F": {
+      "median_physical_central68_width": 0.5567540512544998,
+      "ratio_to_prior_support": 0.5860568960573683,
+      "prior_central68_width": 0.538457500581265,
+      "ratio_to_matched_prior_central68_width": 1.0339795632031938
+    },
+    "host_median": {
+      "median_physical_central68_width": 108.54999519918434,
+      "ratio_to_prior_support": 0.6030555288843574,
+      "prior_central68_width": 109.4573987688688,
+      "ratio_to_matched_prior_central68_width": 0.9917099841592203
+    },
+    "host_sigma_ln": {
+      "median_physical_central68_width": 1.2342801585144823,
+      "ratio_to_prior_support": 0.6857111991747123,
+      "prior_central68_width": 1.224,
+      "ratio_to_matched_prior_central68_width": 1.0083988223157534
+    }
+  },
+  "not_a_replacement_for_full_SBC": true
+}

@@ -1,4 +1,4 @@
-# Phase 2a status — Phase 2a incomplete; Phase 3 blocked
+# Project status — Phase 2a incomplete; Phase 3 blocked
 
 Training recorded 19 epochs, with best epoch 13 and validation loss 2.845229963. The saved best checkpoint and archived SBC results pass the
 integrity audit. G-P1 and G-P2 pass. Three parameters pass the recorded
@@ -44,6 +44,3 @@ a focused conditioning/information audit against a reference posterior on
 existing catalogs before choosing a model repair. Recover the claimed
 notebook and any missing full-SBC interval/sample artifact if they exist.
 See [VERIFICATION_TODO.md](VERIFICATION_TODO.md) and [TRAINING_RUN.md](TRAINING_RUN.md).
-
-The authoritative saved ledger is [phase2a_gates.json](results/phase2a_gates.json).
-Audit summaries preserve that evidence rather than rerunning preflight or acceptance.

@@ -7,6 +7,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def update():
+    if (ROOT/"results/repository-audit.json").exists():
+        # Preserve the later forensic audit and original ledgers.
+        from write_audit_docs import main
+        main()
+        return
     ledger_path = ROOT/"results/phase2a_gates.json"
     previous = json.loads(ledger_path.read_text(encoding="utf-8"))
     write_phase2a_report(ROOT,previous["pretraining"]["T1"],

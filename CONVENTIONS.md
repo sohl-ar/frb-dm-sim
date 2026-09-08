@@ -166,8 +166,24 @@ Ground truth and theta are exported separately. The observation-only
 export excludes simulator metadata because it contains theta. Simulator
 metadata includes seed, git SHA, dirty flag, full config, and config hash.
 Bit reproducibility is scoped to the same code, dependency versions,
-platform and configuration. Floating computations use float64;
+platform and configuration. Simulator floating computations use float64;
 identifiers, booleans and missing-value None retain their native types.
+
+Phase 2a uses float32 network operations and float64 physical parameter
+transforms. Its F prior is log-uniform on [0.05,1], distinct from the
+broader Phase 1 parameter range. F and host median are logged before
+prior-bound normalization and logit; inversion reverses all three steps.
+Host sigma remains a natural-log width. Padding is ignored by attention;
+real unlocalized bursts are retained with an explicit missing-z encoding.
+
+The repository audit changes no physics convention. Its width diagnostic
+reports central-68% posterior widths both relative to full prior support
+and relative to the matching central prior interval. It does not supply a
+new definition or result for the unimplemented G-P6 gate. Conditional
+coverage is bounded from saved ranks because the original interpolated
+quantile endpoints were not archived. Conditioning on true parameters is
+not subject to the ordinary prior-averaged SBC coverage guarantee.
+See AUDIT_REPORT.md; no architectural-versus-physical cause is established.
 
 ## Primary sources
 
