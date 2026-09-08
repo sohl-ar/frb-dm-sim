@@ -29,6 +29,19 @@ checkpoint plus a last-epoch recovery checkpoint. The best checkpoint is
 `results/checkpoints/phase2a-best.pt`; its exact model/run config is embedded.
 `results/training.json` records the dataset manifest hash and progress.
 
+After training finishes, the implemented posterior checks run with:
+
+```sh
+python -m frbsbi.evaluate
+python scripts/update_phase2a_status.py
+```
+
+The evaluator checks the checkpoint and validation-shard hashes, then runs
+G-P1, G-P2 and G-P4 in that order. A hard failure stops subsequent checks.
+It writes `results/posterior-gates.json`; it exits nonzero because this
+subset cannot by itself close full acceptance. The status script merges
+saved evidence and generates the summary without rerunning any experiment.
+
 Finishing training does not pass SBC, TARP, contraction, information-content
 or real-data checks. The full Phase 2a command remains nonzero until all
 its requirements are implemented and passed. Phase 1 stays independently
