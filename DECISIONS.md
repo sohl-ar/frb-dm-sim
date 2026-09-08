@@ -309,3 +309,14 @@ Do not drop host gates to declare acceptance; F still fails and remaining
 required gates are unrun. No physics-limited host finding is supported without
 a reference posterior or a justified information bound. No retraining or
 model-architecture correction was performed during this diagnosis.
+
+## Composition implementation authorization — 2026-09-08
+
+The subsequent human instruction authorizes code preparation now and explicitly
+defers data generation, retraining and validation. The expanded dataset policy
+uses disjoint 5% near-localized, 2% all-localized and 93% legacy Beta groups.
+The approximate remainder in the prompt is resolved arithmetically; no physics
+prior or gate criterion is changed. Realized near-localized counts are enforced,
+with group assignment independent of N and physical parameter draws. See
+COMPOSITION_FIX.md for replay, seed, held-out-distribution and execution details.
+Code and deferred regression checks are committed; no new science results exist.

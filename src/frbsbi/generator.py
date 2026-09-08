@@ -20,6 +20,7 @@ from frbsim.catalog import git_provenance
 from frbsim.numerics import POPULATION_GRID_SIZE
 from .selection import SchechterLF, FLUENCE_MIN, SURVEY_SOURCE
 from .preflight import SEED_RANGES, assert_disjoint_seed_ranges
+from .composition import LEGACY_COMPOSITION, EXPANDED_COMPOSITION, composition_config, expanded_mask
 
 SIGMA_GRID_SIZE = 128  # Same interpolation strategy/count as Phase 1; fixed domain for batch replay.
 Z_MIN, Z_MAX = .05, 1.5
@@ -134,13 +135,17 @@ def cosmic_from_uniforms(z, fd, F, uniforms):
 
 
 def generate_batch(seeds, *, split, seed_ranges=None, lf=SchechterLF(), threshold=FLUENCE_MIN,
-                   forced_n=None, localized_fraction=None, forced_family=None, selection_on=True):
+                   forced_n=None, localized_fraction=None, forced_family=None, selection_on=True,
+                   composition_policy=LEGACY_COMPOSITION):
     """Generate selected catalogs directly; N is observed, not intrinsic.
 
     Per-catalog RNG allocation is the only data-dependent Python loop.
     Luminosities, cosmic/host DM, sky, masks and observations are arrays.
     """
     ranges = SEED_RANGES if seed_ranges is None else seed_ranges
+    policy_config = composition_config(composition_policy)
+    if composition_policy != LEGACY_COMPOSITION and localized_fraction is not None:
+        raise ValueError("explicit localized_fraction and expanded composition are mutually exclusive")
     assert_disjoint_seed_ranges(ranges)  # Mandatory at the actual training entry point.
     seeds = tuple(seeds)
     if split not in ranges or not seeds or len(set(seeds)) != len(seeds):
@@ -155,7 +160,7 @@ def generate_batch(seeds, *, split, seed_ranges=None, lf=SchechterLF(), threshol
     if forced_family not in (None,0,1):
         raise ValueError("forced_family must be None, 0 (SFR), or 1 (constant)")
     zgrid,dlgrid,cdfs,detected_fractions = population_tables(lf,threshold,selection_on)
-    sizes,theta,families,parts = [],[],[],[]
+    sizes,theta,families,parts,groups = [],[],[],[],[]
     bounds_lo = np.where(LOG_PRIOR,np.log(PRIOR_LO),PRIOR_LO)
     bounds_hi = np.where(LOG_PRIOR,np.log(PRIOR_HI),PRIOR_HI)
     for seed in seeds:
@@ -175,7 +180,11 @@ def generate_batch(seeds, *, split, seed_ranges=None, lf=SchechterLF(), threshol
         z = np.interp(arrays[0],cdfs[family],zgrid)
         dl = np.interp(z,zgrid,dlgrid)
         host = rng.lognormal(np.log(p[2]),p[3],n)
-        parts.append((z,dl,arrays[5],host,arrays[1],arrays[2],arrays[3],arrays[4]<local_probability))
+        localized = arrays[4]<local_probability
+        if composition_policy == EXPANDED_COMPOSITION:
+            localized,group = expanded_mask(seed,r.start,r.stop,arrays[4],local_probability)
+            groups.append(group)
+        parts.append((z,dl,arrays[5],host,arrays[1],arrays[2],arrays[3],localized))
         sizes.append(n)
         theta.append(p)
         families.append(family)
@@ -204,9 +213,14 @@ def generate_batch(seeds, *, split, seed_ranges=None, lf=SchechterLF(), threshol
     if forced_n is not None or localized_fraction is not None or forced_family is not None or not selection_on:
         config["diagnostic_overrides"] = {"forced_n":forced_n,"localized_fraction":localized_fraction,
                                            "forced_family":forced_family,"selection_on":selection_on}
+    if composition_policy != LEGACY_COMPOSITION:
+        config["localization"] = "explicit expanded-composition allocation"
+        config["composition"] = policy_config
     metadata = {**git_provenance(),"seeds":seeds,"split":split,"config":config,
                 "seed_ranges":{k:asdict(v) for k,v in ranges.items()},
                 "config_hash":hashlib.sha256(json.dumps(config,sort_keys=True).encode()).hexdigest(),
                 "detected_fraction_by_family":detected_fractions,
                 "acceptance":"L0 engineering fixture; not Phase 1 acceptance"}
+    if groups:
+        metadata["composition_groups"] = groups  # Provenance only, never encoded as observations.
     return TrainingBatch(obs,truth,metadata)
