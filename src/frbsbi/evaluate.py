@@ -6,6 +6,8 @@ SBC uses the prescribed disjoint validation catalog seeds. Validation data
 were also used for loss-based checkpoint selection; never for gradients.
 """
 import hashlib
+from fractions import Fraction
+from numbers import Integral
 import json
 from pathlib import Path
 import time
@@ -19,6 +21,18 @@ from .generator import PRIOR_LO,PRIOR_HI
 from .tolerances import PERMUTATION_W1,SBC_TRIALS,SBC_SAMPLES,SBC_KS_ALPHA,COVERAGE_ABS
 
 
+def coverage_in_band(covered, trials, nominal, tolerance=COVERAGE_ABS):
+    """Exact inclusive coverage comparison; no epsilon or rounded deviations.
+
+    Coverage is a count/trial ratio. Interpret the specified decimal nominal
+    probability and tolerance exactly, so both endpoints of +/-2pp are included.
+    """
+    if (not isinstance(covered,Integral) or not isinstance(trials,Integral)
+            or trials<=0 or not 0<=covered<=trials):
+        raise ValueError("coverage requires integer counts within a positive trial count")
+    return abs(Fraction(int(covered),int(trials))-Fraction(str(nominal)))<=Fraction(str(tolerance))
+
+
 def sbc_statistics(posterior,truth,*,jitter_seed):
     """Uniform randomized ranks and central intervals, all in physical units."""
     posterior,truth = np.asarray(posterior),np.asarray(truth)
@@ -29,13 +43,15 @@ def sbc_statistics(posterior,truth,*,jitter_seed):
     ranks = (raw_ranks+np.random.default_rng(jitter_seed).random(raw_ranks.shape))/(posterior.shape[1]+1)
     lower68,upper68 = np.quantile(posterior,[.16,.84],axis=1)
     lower95,upper95 = np.quantile(posterior,[.025,.975],axis=1)
-    coverage68 = np.mean((truth>=lower68)&(truth<=upper68),axis=0)
-    coverage95 = np.mean((truth>=lower95)&(truth<=upper95),axis=0)
+    covered68 = np.sum((truth>=lower68)&(truth<=upper68),axis=0)
+    covered95 = np.sum((truth>=lower95)&(truth<=upper95),axis=0)
+    coverage68,coverage95 = covered68/len(truth),covered95/len(truth)
     tests = []
     for j,name in enumerate(("f_d","F","host_median","host_sigma_ln")):
         statistic = kstest(ranks[:,j],"uniform")
         adjusted_p = min(1.,4*statistic.pvalue)  # Four parameters, one recorded repetition.
-        passed = adjusted_p>SBC_KS_ALPHA and abs(coverage68[j]-.68)<=COVERAGE_ABS and abs(coverage95[j]-.95)<=COVERAGE_ABS
+        passed = (adjusted_p>SBC_KS_ALPHA and coverage_in_band(covered68[j],len(truth),.68)
+                  and coverage_in_band(covered95[j],len(truth),.95))
         tests.append({"parameter":name,"KS_D":float(statistic.statistic),"raw_p":float(statistic.pvalue),
                       "bonferroni_adjusted_p":float(adjusted_p),"coverage68":float(coverage68[j]),
                       "coverage95":float(coverage95[j]),"status":"pass" if passed else "fail"})

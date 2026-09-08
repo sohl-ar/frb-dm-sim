@@ -269,3 +269,43 @@ upper coverage boundary because of floating-point representation. It is
 documented as an implementation issue; the stored failure status is retained.
 No comparator, tolerance or criterion was changed. Other measured failures
 remain independent of that issue. Human review precedes any fix or spec change.
+
+## Completed diagnosis and authorized comparison correction — 2026-09-08
+
+The human explicitly authorized fixing the coverage comparison while retaining
+the inclusive +/-2pp criterion, requested exact coverage and stratification,
+and authorized analytical host diagnostics. The evaluator now compares the
+covered-trial fraction using exact rational arithmetic against the specified
+decimal nominal probability and tolerance. No epsilon is added, no deviations
+are rounded, and no gate tolerance or required parameter is changed. Changing
+a rejection operator from > to >= would reject the endpoint too and is not a
+valid fix for the stated inclusive criterion.
+
+Re-evaluating the saved SBC samples changes only f_d's parameter status from
+FAIL to PASS. Coverage values, rank statistics and KS results are unchanged.
+F and host_sigma_ln still fail. Exact counts and deviations, the old assessment
+and old ledger, and comparison regression evidence are retained in
+results/conditioning-v1/diagnosis-v2/. The canonical G-P4 assessment carries a
+revision record while the original sampling identity is preserved. Full-run
+cache guards and the prior failure are not automatically cleared.
+
+Realized localization-fraction and catalog-size stratification reveal uneven
+coverage. Small catalogs show larger F overcoverage and host-width undercoverage,
+with broad finite-sample uncertainty. These strata are reported diagnostics,
+not newly imposed acceptance gates. See the generated CONDITIONING_FOLLOWUP.md.
+
+Matched localization probes and an examination of the saved training data
+identify a model-support problem: large all-localized catalogs were absent
+from training, and rare availability flags receive extreme standardized values.
+A single-feature counterfactual changes the inferred widths and coverage
+substantially. That deliberately inconsistent summary is an attribution
+experiment only; it is not a valid posterior, a model fix or gate evidence.
+It does not establish the information ceiling for representative mixed catalogs.
+
+Recommendation: keep Phase 2a INCOMPLETE and retain the current criteria.
+Investigate availability-bit scaling and explicit training coverage of the
+compositions required by validation in a separately authorized experiment.
+Do not drop host gates to declare acceptance; F still fails and remaining
+required gates are unrun. No physics-limited host finding is supported without
+a reference posterior or a justified information bound. No retraining or
+model-architecture correction was performed during this diagnosis.

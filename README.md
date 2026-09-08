@@ -9,6 +9,9 @@ on localized and unlocalized observations.
 **The conditioning run completed; acceptance remains failed.** Both catalog-size
 contraction checks and independent SBC are now recorded in
 [CONDITIONING_FOLLOWUP.md](CONDITIONING_FOLLOWUP.md). Do not relaunch training.
+The authorized boundary fix makes f_d pass SBC; F and host_sigma_ln still fail.
+The completed diagnosis includes exact coverage, composition/size strata and
+evidence of a rare-flag/training-support problem in extreme compositions.
 See [CONDITIONING_FIX.md](CONDITIONING_FIX.md) and
 [GATE_IMPLEMENTATION.md](GATE_IMPLEMENTATION.md) for implementation conventions.
 

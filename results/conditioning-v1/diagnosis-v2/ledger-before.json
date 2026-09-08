@@ -3185,7 +3185,7 @@
             "bonferroni_adjusted_p": 1.0,
             "coverage68": 0.681,
             "coverage95": 0.97,
-            "status": "pass"
+            "status": "fail"
           },
           {
             "parameter": "F",
@@ -10239,7 +10239,7 @@
           "bonferroni_adjusted_p": 1.0,
           "coverage68": 0.681,
           "coverage95": 0.97,
-          "status": "pass"
+          "status": "fail"
         },
         {
           "parameter": "F",
@@ -17277,16 +17277,7 @@
       "trials": 1000,
       "draws": 1000,
       "git_sha": "5438d58cc6d5d6579ad37f91fd448b7507033aad",
-      "git_dirty": true,
-      "assessment_revision": {
-        "authorization": "human Task 2 boundary fix, 2026-09-08",
-        "source_git_sha": "d83c98c2c8ff6d3ae0e1fc5a3ccb3eef6677a601",
-        "source_sha256": "9736eda029de928456f6c860674f80a482d0f385081e54f9c23d2d4bfb5a13fd",
-        "posterior_artifact_sha256": "3ed32011e48b64153cb46b93a63084037171f0da1f9ab37cfb955716da347f75",
-        "before_ledger": "results/conditioning-v1/diagnosis-v2/ledger-before.json",
-        "diagnostic_evidence": "results/conditioning-v1/diagnosis-v2/diagnosis.json",
-        "note": "new coverage assessment only; original sampling identity retained; no cache guard bypass"
-      }
+      "git_dirty": true
     },
     "G-P5": {
       "name": "G-P5",
@@ -17457,26 +17448,5 @@
     "unchanged": "checkpoint, source, gates, tolerances, sample counts, seeds and solver",
     "prior_stop_retained": "G-P6",
     "training": "forbidden; not invoked"
-  },
-  "boundary_fix_diagnosis": {
-    "authorization": "human Task 2 boundary fix, 2026-09-08",
-    "source_git_sha": "d83c98c2c8ff6d3ae0e1fc5a3ccb3eef6677a601",
-    "source_sha256": "9736eda029de928456f6c860674f80a482d0f385081e54f9c23d2d4bfb5a13fd",
-    "posterior_artifact_sha256": "3ed32011e48b64153cb46b93a63084037171f0da1f9ab37cfb955716da347f75",
-    "before_ledger": "results/conditioning-v1/diagnosis-v2/ledger-before.json",
-    "diagnostic_evidence": "results/conditioning-v1/diagnosis-v2/diagnosis.json",
-    "note": "new coverage assessment only; original sampling identity retained; no cache guard bypass"
-  },
-  "completed_diagnosis": {
-    "status": "complete",
-    "gate_recommendation": "remain_incomplete; no criterion change",
-    "report": "CONDITIONING_FOLLOWUP.md",
-    "verification": "results/conditioning-v1/diagnosis-v2/verification.json",
-    "verification_sha256": "9c8ab3e20278051b2cb114cf9a7385913151a9067cf8b80e03b23ca95e5e33fc",
-    "evidence_hashes": {
-      "diagnosis.json": "fb5d669990c494a0d54769429843ab37bb2610af8c59b3b5aa3e259dd44ebbe2",
-      "training-support.json": "402a14815d74c2985f6451700d7cdf6af2be55c0b4353f5bdb8d4c42ec9c767a",
-      "flag-ablation.json": "04ea12dba4bc14de478116ba0b1181294287b58a8d8ddfd349da9184398744ad"
-    }
   }
 }

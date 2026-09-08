@@ -3,7 +3,11 @@
 Current update: conditioned training completed. Both contraction sizes and
 independent full SBC are now recorded; G-P6 and G-P4 remain failed. The followup
 did not retrain or alter criteria. See CONDITIONING_FOLLOWUP.md, including its
-existing floating-point boundary finding. Do not relaunch training. G-P7's approved
+floating-point boundary correction. f_d now passes SBC; F and host_sigma_ln
+still fail. A matched localization diagnostic identifies sensitivity to a rare
+standardized availability flag and absent large all-localized training examples.
+The current host information ceiling remains unestablished. Do not relaunch
+training or change gate criteria. G-P7's approved
 soft scope is per-family coverage plus selection ignored; a true cross-family
 experiment is deferred to Phase 2b in the ledger. The results below remain the
 baseline evidence, not results from the repaired architecture.

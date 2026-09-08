@@ -5,7 +5,11 @@ contraction sizes and independent full SBC have executed under explicit human
 continuation authorization. G-P6 and G-P4 remain failed; no retraining or gate
 adjustment occurred in the followup. See CONDITIONING_FOLLOWUP.md for the
 measured results and the floating-point boundary finding in the existing SBC
-comparator. The remaining full gate suite has not run. Do not relaunch training.
+comparator. That comparison bug is now fixed with exact trial-count arithmetic:
+f_d passes SBC; F and host_sigma_ln still fail. Stratification and a matched
+localization probe reveal a rare-flag/training-support problem in the model.
+This does not establish a physical limit on host inference. The remaining
+full gate suite has not run. No retraining or gate-criterion change is authorized.
 The G-P7 per-family/selection-ignored scope is human-approved, with a true
 cross-family experiment deferred to Phase 2b. Details and generated checks are
 in CONDITIONING_FIX.md, GATE_IMPLEMENTATION.md and results/conditioning-v1/.

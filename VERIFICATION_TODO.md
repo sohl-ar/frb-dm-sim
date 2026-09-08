@@ -21,9 +21,13 @@ PROJECT_STATUS.md and AUDIT_REPORT.md report the exact measured results.
   patience. The evaluated best checkpoint is unaffected by the extra
   epoch according to the recorded loss comparison; original evidence is preserved.
 - The statistics-bypass training attempt is complete; do not retrain or resume.
-- Review the existing SBC comparator's floating-point upper-boundary false
-  failure separately from gate criteria. No code, tolerance or outcome was
-  changed in the authorized inference followup. Other coverage failures remain.
+- The human-authorized SBC boundary correction is implemented and verified:
+  only f_d's status changes. F and host_sigma_ln retain coverage failures.
+- Review the diagnostic evidence for rare availability-flag scaling and absent
+  large all-localized training support before authorizing a model experiment.
+  The counterfactual diagnostic is not a valid replacement posterior.
+- Establish a numerical reference posterior or justified information bound
+  before claiming host physics limits or proposing a contraction criterion change.
 - Run the implemented G-P5/TARP, G-P6 and G-P8 plus the full suite and smoke.
   G-P4 remains a baseline hard failure until the new checkpoint is evaluated.
 - G-P7 per-family coverage and selection-ignored probe are human-approved as

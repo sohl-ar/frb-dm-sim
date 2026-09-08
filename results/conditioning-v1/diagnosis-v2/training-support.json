@@ -1,0 +1,133 @@
+{
+  "scope": "training support only; no training updates or inference",
+  "training_catalogs": 50000,
+  "all_localized_count": 35,
+  "all_localized_N_max": 5,
+  "all_unlocalized_count": 557,
+  "N_ge64_count": 43866,
+  "all_localized_N_ge64": 0,
+  "all_unlocalized_N_ge64": 40,
+  "N_ge64_localized_fraction_quantiles": [
+    0.0,
+    0.018439476061427287,
+    0.22916666666666666,
+    0.6510396270396265,
+    0.8816568047337278
+  ],
+  "standardized_probe_features": {
+    "mixed": [
+      {
+        "statistic": "localized_z_mean",
+        "median_standardized_value": 0.2866688028053034,
+        "min": -1.4988092512559865,
+        "max": 1.5183588828954728
+      },
+      {
+        "statistic": "dm_min",
+        "median_standardized_value": -0.24949608476875212,
+        "min": -1.1428518578369555,
+        "max": 1.4117042214829942
+      },
+      {
+        "statistic": "fluence_std",
+        "median_standardized_value": -0.24524537496354265,
+        "min": -0.622483387034249,
+        "max": 3.34408553670068
+      },
+      {
+        "statistic": "residual_median",
+        "median_standardized_value": 0.19807026564513036,
+        "min": -2.428917471240864,
+        "max": 0.6215972946532541
+      },
+      {
+        "statistic": "fluence_mean",
+        "median_standardized_value": -0.19594107142202055,
+        "min": -0.7387458087283221,
+        "max": 2.2709918448365642
+      },
+      {
+        "statistic": "dm_median",
+        "median_standardized_value": 0.1861941336990452,
+        "min": -2.141146252857726,
+        "max": 3.2863760229729166
+      }
+    ],
+    "all_localized": [
+      {
+        "statistic": "has_unlocalized",
+        "median_standardized_value": -37.78321622851342,
+        "min": -37.78321622851342,
+        "max": -37.78321622851342
+      },
+      {
+        "statistic": "localized_count",
+        "median_standardized_value": 3.369719310348222,
+        "min": 3.369719310348222,
+        "max": 3.369719310348222
+      },
+      {
+        "statistic": "zbin2_count",
+        "median_standardized_value": 3.297402629505662,
+        "min": 1.303318544659435,
+        "max": 5.633329700325529
+      },
+      {
+        "statistic": "zbin1_count",
+        "median_standardized_value": 3.2619109957278276,
+        "min": 2.6737524724520942,
+        "max": 4.107388872936695
+      },
+      {
+        "statistic": "zbin0_count",
+        "median_standardized_value": 2.1963263344324004,
+        "min": 0.9005802139024542,
+        "max": 5.198664906392032
+      },
+      {
+        "statistic": "unlocalized_count",
+        "median_standardized_value": -1.6195118558900519,
+        "min": -1.6195118558900519,
+        "max": -1.6195118558900519
+      }
+    ],
+    "all_unlocalized": [
+      {
+        "statistic": "has_localized",
+        "median_standardized_value": -9.421603198092837,
+        "min": -9.421603198092837,
+        "max": -9.421603198092837
+      },
+      {
+        "statistic": "ols_available",
+        "median_standardized_value": -6.265592466263915,
+        "min": -6.265592466263915,
+        "max": -6.265592466263915
+      },
+      {
+        "statistic": "localized_z_mean",
+        "median_standardized_value": -5.571582962824333,
+        "min": -5.571582962824333,
+        "max": -5.571582962824333
+      },
+      {
+        "statistic": "localized_z_std",
+        "median_standardized_value": -4.607975412502125,
+        "min": -4.607975412502125,
+        "max": -4.607975412502125
+      },
+      {
+        "statistic": "localized_dm_mean",
+        "median_standardized_value": -2.8177963750059196,
+        "min": -2.8177963750059196,
+        "max": -2.8177963750059196
+      },
+      {
+        "statistic": "zbin1_dm_mean",
+        "median_standardized_value": -2.3661138904660373,
+        "min": -2.3661138904660373,
+        "max": -2.3661138904660373
+      }
+    ]
+  }
+}

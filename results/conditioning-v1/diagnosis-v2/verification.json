@@ -1,0 +1,24 @@
+{
+  "status": "pass",
+  "source_changes": [
+    "src/frbsbi/evaluate.py"
+  ],
+  "checkpoint_unchanged": true,
+  "all_original_ranks_unchanged": true,
+  "contraction_gate_unchanged": true,
+  "group_counts_partition_original_trials": true,
+  "group_coverage_counts_sum_to_original_counts": true,
+  "host_probe_metrics_recomputed_from_NPZ": true,
+  "counterfactual_metrics_recomputed_from_NPZ": true,
+  "tests": {
+    "tests": 7,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "evidence": {
+    "diagnosis.json": "fb5d669990c494a0d54769429843ab37bb2610af8c59b3b5aa3e259dd44ebbe2",
+    "training-support.json": "402a14815d74c2985f6451700d7cdf6af2be55c0b4353f5bdb8d4c42ec9c767a",
+    "flag-ablation.json": "04ea12dba4bc14de478116ba0b1181294287b58a8d8ddfd349da9184398744ad"
+  }
+}
