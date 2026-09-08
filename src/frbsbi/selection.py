@@ -70,6 +70,9 @@ class SchechterLF:
         return np.exp(self.log_tail(lower))
 
     def sample_above(self, lower, rng):
+        return self.quantile_above(lower, rng.random(np.shape(lower)))
+
+    def quantile_above(self, lower, probabilities):
         """Inverse survival sampling; only fixed vectorized bisection loops.
 
         For s<1 the kernel decreases faster than exp(-x). Therefore
@@ -77,10 +80,14 @@ class SchechterLF:
         no intrinsic rejection loop and no imposed maximum luminosity.
         """
         lower = np.maximum(np.asarray(lower, dtype=np.float64), self.minimum)
+        probabilities = np.asarray(probabilities,dtype=np.float64)
+        lower,probabilities = np.broadcast_arrays(lower,probabilities)
+        if np.any(~np.isfinite(probabilities)) or np.any(probabilities<0) or np.any(probabilities>=1):
+            raise ValueError("finite probabilities in [0,1) required")
         if np.any(~np.isfinite(lower)):
             raise ValueError("finite luminosity threshold required")
         x0 = lower / self.scale
-        log_survival = np.log1p(-rng.random(lower.shape))
+        log_survival = np.log1p(-probabilities)
         target = log_upper_gamma(self.gamma + 1, x0) + log_survival
         left = np.log(x0)
         right = np.log(x0 - log_survival)

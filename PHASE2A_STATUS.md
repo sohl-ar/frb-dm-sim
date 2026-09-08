@@ -5,11 +5,13 @@ The new T1 tests exercise its sampling moments, dependence on RNG order,
 and rejection of overlapping seed ranges. Numerical results are generated
 in [the separate Phase 2a ledger](results/phase2a_gates.json).
 
-No neural network, training data, checkpoint or posterior exists. T2 is
-blocked by the selection-print discrepancy under the newly approved
-Schechter LF and fluence threshold. Their numerical sampling checks pass;
-the supplied print comparison does not. T3 has not run. All posterior gates and the
-real-data smoke test are unrun. See [DECISIONS.md](DECISIONS.md).
+No neural network, training dataset, checkpoint or posterior exists.
+T2's print corrections are authorized and the z=0.2 evidence row is closed.
+The selected training-data generator is implemented and has been exercised
+on audit catalogs only; seed, distribution, schema, replay and CPU speed
+checks pass. Results are in `results/generator-audit.json`. T3 has not run.
+All posterior gates and the real-data smoke test remain unrun.
+See [DECISIONS.md](DECISIONS.md).
 
 Run locally from the installed repository:
 
@@ -21,6 +23,12 @@ The preflight tests can pass while this command deliberately exits nonzero:
 Phase 2a acceptance is incomplete. It does not overwrite Phase 1 evidence.
 No Colab runtime is required for this check. Both independent phase ledgers
 must reach acceptance before Phase 3.
+
+The requested low-redshift dominance interpretation is contradicted by
+quadrature and generated catalogs. This finding is recorded without
+changing the authorized population. Comparisons to similarly selected
+ASKAP samples would be selection consistency, not independent validation;
+agreement has not been established here. No low-z dominance is claimed.
 
 The submitted Colab evidence is archived under `results/colab/` with a
 separate human-reported environment record. Table-1 verification is

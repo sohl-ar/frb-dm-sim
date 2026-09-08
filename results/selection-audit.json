@@ -1,5 +1,5 @@
 {
-  "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4",
+  "git_sha": "0c8c3d4111548b0931c55617e9b4fe05815b2be4",
   "git_dirty": true,
   "seed": 60001,
   "lf": {
@@ -35,14 +35,18 @@
       "n_detected": 1506,
       "detected_fraction": 0.001506,
       "mean_detected_z": 0.8445412589690413,
-      "scope": "naive-rejection validation only; no training data"
+      "fraction_detected_below_z05": 0.17264276228419656,
+      "scope": "naive-rejection validation only; no training data",
+      "quadrature_fraction_detected_below_z05": 0.1693582700783235
     },
     "constant_comoving": {
       "n_intrinsic": 1000000,
       "n_detected": 2056,
       "detected_fraction": 0.002056,
       "mean_detected_z": 0.6985639360193302,
-      "scope": "naive-rejection validation only; no training data"
+      "fraction_detected_below_z05": 0.32490272373540857,
+      "scope": "naive-rejection validation only; no training data",
+      "quadrature_fraction_detected_below_z05": 0.32238215086070876
     }
   },
   "user_print_ranges": [
@@ -59,24 +63,73 @@
       0.007
     ],
     [
-      0.003,
-      0.003
+      0.00151,
+      0.00151
     ],
     [
-      0.001,
-      0.002
+      0.000494,
+      0.000494
     ]
   ],
-  "prints_within_factor_two": false,
+  "prints_within_factor_two": true,
   "factor_below_print_lower_edge": [
     0.9734640331313894,
     0.7657598556826191,
     0.930317891618346,
-    1.989929748282281,
-    2.025961742391969
+    1.0015979733020814,
+    1.0008251007416324
   ],
-  "scale_fluence_at_z1": 12.49720195105271,
-  "brightest_note": "Schechter has unbounded support; this is scale fluence, not a maximum burst fluence",
+  "print_authorization": "docs/ANCHOR_CORRECTION_V2.md; supersedes stale prints only",
+  "human_corroboration": {
+    "source": "ANCHOR CORRECTION AUTHORIZATION v2",
+    "z1_z14": "human series/quadrature agree at 10-15% level; corroboration, not numeric oracle",
+    "z02": "human quadrature agrees within approximately 1%",
+    "arbiter": "committed quadrature/rejection at 0c8c3d4 and executed multi-method checks"
+  },
+  "z02_verification": {
+    "status": "pass",
+    "DL_Mpc": 1015.6297606628455,
+    "L_threshold": 64811295.879668854,
+    "x_threshold": 0.008918414507446768,
+    "unnormalized_tail_integrand_x_gamma_exp_minus_x": 236.47928506577105,
+    "normalized_pdf_in_x_at_threshold": 0.48952282011205867,
+    "quadrature_probability": 0.013058924316534899,
+    "series_probability": 0.013058924316534904,
+    "recurrence_probability": 0.013058924316534888,
+    "rejection_probability": 0.012798,
+    "rejection_standard_error": 0.0001135270400047051,
+    "rejection_error_in_se": 2.298345103722287,
+    "reviewer_x_0_0022_probability": 0.019936914465588252
+  },
+  "knee_fluences": {
+    "z": [
+      1.0,
+      1.4
+    ],
+    "DL_Mpc": [
+      6802.525834693799,
+      10294.015878394855
+    ],
+    "fluence_jy_ms": [
+      12.49720195105271,
+      5.457371517976867
+    ],
+    "astropy_DL_Mpc": [
+      6802.525834693804,
+      10294.015878394852
+    ],
+    "distance_relative_error": 7.771561172376096e-16,
+    "z14_side_of_threshold": "above",
+    "interpretation": "At z=1.4 the knee is above the cut: detection starts just below the knee and includes the exponentially suppressed bright tail."
+  },
+  "above_knee_support": {
+    "verified": true,
+    "lower_test_bound_in_knee_units": 2.0,
+    "sample_min_over_knee": 2.000010369256742,
+    "sample_max_over_knee": 10.318001602609153,
+    "intrinsic_count_above_knee": 421,
+    "code_inspection": "sample_above has a lower support floor only; its probability-dependent bisection bracket is not an upper luminosity cutoff"
+  },
   "tail_quadrature": [
     {
       "s": -0.16,

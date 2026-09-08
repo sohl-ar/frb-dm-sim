@@ -2,7 +2,8 @@
 
 Authority: user-supplied SPEC-02a FINAL, preserved in
 [docs/SPEC-02a-request.txt](docs/SPEC-02a-request.txt), amended by
-[the consolidated authorization](docs/SPEC-02a-authorization.txt). Phase 1 and Phase 2a
+[the consolidated authorization](docs/SPEC-02a-authorization.txt) and
+[anchor correction v2](docs/ANCHOR_CORRECTION_V2.md). Phase 1 and Phase 2a
 retain separate acceptance ledgers. No training catalogs or network exist.
 
 ## T1: production RNG
@@ -31,8 +32,9 @@ configuration, seeds and software provenance are in
 
 Seed allocation is an engineering convention, enforced by
 `assert_disjoint_seed_ranges`: half-open training, validation, test and
-audit ranges are recorded in that JSON. This guard must also be called by
-the future training-data entry point; that entry point is not implemented.
+audit ranges are recorded in that JSON. The implemented `generate_batch`
+entry point calls this guard before allocating RNGs; overlap rejection
+is tested at that entry point.
 T1 uses fixed-redshift cosmic draws, not a generated training catalog.
 
 ## T2: catalog design
@@ -42,8 +44,8 @@ T1 uses fixed-redshift cosmic draws, not a generated training catalog.
   must group by host; a later simulator may share cosmic DM within a host
   while drawing burst-dependent host contributions.
 - **D2 accepted as specified:** observed catalog size is discrete uniform
-  on 1 through 512; size 1024 is diagnostic. Existing Phase 1 generation
-  takes an intrinsic count, so it is not yet this selected-size generator.
+  on 1 through 512; size 1024 is diagnostic. Phase 2a's `generate_batch`
+  now generates this observed count directly via conditional selection.
 - **D3 accepted as specified:** localization probability is Beta(2,6),
   followed by per-burst Bernoulli draws; redshift appears iff localized.
 - **D4 authorized:** F_min=5 Jy ms, CHIME Catalog 1 selection proxy;
@@ -58,14 +60,16 @@ T1 uses fixed-redshift cosmic draws, not a generated training catalog.
   document. At gamma=-1.16, the detected fraction inherits the stated
   approximate factor 1.45 per decade of E_min uncertainty.
 
-**Execution is stopped on the selection print comparison**, not missing
-authorization. `results/selection-audit.json` records direct quadrature,
-independent intrinsic rejection, conditional-L sampling, detected fractions
-and population-integrated selection probabilities. At the final diagnostic
-redshift the calculated fraction is just outside the supplied factor-two
-comparison boundary. No LF parameter or print boundary has been altered.
-The joint conditional z,L generator and its naive-rejection comparison
-remain unimplemented pending this STOP report. A broad LF retains partial distance information;
+**The print discrepancy is resolved by human correction v2.** The executed
+z=0.2 recurrence, quadrature, series and rejection checks are recorded in
+`results/selection-audit.json`. The independent series uses complete gamma
+and its small-x expansion; it does not reuse the incomplete-gamma recurrence.
+Knee fluences are computed from Astropy-checked distances. Sampling above
+the knee is tested; there is no upper LF cutoff. Power-law extrapolation
+without exponential suppression explains the original high-z overestimate.
+The conditional joint generator and its naive-rejection comparison are now
+implemented; `results/generator-audit.json` records validation and runtime.
+A broad LF retains partial distance information;
 the eventual exchange-rate study is separate from G-P8's sanity threshold.
 
 ## T3: priors recorded, validation not run
@@ -97,5 +101,50 @@ The human has verified all six original table rows. The authorized
 was located and rerun. `results/table1-amendment.json` links the before
 and after ledgers and records changes to means, corrections and coverage.
 
-Training, performance measurements and posterior validation are stopped
-at the pretraining boundary. Phase 1's L2 and Milky Way work remains open.
+Training and posterior validation have not started. Generator performance
+has been measured. Phase 1's L2 and Milky Way work remains open.
+
+## Print-revision rule and selection interpretation
+
+Anchor PRINTS are human estimates and may be revised by explicit human
+sign-off with recorded multi-method provenance. Gate tolerances and physics
+anchors are not revisable this way. This creates no precedent for changing
+G-P4 coverage bands or any other acceptance tolerance. The generated table
+below supersedes the stale prints in the original stored specification.
+
+Comparison to similarly selected ASKAP samples would be selection
+consistency, not independent validation. However, the claimed low-z
+dominance does not hold for this authorized simulator: the generated
+fractions below show a minority below z=0.5 in both families. Do not claim
+agreement with Macquart/James ASKAP redshift distributions or a low-z
+dominated exchange-rate regime from these simulations. Phase 3 framing
+must use the actual selected distribution; the population remains unchanged.
+
+<!-- GENERATED_ANCHOR_EVIDENCE -->
+
+Source: `results/selection-audit.json`; human print correction v2.
+
+| z | Authorized comparison print (%) | Computed probability (%) |
+|---|---:|---:|
+| 0.1 | 2 | 2.054519 |
+| 0.2 | 1-1.5 | 1.305892 |
+| 0.5 | 0.5-0.7 | 0.537451 |
+| 1 | 0.151 | 0.150759 |
+| 1.4 | 0.0494 | 0.049359 |
+
+z=0.2: x_t=0.00891841450745; integrand x^gamma exp(-x)=236.479285066.
+Quadrature=0.013058924316535; series=0.013058924316535; rejection=0.012798
+with standard error 0.00011352704. The row status is pass.
+
+Knee fluence at z=1: 12.49720195 Jy ms.
+Knee fluence at z=1.4: 5.45737152 Jy ms.
+At z=1.4 the knee is above the cut: detection starts just below the knee and includes the exponentially suppressed bright tail.
+
+The executed below-z=0.5 fractions (quadrature / rejection) are:
+
+- sfr: 16.9358% / 17.2643%.
+- constant_comoving: 32.2382% / 32.4903%.
+
+Human third checks at z=1 and 1.4 agree at 10-15%; at z=0.2 approximately 1%.
+These are labeled corroboration. The executed numerical checks are the arbiter.
+<!-- END_GENERATED_ANCHOR_EVIDENCE -->

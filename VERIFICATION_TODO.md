@@ -10,8 +10,11 @@ human sign-off to omit an acceptance requirement.
   before/after comparison is in `results/table1-amendment.json`.
 - Phase 2a D4/D5 defaults, unit conversion and Schechter form are now
   explicitly authorized in `docs/SPEC-02a-authorization.txt`. Numerical
-  sampling checks pass, but the selection-print comparison triggers STOP;
-  see `results/selection-audit.json`. No training has started.
+  sampling checks pass. Human anchor correction v2 resolves the comparison
+  prints and adds the executed z=0.2 evidence row; see
+  `results/selection-audit.json`. The selected generator passes its
+  engineering checks. No training has started. The requested low-z
+  dominance interpretation is not supported by the generated population.
 
 - Madau & Dickinson Eq. 15 uses 2.7, 2.9, **5.6**. Source:
   https://arxiv.org/html/1403.0007 ; correction explicitly authorized.

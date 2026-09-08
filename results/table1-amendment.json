@@ -1,5 +1,5 @@
 {
-  "git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4",
+  "git_sha": "0c8c3d4111548b0931c55617e9b4fe05815b2be4",
   "git_dirty": true,
   "authorization": "docs/SPEC-02a-authorization.txt section 1",
   "human_table1_spot_check": "complete: all six rows, per explicit human sign-off",
@@ -11,6 +11,45 @@
   "seed": 2020190608,
   "coverage_before": 5,
   "coverage_after": 5,
+  "colab_before_vs_rerun_after_190102": {
+    "before_source": "colab/gates-e5b57d6.json",
+    "before_git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4",
+    "after_source": "table1-after.json",
+    "after_git_sha": "e5b57d6bd330ec328654541bfbdac977ae9f06b4",
+    "before": {
+      "frb": "190102",
+      "z": 0.2913,
+      "dm_observed": 363.6,
+      "dm_cosmic_estimated": 244.8793309068381,
+      "analytic_mean": 255.4738067977042,
+      "predictive_5_95": [
+        172.88769650381485,
+        556.5254676522515
+      ],
+      "inside": true,
+      "tentative": false
+    },
+    "after": {
+      "frb": "190102",
+      "z": 0.291,
+      "dm_observed": 363.6,
+      "dm_cosmic_estimated": 244.8703330751356,
+      "analytic_mean": 255.1994420562691,
+      "predictive_5_95": [
+        172.66887344597978,
+        556.199582807379
+      ],
+      "inside": true,
+      "tentative": false
+    },
+    "delta_dm_cosmic_estimated": -0.008997831702515668,
+    "delta_analytic_mean": -0.27436474143510736,
+    "delta_predictive_5_95": [
+      -0.21882305783506695,
+      -0.32588484487246205
+    ],
+    "note": "Cross-environment comparison includes tiny constants/version differences; local controlled before/after also retained."
+  },
   "outcome_unchanged": true,
   "events": [
     {

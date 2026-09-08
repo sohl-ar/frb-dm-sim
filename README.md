@@ -94,3 +94,9 @@ The independent L0-native inference track is at the pretraining boundary.
 See [PHASE2A_STATUS.md](PHASE2A_STATUS.md) and [DECISIONS.md](DECISIONS.md).
 `python -m pytest -m phase2a` writes its own ledger and deliberately exits
 nonzero while acceptance remains incomplete. No network is implemented.
+
+The observed-count generator now lives in `src/frbsbi/generator.py`.
+It samples the authorized Schechter LF conditional on detection, enforces
+disjoint catalog seeds, and keeps compact localized redshifts separate
+from simulator latents. The generator's numeric and CPU-rate audit is
+`scripts/generator_audit.py`; evidence is saved in `results/generator-audit.json`.

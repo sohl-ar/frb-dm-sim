@@ -102,8 +102,7 @@ def write_phase2a_report(root, t1, tests_passed, failures):
               "numpy": np.__version__, "acceptance_complete": False, "exit_status": 1,
               "preflight_tests_passed": tests_passed, "test_failures": failures,
               "pretraining": {"T1": t1 or {"status": "not_run"},
-                  "T2": {"status": "blocked", "reason": "D4 fixture threshold is zero; "
-                         "D5 requires human-sourced LF slope, bounds and unit convention"},
+                  "T2": {"status": "not_run", "reason": "D4/D5 authorized; validation report required"},
                   "T3": {"status": "not_run"}},
               "gates": {f"G-P{i}": {"status": "not_run", "hard": i not in (3, 7)}
                         for i in range(1, 9)},
@@ -118,6 +117,23 @@ def write_phase2a_report(root, t1, tests_passed, failures):
                       else "Selection validated; conditional joint generator validation remains",
             "selection_evidence": "results/selection-audit.json",
             "selection_evidence_sha256": hashlib.sha256(selection_path.read_bytes()).hexdigest()}
+        report["pretraining"]["T2"]["z02_verified"] = selection.get("z02_verification",{}).get("status")=="pass"
+        generator_path = root / "results" / "generator-audit.json"
+        if generator_path.exists():
+            generated = json.loads(generator_path.read_text(encoding="utf-8"))
+            report["training_data_generator"] = {"status":generated["status"],"evidence":"results/generator-audit.json",
+                "cold_bursts_per_second":generated["cold_bursts_per_second"],
+                "required_bursts_per_second":generated["performance_tolerance"],
+                "sha256":hashlib.sha256(generator_path.read_bytes()).hexdigest()}
+            ready = (selection["prints_within_factor_two"] and selection["numeric_checks_pass"]
+                     and report["pretraining"]["T2"]["z02_verified"] and generated["status"]=="pass")
+            report["pretraining"]["T2"]["status"] = "pass" if ready else "blocked"
+            report["pretraining"]["T2"]["reason"] = "Authorized selected generator validated" if ready else "Pretraining validation incomplete"
+        report["open_findings"] = [{"name":"low_redshift_dominance_claim","status":"discrepancy_reported",
+            "claim":"selected catalogs are dominated by z<=0.5",
+            "actual_quadrature_fraction_below_z05":{k:v["quadrature_fraction_detected_below_z05"]
+                for k,v in selection["population_naive_rejection"].items()},
+            "action":"No population changes; do not claim selection consistency with low-z ASKAP samples without evidence."}]
     target = root / "results" / "phase2a_gates.json"
     target.parent.mkdir(exist_ok=True)
     temporary = target.with_suffix(".tmp")
