@@ -1,4 +1,5 @@
 * text=auto eol=lf
+results/conditioning-v1/baseline-evidence/*.json -text
 src/frbsim/vendor/* -text
 # Preserve the human-supplied Colab appendix byte for byte, including EOLs.
 results/colab/gates-e5b57d6.json -text
