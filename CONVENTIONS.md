@@ -8,8 +8,8 @@ The 1.3 GHz energy reference and 1 GHz bandwidth versus native observing
 bands remain a misspecification axis. The Schechter exponential scale is
 not the brightest possible burst. See `DECISIONS.md` and the executed
 `results/selection-audit.json`. Human correction v2 resolves the comparison
-prints; the generator has passed its engineering checks. Training and T3
-prior-predictive validation remain unrun. The actual detected population
+prints; the generator and T3 prior-predictive checks pass. Training state
+is recorded separately in `results/training.json`. The actual detected population
 is not dominated by z<0.5; that interpretation must not be asserted.
 
 This implements the mean-DM and L0 portions of SPEC-FINAL v2.1 with the

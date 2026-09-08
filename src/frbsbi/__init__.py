@@ -1,1 +1,1 @@
-"""Phase 2a preflight only; no network or training is implemented."""
+"""L0-native inference: preflight, selected catalogs, native model and training."""

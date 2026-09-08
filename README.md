@@ -84,16 +84,17 @@ latent columns or theta metadata. `demo-simulator.json` is intentionally
 simulator-side and includes the per-component DM breakdown and provenance;
 do not hand that file to an inference network.
 
-The code does not train, infer parameters, ingest a scientific real-data
-catalog, or claim Phase 1 completion. The transcribed six events are only
-the specified replication smoke fixture.
+Phase 1 does not claim completion or scientific real-data inference. The
+transcribed six events are the specified replication smoke fixture.
 
 ## Phase 2a preflight
 
 The independent L0-native inference track is at the pretraining boundary.
 See [PHASE2A_STATUS.md](PHASE2A_STATUS.md) and [DECISIONS.md](DECISIONS.md).
 `python -m pytest -m phase2a` writes its own ledger and deliberately exits
-nonzero while acceptance remains incomplete. No network is implemented.
+nonzero while acceptance remains incomplete. The native attention/flow
+model and deterministic training runner are implemented; see
+[TRAINING_RUN.md](TRAINING_RUN.md) and `results/training.json` for run state.
 
 The observed-count generator now lives in `src/frbsbi/generator.py`.
 It samples the authorized Schechter LF conditional on detection, enforces

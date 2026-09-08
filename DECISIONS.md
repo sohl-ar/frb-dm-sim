@@ -4,7 +4,8 @@ Authority: user-supplied SPEC-02a FINAL, preserved in
 [docs/SPEC-02a-request.txt](docs/SPEC-02a-request.txt), amended by
 [the consolidated authorization](docs/SPEC-02a-authorization.txt) and
 [anchor correction v2](docs/ANCHOR_CORRECTION_V2.md). Phase 1 and Phase 2a
-retain separate acceptance ledgers. No training catalogs or network exist.
+retain separate acceptance ledgers. Dataset, model and training evidence
+are recorded under `results/`; these do not imply posterior acceptance.
 
 ## T1: production RNG
 
