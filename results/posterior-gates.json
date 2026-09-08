@@ -1,89 +1,19 @@
 {
-  "schema_version": 1,
-  "scope": "Phase 2a acceptance ledger; separate from Phase 1",
   "git_sha": "fec1aeb53fb4f0ebab116fd60cdeb1c2c88005b6",
   "git_dirty": true,
-  "config_hash": "752110e31a35f8f386f8724d3561c95930df50514e16e582524a1f4e32b753c1",
-  "python": "3.12.14",
-  "numpy": "2.5.3",
+  "checkpoint_sha256": "3260ef3eb126e81913f037971c734732672b126e58db711bf5e04d4817fcd802",
+  "training_git_sha": "80b2024a6cd0035f690eb98e83c05ae9e250e7a1",
+  "training_config_hash": "8fd72a52b79677506621b186623c86405eb1624a4c09828b7255419f34ce2078",
+  "dataset_manifest_sha256": "0d44c34b64266de78f848a5a05cc28481965ead04686abd134f6c491833dc59e",
+  "torch": "2.14.0+cpu",
+  "device": "cpu",
+  "precision": "float32 flow, float64 physical parameters",
+  "scope": "G-P1, G-P2 and G-P4; remaining gates require separate evidence",
+  "validation_usage": "Disjoint from gradient training; used for validation-loss checkpoint selection as specified",
   "acceptance_complete": false,
-  "exit_status": 1,
-  "preflight_tests_passed": true,
-  "test_failures": [],
-  "pretraining": {
-    "T1": {
-      "name": "T1",
-      "status": "pass",
-      "config": {
-        "n": 10000,
-        "z": 0.5,
-        "F": 0.32,
-        "f_d": 0.85,
-        "seed": 60000
-      },
-      "dtype": "float64",
-      "draws_sha256": "ac2604b6d8ad16488053eb017ced312702099c4dd064286ffdb20a06a6fbfb41",
-      "delta_max": 10000.0,
-      "truncated_mean_delta": 0.9999999999999998,
-      "truncated_variance_delta": 2.4852893503545257,
-      "truncated_fourth_central_moment_delta": 15695885.157385651,
-      "analytic_mean_dm": 449.2611712527174,
-      "sample_mean_dm": 454.46338180768566,
-      "analytic_variance_dm": 501619.8671908931,
-      "sample_variance_dm": 385326.68315644213,
-      "mean_standard_error": 7.082512740481962,
-      "variance_standard_error": 7996327.829427304,
-      "mean_error_in_standard_errors": 0.7345148177755679,
-      "variance_error_in_standard_errors": 0.0145433236999714,
-      "tolerance": {
-        "sampling_standard_errors": 3.0
-      },
-      "seed_ranges": {
-        "training": {
-          "start": 0,
-          "stop": 50000
-        },
-        "validation": {
-          "start": 50000,
-          "stop": 55000
-        },
-        "test": {
-          "start": 55000,
-          "stop": 60000
-        },
-        "audit": {
-          "start": 60000,
-          "stop": 70000
-        }
-      },
-      "limitation": "Finite-cutoff fourth moment makes the variance gate broad; three standard errors do not imply Gaussian coverage."
-    },
-    "T2": {
-      "status": "pass",
-      "D4_D5_authorization": "resolved: docs/SPEC-02a-authorization.txt",
-      "reason": "Authorized selected generator validated",
-      "selection_evidence": "results/selection-audit.json",
-      "selection_evidence_sha256": "87b3e325d65a16421135cb2295971a75957dd62798557b574a21a523bf3f4b6e",
-      "z02_verified": true
-    },
-    "T3": {
-      "status": "pass",
-      "evidence": "results/prior-predictive.json",
-      "event_CDFs": {
-        "180924": 0.5765143088917846,
-        "181112": 0.8426119479676456,
-        "190102": 0.7094599924031268,
-        "190608": 0.9643872547810918,
-        "190611": 0.16438959736156017,
-        "190711": 0.7630562962722566
-      },
-      "sha256": "b4a2df85f048b9a346e6f8e5465b7a9e0139ce74603c91f011c26caca69125eb"
-    }
-  },
   "gates": {
     "G-P1": {
       "status": "pass",
-      "hard": true,
       "n_catalogs": 100,
       "shuffles_per_catalog": 10,
       "posterior_samples": 128,
@@ -103,7 +33,6 @@
     },
     "G-P2": {
       "status": "pass",
-      "hard": true,
       "posterior_bit_identical": true,
       "different_seed_differs": true,
       "catalog_bit_identical": true,
@@ -112,12 +41,10 @@
       "catalog_replay_evidence": "results/generator-audit.json"
     },
     "G-P3": {
-      "status": "not_run",
-      "hard": false
+      "status": "not_run"
     },
     "G-P4": {
       "status": "fail",
-      "hard": true,
       "trials": 1000,
       "posterior_samples_per_trial": 1000,
       "repetitions": 1,
@@ -7242,59 +7169,17 @@
       ]
     },
     "G-P5": {
-      "status": "not_run",
-      "hard": true
+      "status": "not_run"
     },
     "G-P6": {
-      "status": "not_run",
-      "hard": true
+      "status": "not_run"
     },
     "G-P7": {
-      "status": "not_run",
-      "hard": false
+      "status": "not_run"
     },
     "G-P8": {
-      "status": "not_run",
-      "hard": true
+      "status": "not_run"
     }
-  },
-  "smoke_test": {
-    "status": "not_run"
-  },
-  "trained_checkpoint": "results/checkpoints/phase2a-best.pt",
-  "training_data_generator": {
-    "status": "pass",
-    "evidence": "results/generator-audit.json",
-    "cold_bursts_per_second": 34086.90339822058,
-    "required_bursts_per_second": 8600.0,
-    "sha256": "f8fd1f102638b9facc4facb17049b26a2e54061828e079273189d94130b2301f"
-  },
-  "open_findings": [
-    {
-      "name": "low_redshift_dominance_claim",
-      "status": "corrected_by_human_authorization",
-      "claim": "selected catalogs are dominated by z<=0.5",
-      "actual_quadrature_fraction_below_z05": {
-        "sfr": 0.1693582700783235,
-        "constant_comoving": 0.32238215086070876
-      },
-      "action": "Retire quiet validation; record moderate-z dominance and Phase 3 framing. CHIME Catalog 1 DM comparison is a future consistency check."
-    }
-  ],
-  "model_engineering": {
-    "status": "pass",
-    "evidence": "results/model-audit.json",
-    "sha256": "22aa42316559c2be3661d238316bdda1a4923cad84a8f4a8e555c95b967a8103"
-  },
-  "training": {
-    "status": "training_complete_unvalidated",
-    "evidence": "results/training.json",
-    "sha256": "6fc60a26f6f6c2ca8d97c0707e48279605454db04c24e7b242f6efebaf90330e"
-  },
-  "trained_checkpoint_sha256": "3260ef3eb126e81913f037971c734732672b126e58db711bf5e04d4817fcd802",
-  "posterior_evidence": {
-    "path": "results/posterior-gates.json",
-    "sha256": "e4b330271ab4546e957ad98730a52742e707c510c5a6aaae69278d75c1cd4a70"
   },
   "stopped_at": "G-P4"
 }

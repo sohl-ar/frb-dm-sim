@@ -1,5 +1,5 @@
 {
-  "git_sha": "67dc8a20c83e0cbe6b202e6fa2501a5c693c858a",
+  "git_sha": "fec1aeb53fb4f0ebab116fd60cdeb1c2c88005b6",
   "git_dirty": true,
   "scope": "architecture and five-step replay only; not G-P1 full sample or calibrated inference",
   "config": {
@@ -51,5 +51,9 @@
     "seed": 71002
   },
   "finite": true,
+  "tolerances": {
+    "parameter_roundtrip_prior_width_error": 1e-06,
+    "shuffle_wasserstein_prior_widths": 0.0001
+  },
   "status": "pass"
 }
