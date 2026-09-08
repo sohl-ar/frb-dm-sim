@@ -1,0 +1,176 @@
+{
+  "catalog_seeds": [
+    50000,
+    50001,
+    50002,
+    50003,
+    50004,
+    50005,
+    50006,
+    50007,
+    50008,
+    50009,
+    50010,
+    50011,
+    50012,
+    50013,
+    50014,
+    50015,
+    50016,
+    50017,
+    50018,
+    50019,
+    50020,
+    50021,
+    50022,
+    50023,
+    50024,
+    50025,
+    50026,
+    50027,
+    50028,
+    50029,
+    50030,
+    50031,
+    50032,
+    50033,
+    50034,
+    50035,
+    50036,
+    50037,
+    50038,
+    50039,
+    50040,
+    50041,
+    50042,
+    50043,
+    50044,
+    50045,
+    50046,
+    50047,
+    50048,
+    50049,
+    50050,
+    50051,
+    50052,
+    50053,
+    50054,
+    50055,
+    50056,
+    50057,
+    50058,
+    50059,
+    50060,
+    50061,
+    50062,
+    50063,
+    50064,
+    50065,
+    50066,
+    50067,
+    50068,
+    50069,
+    50070,
+    50071,
+    50072,
+    50073,
+    50074,
+    50075,
+    50076,
+    50077,
+    50078,
+    50079,
+    50080,
+    50081,
+    50082,
+    50083,
+    50084,
+    50085,
+    50086,
+    50087,
+    50088,
+    50089,
+    50090,
+    50091,
+    50092,
+    50093,
+    50094,
+    50095,
+    50096,
+    50097,
+    50098,
+    50099
+  ],
+  "checkpoint_sha256": "3260ef3eb126e81913f037971c734732672b126e58db711bf5e04d4817fcd802",
+  "scope": "Same 100 existing catalogs, frozen PMA internal activations; double precision is diagnostic only",
+  "precisions": {
+    "float32": {
+      "activations": {
+        "attention_output": {
+          "catalog_variation_RMS": 4.855308391176081e-05,
+          "value_RMS": 12.417582986270748
+        },
+        "after_norm1": {
+          "catalog_variation_RMS": 1.676238221917548e-06,
+          "value_RMS": 1.6988393915662459
+        },
+        "feedforward_output": {
+          "catalog_variation_RMS": 4.112894247728282e-06,
+          "value_RMS": 3.7363432695834775
+        },
+        "after_norm2": {
+          "catalog_variation_RMS": 1.4816416387079827e-07,
+          "value_RMS": 0.5070463440647507
+        },
+        "uniform_value_projection": {
+          "catalog_variation_RMS": 4.8542926379013807e-05
+        }
+      },
+      "pooled_std_median": 8.931460249473527e-08,
+      "norm1_gain_min_max": [
+        0.43624716997146606,
+        1.6688932180404663
+      ],
+      "norm2_gain_min_max": [
+        0.1528734564781189,
+        0.8224412798881531
+      ],
+      "value_projection_Frobenius": 6.36238431930542,
+      "output_projection_Frobenius": 5.717234134674072
+    },
+    "float64": {
+      "activations": {
+        "attention_output": {
+          "catalog_variation_RMS": 4.851745572811129e-05,
+          "value_RMS": 12.417582932862448
+        },
+        "after_norm1": {
+          "catalog_variation_RMS": 1.6762229547091773e-06,
+          "value_RMS": 1.698839382278153
+        },
+        "feedforward_output": {
+          "catalog_variation_RMS": 4.099717898939538e-06,
+          "value_RMS": 3.736343211208131
+        },
+        "after_norm2": {
+          "catalog_variation_RMS": 1.4458787779965533e-07,
+          "value_RMS": 0.5070463344384276
+        },
+        "uniform_value_projection": {
+          "catalog_variation_RMS": 4.851205513608439e-05
+        }
+      },
+      "pooled_std_median": 8.542590769441681e-08,
+      "norm1_gain_min_max": [
+        0.43624716997146606,
+        1.6688932180404663
+      ],
+      "norm2_gain_min_max": [
+        0.1528734564781189,
+        0.8224412798881531
+      ],
+      "value_projection_Frobenius": 6.362383790002261,
+      "output_projection_Frobenius": 5.717234118419249
+    }
+  }
+}
