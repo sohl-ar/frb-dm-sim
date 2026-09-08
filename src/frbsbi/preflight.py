@@ -38,7 +38,7 @@ def assert_disjoint_seed_ranges(ranges):
             raise ValueError(f"STOP: seed-space overlap: {left_name} and {right_name}")
 
 
-# Engineering allocation only; no training catalogs have been generated.
+# Engineering allocation; catalog seeds are disjoint across all splits.
 SEED_RANGES = {"training": SeedRange(0, 50_000),
                "validation": SeedRange(50_000, 55_000),
                "test": SeedRange(55_000, 60_000),
@@ -95,7 +95,7 @@ def write_phase2a_report(root, t1, tests_passed, failures):
         return subprocess.check_output(["git", "-C", str(root), *args], text=True).strip()
     config = {"T1": T1_CONFIG, "seed_ranges": {k: asdict(v) for k, v in SEED_RANGES.items()}}
     config_hash = hashlib.sha256(json.dumps(config, sort_keys=True).encode()).hexdigest()
-    report = {"schema_version": 1, "scope": "Phase 2a preflight only",
+    report = {"schema_version": 1, "scope": "Phase 2a acceptance ledger; separate from Phase 1",
               "git_sha": git("rev-parse", "HEAD"),
               "git_dirty": bool(git("status", "--porcelain")),
               "config_hash": config_hash, "python": platform.python_version(),
@@ -148,6 +148,19 @@ def write_phase2a_report(root, t1, tests_passed, failures):
                            "sha256":hashlib.sha256(path.read_bytes()).hexdigest()}
             if key=="training" and payload.get("status")=="training_complete_unvalidated":
                 report["trained_checkpoint"] = payload["checkpoint"]
+                report["trained_checkpoint_sha256"] = payload["checkpoint_sha256"]
+    posterior_path = root / "results" / "posterior-gates.json"
+    if posterior_path.exists():
+        posterior = json.loads(posterior_path.read_text(encoding="utf-8"))
+        if posterior["checkpoint_sha256"]==report.get("trained_checkpoint_sha256"):
+            for name,evidence in posterior["gates"].items():
+                report["gates"][name].update(evidence)
+            report["posterior_evidence"] = {"path":"results/posterior-gates.json",
+                "sha256":hashlib.sha256(posterior_path.read_bytes()).hexdigest()}
+            if posterior.get("stopped_at"):
+                report["stopped_at"] = posterior["stopped_at"]
+        else:
+            report["posterior_evidence"] = {"status":"stale","reason":"Checkpoint hash mismatch; no results promoted"}
     target = root / "results" / "phase2a_gates.json"
     target.parent.mkdir(exist_ok=True)
     temporary = target.with_suffix(".tmp")

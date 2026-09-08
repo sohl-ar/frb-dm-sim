@@ -13,3 +13,7 @@ GENERATOR_BURSTS_PER_SECOND = 8600.0  # SPEC-02a and consolidated authorization;
 T3_CDF_INTERVAL = (.005,.995)  # Consolidated authorization, central 99%.
 PERMUTATION_W1 = 1e-4  # SPEC-02a G-P1, physical parameters normalized by prior widths.
 TRANSFORM_ROUNDTRIP_REL = 1e-6  # New float32 engineering check; no physics tolerance replacement.
+SBC_TRIALS = 1000
+SBC_SAMPLES = 1000
+SBC_KS_ALPHA = .01
+COVERAGE_ABS = .02

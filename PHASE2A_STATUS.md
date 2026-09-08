@@ -8,8 +8,10 @@ in [the separate Phase 2a ledger](results/phase2a_gates.json).
 The native Set Transformer and flow-matching network are implemented.
 T2's print corrections are authorized and the z=0.2 evidence row is closed.
 The selected training-data generator is implemented and has been exercised
-on audit catalogs only; seed, distribution, schema, replay and CPU speed
-checks pass. Results are in `results/generator-audit.json`. T3 passes;
+on audit catalogs; seed, distribution, schema, replay and CPU speed
+checks pass. The complete training, validation and test sets are generated
+and hashed in `results/training-data-manifest.json`.
+Generator audit results are in `results/generator-audit.json`. T3 passes;
 per-event CDFs are recorded in `results/prior-predictive.json` and were
 reported before training. `results/model-audit.json` records the initial
 architecture checks and bit-identical short-run weights/samples. Full
